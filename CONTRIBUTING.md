@@ -10,12 +10,12 @@ Thank you for considering a contribution to **SASD API Server**. This repository
 
 - [Roadmap](ROADMAP.md): current V0-first sequence and release gates.
 - [Documentation index](docs/README.md): requirements, technical specifications, architecture, operations, and tests.
-- [V0 requirements](docs/requirements-v0.de.md) and [V0 technical specification](docs/technical-specification-v0.md): immediate scope.
+- [V0 requirements](docs/requirements-v0.md) and [V0 technical specification](docs/technical-specification-v0.md): immediate scope.
 - [Architecture V0](docs/architecture-v0.md): responsibilities, boundaries, and layering.
 - [Test strategy](docs/test-strategy.md) and [security policy](SECURITY.md): mandatory negative tests and responsible disclosure.
 - [ADR register](docs/adr/README.md): how to propose durable architectural decisions.
 
-The primary planning documents are in German. English requirements and reference-product catalogs are also available. Please preserve requirement identifiers across translations and updates.
+**English is the default repository documentation language**, with German companions linked in the [documentation index](docs/README.md). Please preserve requirement IDs and technical meaning across both versions.
 
 ## 2. What contributions are helpful?
 

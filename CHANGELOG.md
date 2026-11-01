@@ -1,5 +1,7 @@
 # Changelog – SASD API Server
 
+> **Language:** **English (default)** | [Deutsch](CHANGELOG.de.md)
+
 All notable project changes will be recorded here. The project intends to follow [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) principles and uses version identifiers inspired by Semantic Versioning. This file is not a substitute for Git history, tags, or release acceptance records.
 
 ## [Unreleased]

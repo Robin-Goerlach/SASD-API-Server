@@ -1,5 +1,7 @@
 # SASD API Server – Entwicklungsplan V0.1.0
 
+> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](development-plan-v0.md) · [Deutsch (kanonisch)](development-plan-v0.de.md)  
+
 > **Status:** geplanter Ablauf, kein Code-/Testerfolg behauptet · **Stand:** 01.11.2026  
 > Grundlage: [Lastenheft V0](lastenheft-v0.md) · [Pflichtenheft V0](pflichtenheft-v0.md) · [Architektur V0](architektur-v0.md) · [Roadmap](../ROADMAP.md)  
 > Testvorgehen: [Teststrategie](teststrategie.md) · [Abnahme](release-und-abnahme.md)

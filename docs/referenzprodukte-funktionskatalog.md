@@ -1,5 +1,7 @@
 # Funktionskatalog der API-Server-Referenzprodukte
 
+> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](reference-products-feature-catalog.md) · [Deutsch (kanonisch)](reference-products-feature-catalog.de.md)  
+
 > **SASD-API-Server – technische Referenzsammlung, Stand 2026-11-01**
 >
 > Dieses Dokument beschreibt die Funktionen der drei für SASD ausgewählten Vorbilder **PHP-CRUD-API**, **DreamFactory** und **DB2Rest**. Es ist eine Recherche- und Ideenbasis, **kein Lastenheft und kein Entwicklungsauftrag** für SASD V0.1.0.

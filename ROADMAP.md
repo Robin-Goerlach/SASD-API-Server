@@ -2,15 +2,15 @@
 
 > **Language:** **English (default)** | [Deutsch](ROADMAP.de.md)  
 > **Updated:** November 1, 2026 · **Status:** planning; no implemented or accepted milestones are claimed.  
-> **Requirements:** [V0 (English)](docs/requirements-v0.en.md) · [V1 (English)](docs/requirements-v1.en.md)  
-> **Technical designs (German):** [V0](docs/pflichtenheft-v0.md) · [V1](docs/pflichtenheft-v1.md) · [Architecture V0](docs/architektur-v0.md) · [Architecture V1](docs/architektur-v1.md)  
-> **Implementation:** [V0 development plan](docs/entwicklungsplan-v0.md) · [Test strategy](docs/teststrategie.md) · [Release and acceptance](docs/release-und-abnahme.md)
+> **Requirements:** [V0 (English)](docs/requirements-v0.md) · [V1 (English)](docs/requirements-v1.md)  
+> **Technical designs (German):** [V0](docs/technical-specification-v0.md) · [V1](docs/technical-specification-v1.md) · [Architecture V0](docs/architecture-v0.md) · [Architecture V1](docs/architecture-v1.md)  
+> **Implementation:** [V0 development plan](docs/development-plan-v0.md) · [Test strategy](docs/test-strategy.md) · [Release and acceptance](docs/release-acceptance.md)
 
 ## 1. Product vision and principles
 
 Build **one lightweight, reusable open-source REST/JSON server** that can be deployed independently for multiple applications. The same reviewed source code should support different base URLs, configured resources, database credentials and per-instance security settings.
 
-SASD API Server is **not** a plan to reproduce all of DreamFactory, PHP-CRUD-API or DB2Rest. Those systems offer [research examples](docs/reference-products-feature-catalog.en.md) and possible later ideas, not an automatically committed implementation backlog.
+SASD API Server is **not** a plan to reproduce all of DreamFactory, PHP-CRUD-API or DB2Rest. Those systems offer [research examples](docs/reference-products-feature-catalog.md) and possible later ideas, not an automatically committed implementation backlog.
 
 Our priorities are explicit:
 
@@ -150,7 +150,7 @@ Version numbers represent **planned targets**, not Git tags already published.
 
 ## 5. V1.0 — expansion after V0 acceptance
 
-The [V1 requirements](docs/requirements-v1.en.md), [technical specification](docs/pflichtenheft-v1.md) and [architecture](docs/architektur-v1.md) describe the intended end state. Features are ordered by dependency, not appearance.
+The [V1 requirements](docs/requirements-v1.md), [technical specification](docs/technical-specification-v1.md) and [architecture](docs/architecture-v1.md) describe the intended end state. Features are ordered by dependency, not appearance.
 
 | Slice | Planned outcome | Completion gate |
 |---|---|---|
@@ -211,7 +211,7 @@ Each implementation slice is tracked in a small issue or PR with milestone/requi
 
 ### Release gate
 
-**Do not create a release tag solely because code or documentation appears complete.** Record the commit, environment, test results, actual provider checks, backup/restore evidence, open risks, and explicit project approval. See [Release and acceptance](docs/release-und-abnahme.md).
+**Do not create a release tag solely because code or documentation appears complete.** Record the commit, environment, test results, actual provider checks, backup/restore evidence, open risks, and explicit project approval. See [Release and acceptance](docs/release-acceptance.md).
 
 ## 8. Dependencies and risks
 
@@ -227,7 +227,7 @@ Each implementation slice is tracked in a small issue or PR with milestone/requi
 | Rate-limit store loses atomicity | Tested atomic persistence and fail-closed behavior | V1-P6 |
 | V1 breaks V0 clients | Separate versioned routes and migration/contract testing | V1-P8 |
 
-Detailed tracking: [Risk register](docs/risikoregister.md) and [Architecture decision records](docs/adr/README.md).
+Detailed tracking: [Risk register](docs/risk-register.md) and [Architecture decision records](docs/adr/README.md).
 
 ## 9. Keeping the roadmap honest
 

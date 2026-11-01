@@ -1,6 +1,7 @@
 # SASD-API-Server – Pflichtenheft V0
 
 > **Status:** Technischer Entwurf, vor Implementierung zu prüfen · **Dokumentversion:** 0.1 · **Stand:** 01.11.2026  
+> **Architektur:** [Softwarearchitektur V0](./architektur-v0.md) (Architekturentwurf)  
 > **Geltungsbereich:** V0.1.0 · **Sprache:** Deutsch  
 > **Fachliche Grundlage:** [Lastenheft V0](./lastenheft-v0.md) · **Weiterer Ausbau:** [Pflichtenheft V1](./pflichtenheft-v1.md) · [Lastenheft V1](./lastenheft-v1.md)  
 > **Recherche:** [Referenzprodukte-Funktionskatalog](./referenzprodukte-funktionskatalog.md)

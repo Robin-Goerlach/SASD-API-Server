@@ -1,5 +1,7 @@
 # SASD-API-Server – Softwarearchitektur V0
 
+> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](architecture-v0.md) · [Deutsch (kanonisch)](architecture-v0.de.md)  
+
 > **Status:** Architekturentwurf, noch keine Implementierung oder Abnahme. **Version:** 0.1 · **Stand:** 01.11.2026 · **Ziel:** V0.1.0  
 > Grundlage: [Lastenheft V0](./lastenheft-v0.md) · [Pflichtenheft V0](./pflichtenheft-v0.md) · [Referenzkatalog](./referenzprodukte-funktionskatalog.md)  
 > Weiterentwicklung: [Architektur V1](./architektur-v1.md)

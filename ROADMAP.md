@@ -1,228 +1,240 @@
 # SASD API Server – Roadmap
 
-> **Stand:** 01.11.2026 · **Status:** Planung, keine bereits implementierten Meilensteine  
-> **Verbindliche fachliche Grundlage:** [Lastenheft V0](docs/lastenheft-v0.md), [Lastenheft V1](docs/lastenheft-v1.md)  
-> **Technische Konkretisierung:** [Pflichtenheft V0](docs/pflichtenheft-v0.md), [Architektur V0](docs/architektur-v0.md), [Pflichtenheft V1](docs/pflichtenheft-v1.md), [Architektur V1](docs/architektur-v1.md)  
-> **Arbeitsanleitung:** [Entwicklungsplan V0](docs/entwicklungsplan-v0.md) · [Teststrategie](docs/teststrategie.md) · [Releaseprozess](docs/release-und-abnahme.md)
+> **Language:** **English (default)** | [Deutsch](ROADMAP.de.md)  
+> **Updated:** November 1, 2026 · **Status:** planning; no implemented or accepted milestones are claimed.  
+> **Requirements:** [V0 (English)](docs/requirements-v0.en.md) · [V1 (English)](docs/requirements-v1.en.md)  
+> **Technical designs (German):** [V0](docs/pflichtenheft-v0.md) · [V1](docs/pflichtenheft-v1.md) · [Architecture V0](docs/architektur-v0.md) · [Architecture V1](docs/architektur-v1.md)  
+> **Implementation:** [V0 development plan](docs/entwicklungsplan-v0.md) · [Test strategy](docs/teststrategie.md) · [Release and acceptance](docs/release-und-abnahme.md)
 
-## 1. Produktvision
+## 1. Product vision and principles
 
-**Ein leichtgewichtiger, konfigurierbarer Open-Source-REST-API-Server für mehrere unabhängige Anwendungen.** Dieselbe Codebasis lässt sich mehrfach installieren; jede Installation erhält eine eigene URL, Datenbank, Ressourcenkonfiguration und Zugangskontrolle. Clients sprechen einheitliche HTTP/JSON-Endpunkte statt jeweils spezifischer SQL-Datenzugriffsschichten an.
+Build **one lightweight, reusable open-source REST/JSON server** that can be deployed independently for multiple applications. The same reviewed source code should support different base URLs, configured resources, database credentials and per-instance security settings.
 
-Wir beginnen **nicht** mit einer universellen Plattform nach Art von DreamFactory. PHP-CRUD-API, DreamFactory und DB2Rest liefern [Ideen und Vergleichsmaterial](docs/referenzprodukte-funktionskatalog.md), aber **keine Verpflichtung**, deren gesamten Funktionsumfang nachzubauen.
+SASD API Server is **not** a plan to reproduce all of DreamFactory, PHP-CRUD-API or DB2Rest. Those systems offer [research examples](docs/reference-products-feature-catalog.en.md) and possible later ideas, not an automatically committed implementation backlog.
 
-Leitplanken:
+Our priorities are explicit:
 
-1. **V0 zuerst fertigstellen und abnehmen.** V1 beginnt nicht allein aufgrund fertiggestellter Dokumentation.
-2. **Sicherheit ist Teil der Basis, kein späteres Add-on.** Keine automatische Freigabe vorhandener Tabellen und keine Speicherung von API-Secrets im Webroot.
-3. **Einfacher Betrieb:** PHP 8.4, MariaDB/MySQL, IONOS-kompatibles PHP-Hosting ohne Docker, Redis oder dauerhaften Prozess.
-4. **Architektur vor Optimierung:** HTTP/Controller → Service → Repository-Port → Adapter; gut lesbarer, nachvollziehbar kommentierter Code.
-5. **Kleine, testbare Schritte:** Jeder Slice enthält Umsetzung, negative Sicherheitsfälle, Dokumentation und messbare Abnahme.
-6. **Mehrere Instanzen, ein Code:** Verschiedene URLs und Einstellungen ohne pro Anwendung gepflegte Code-Forks.
+1. **Finish and accept V0 before starting V1 development.**
+2. **Secure by design:** explicit allowlists, no automatic database exposure, protected secrets, and no arbitrary client SQL.
+3. **Shared-hosting compatible:** PHP 8.4 and MariaDB/MySQL first; no mandatory Redis, Docker, root, worker, or queue.
+4. **Architecture before optimization:** HTTP/controller → service → repository port → database adapter, with readable, well-commented code.
+5. **Small testable slices:** each milestone has a scope, negative security tests, and a verifiable completion gate.
+6. **One codebase, independent instances:** no per-application fork and no cross-instance sharing of credentials or data.
 
-## 2. Statusmodell
+## 2. Status model
 
-Eine Roadmap ist eine Planung, keine Behauptung bereits abgeschlossener Arbeit. Insbesondere sind Lastenhefte, Pflichtenhefte und Architekturen **Entwürfe**. Wir verwenden folgende Status:
+A written roadmap is not evidence of implementation.
 
-| Status | Bedeutung | Nachweis |
+| Status | Meaning | Required evidence |
 |---|---|---|
-| **Geplant** | Umfang beschrieben, aber noch nicht begonnen | referenzierte Spezifikation |
-| **In Arbeit** | Entwicklung nachweisbar gestartet | Issue/Branch/PR |
-| **Zur Abnahme** | Umsetzung und Tests liegen vor | CI/Prüfprotokoll/Review |
-| **Abgenommen** | alle MUSS-Gates erfüllt und dokumentiert | Abnahmeprotokoll/Release |
-| **Verschoben** | bewusst nicht Teil des Release | dokumentierte Entscheidung mit neuem Ziel |
+| **Planned** | Scope and acceptance criteria described | Specifications and roadmap |
+| **In progress** | Work actually begun | Issue, branch, PR or commit |
+| **Ready for acceptance** | Code and relevant tests are available | CI/test records and review |
+| **Accepted** | Mandatory requirements and gates passed | Signed-off acceptance record and release |
+| **Deferred** | Deliberately moved out of the release | Documented scope decision |
 
-**Aktueller Stand (01.11.2026):** Grunddokumentation vorhanden; **keine durchgeführte V0- oder V1-Implementierung/Abnahme** wird behauptet. Das Repository enthält ein LICENSE; Softwarefunktionalität wird nicht allein aus den Dokumenten abgeleitet. Termine und Stundenbudgets werden erst mit belastbarer Planung ergänzt.
+**Current position (November 1, 2026):** the design/documentation foundation exists. **No working V0 or V1 implementation, completed hosting check or accepted software release** is claimed. Estimated delivery dates, percentages and hours are intentionally not invented.
 
-## 3. Gesamtübersicht
+## 3. Overall development sequence
 
-```mermaid
+~~~mermaid
 flowchart LR
-    D["Dokumentationsbasis<br/>Lasten-/Pflichtenheft / Architektur"] --> G0["V0-Architekturreview<br/>Hosting/Security"]
-    G0 --> V0["V0.1.0<br/>kleine sichere CRUD-API"]
-    V0 --> A0["V0-Abnahme<br/>17 MUSS + 10 AT"]
-    A0 --> Stabil["Fehlerkorrekturen / Stabilisierung<br/>falls erforderlich"]
-    Stabil --> V1["V1.0<br/>stabiler Vertrag + SQLite + Rollen"]
-    V1 --> A1["V1-Abnahme<br/>22 MUSS + 16 AT"]
-    A1 --> Future["Weitere Ideen<br/>nur nach Bedarf"]
-```
+    Docs["Requirements / Technical specs / Architecture"] --> G0["V0-G0<br/>Hosting and security review"]
+    G0 --> Core["V0.1.0<br/>Small secure CRUD API"]
+    Core --> Acceptance["V0 acceptance<br/>17 MUST + 10 scenarios"]
+    Acceptance --> Stabilize["Stabilization / necessary fixes"]
+    Stabilize --> V1["V1.0<br/>SQLite / policies / OpenAPI / audit"]
+    V1 --> V1A["V1 acceptance<br/>22 MUST + 16 scenarios"]
+    V1A --> Later["Future ideas<br/>separate approval"]
+~~~
 
-| Release / Etappe | Schwerpunkt | Status | Voraussetzung für Abschluss |
+| Target | Content | Current status | Release gate |
 |---|---|---|---|
-| D0 – Planung | Lastenhefte, Pflichtenhefte, Architektur, Roadmap, Test-/Betriebskonzept | **Dokumentation im Aufbau** | überprüfte Konsistenz und technische Entscheidungen |
-| V0.1.0 | PHP + MariaDB, explizites CRUD, einfache Query, API-Key, sichere Instanzen | **Geplant** | AT-V0-01 bis AT-V0-10, 17 V0-MUSS |
-| V0.1.x | Fehlerkorrekturen, Dokumentation, Sicherheitsupdates, keine Feature-Ausweitung | **Geplant** | Regressionstests, changelog/release gate |
-| V1.0 | Versionierter Vertrag, SQLite, Rollen/Keys, Views/Relationen, OpenAPI, Audit, Rate Limits | **Geplant** | 22 V1-MUSS, 16 AT-V1, beide Adapter |
-| Nach V1 | Weitere Backends, Benutzer-/Identitätskonzepte, komplexe Integrationen | **Nicht freigegeben** | eigenständiges Lastenheft/ADR |
+| D0 — planning | Requirements, technical designs, architecture, roadmap, testing/operations plans | Documentation in progress | Consistency review; unresolved decisions recorded |
+| **V0.1.0** | PHP/MariaDB, explicit single-record CRUD, simple queries, API key, independent instances | Planned | All 17 V0 functions and AT-V0-01–10 |
+| V0.1.x | Correctness, security fixes and documentation; avoid feature creep | Planned | Regression and release checks |
+| **V1.0** | Versioned API contract, SQLite, roles/keys, controlled joins/views, OpenAPI, audit, rate limits | Planned | 22 V1 MUST requirements, AT-V1-01–16 and both adapters |
+| Later | Additional adapters, identity, specialty services | Not approved | Separate scope, ADR and test criteria |
 
-**Releases sind nicht datumsgebunden.** Es werden erst dann Versionsnummern als veröffentlicht bezeichnet, wenn ein echter Tag/Release mit nachweisbar bestandener Abnahme existiert.
+Version numbers represent **planned targets**, not Git tags already published.
 
-## 4. V0.1.0 – ausführlicher Meilensteinplan
+## 4. V0.1.0 — detailed milestones
 
-### V0-G0 – Architektur- und Hosting-Entscheidungen
+### V0-G0 — Architecture, security and hosting decisions
 
-**Ziel:** Den kleinsten sicheren Deploymentpfad festlegen, bevor produktive Endpunkte entstehen.
+**Goal:** Establish a safe deployment architecture before implementing public data endpoints.
 
-**Arbeitspakete:** tatsächlicher PHP-/PDO-Stand des Hosts; sichere Pfade außerhalb des Document Root; verlässliche HTTPS-Erkennung und TLS-Zwang; URL-Rewrite oder Query-Fallback; DB-Credentials und API-Key als geschützte Konfiguration; dokumentierte Entscheidung zur ersten Testdatenbank, Primärschlüsseltypen und PUT/PATCH-Vertrag. Keine Sicherheitsfrage wird mit „wird später geklärt“ als produktionsfähig abgehakt.
+**Tasks:** inspect real PHP/PDO/MariaDB versions on the target host; verify private files **outside the document root**; demonstrate reliable HTTPS enforcement and trusted proxy behavior; verify URL rewriting or the `index.php?route=...` fallback; decide key/credential storage, test schema, primary-key types and PUT/PATCH semantics. Track every consequential choice in the [ADR register](docs/adr/README.md).
 
-**Ergebnisse:** kurze ADRs/Entscheidungsvermerke, geprüftes Deploymentprofil, private Verzeichnisstruktur, testbare Minimalbedingungen.
+**Deliverables:** reviewed deployment profile, key architecture decisions, actual HTTP negative checks for private files, validated database access.
 
-**Gate:** Nachweis, dass Konfiguration/Secrets nicht über HTTP abrufbar sind und PHP auf dem Zielhost verschlüsselte Anfragen und geschützte DB-Verbindungen korrekt behandelt. Bei Fehlschlag: keine produktive Freigabe; keine heimliche Lockerung.
+**Blocking gate:** if private configuration and keys cannot be kept inaccessible to HTTP clients, or TLS cannot be enforced safely, **do not approve a production deployment**.
 
-### V0-M0 – Repository und Entwicklungsumgebung
+### V0-M0 — Repository and development environment
 
-**Ziel:** Saubere, reproduzierbare Basis statt sofortiger Feature-Implementierung.
+**Goal:** Establish a reproducible, understandable project skeleton.
 
-**Umfang:** Composer/Autoloading nach Bedarf, PSR-konforme Namensräume, Fehler-/Codingstandards, Verzeichnisse gemäß Architektur, Beispielkonfiguration **ohne** Secrets, Git-Ignore für lokale Secrets/Logs, Testfixture und Testaufruf. Kein unnötiges DI-Framework oder ORM installieren.
+**Tasks:** Composer/autoloading if appropriate; clear `src/` and `tests/` organization; secret-free example configuration; ignored private files; test fixtures; initial lint/unit checks. Avoid installing frameworks or dependencies without a real need.
 
-**Nachweis:** PHP-Syntaxprüfung, erste Unit-Tests, sauberer Git-Status, eine dokumentierte lokale Testinstallation.
+**Gate:** another developer can reproduce a local baseline; no credentials committed; syntax and first tests are actually executed.
 
-### V0-M1 – Sicherer HTTP-Kern
+### V0-M1 — Protected HTTP core
 
-**Ziel:** Ein Request wird kontrolliert entgegengenommen und sicher beantwortet, bevor DB-Zugriffe freigeschaltet werden.
+**Goal:** Handle an HTTP request safely before database operations are exposed.
 
-**Umfang:** `index.php`, Bootstrap, Router, Query-Fallback, Request-ID, HTTPS-Regel, API-Key-Authentifizierung, Body-Limit, JSON-Parser/Responder, zentraler Fehlerkatalog, Ressourcen-/Methoden-Allowlist; ein minimierter Status-Endpunkt. **Deny by default** wird in der ersten Version geprüft.
+**Tasks:** `index.php`, bootstrap, route normalization, query-fallback, request ID, HTTPS policy, header-based API key, request-body limits, JSON parser and response/error model, configuration and resource/method allowlists, minimal public health.
 
-**Nachweis:** Anonymer/falscher Key, unzulässiger Pfad, Methodenumgehung, nicht unterstützter Inhaltstyp und unerwarteter Serverfehler werden reproduzierbar mit definiertem 4xx/5xx zurückgewiesen; keine Secrets im Response.
+**Negative tests:** missing/wrong key, invalid route, path traversal, double encoding, disallowed methods, malformed JSON, unsupported media types, errors leaking sensitive details.
 
-### V0-M2 – Lesende MariaDB-API
+**Gate:** unauthorized data requests cannot reach persistence and both routing modes apply identical checks.
 
-**Ziel:** Nur konfigurierte Felder und Datensätze sicher lesen.
+### V0-M2 — Read-only MariaDB API
 
-**Umfang:** PDO-Verbindung, Ressourcen-/Felddefinition, Repository-Port, MariaDB-Adapter, `GET collection` und `GET by ID`, konsistente Einzel-/Listen-Hüllen, Typ- und Schlüsselprüfung. Keine dynamische Veröffentlichung unbekannter Tabellen.
+**Goal:** Retrieve exactly the approved records and fields.
 
-**Nachweis:** leere Liste, vorhandene/nicht vorhandene ID, verbotene Tabelle/Spalte, SQL-Injection in Pfaden und korrekte DB-Fehlerzuordnung.
+**Tasks:** PDO connection, resource/field definitions, narrow repository contract, MariaDB adapter, GET list and GET by ID, consistent JSON envelopes, typed keys.
 
-### V0-M3 – Einzelne Schreiboperationen
+**Tests:** empty/nonempty list, missing ID, unauthorized table/field, SQL-injection attempt, database failure and neutral errors.
 
-**Ziel:** POST, PUT, PATCH und DELETE mit dokumentierter Semantik.
+**Gate:** approved reads work, unapproved data stays inaccessible, and HTTP controllers contain no SQL.
 
-**Umfang:** Pflichtfelder, unveränderliche IDs, strikter PUT-Vollersatz der klientseitig schreibbaren Repräsentation, echtes PATCH, transaktionale Einzeloperationen, Constraint-/Konfliktbehandlung, sichere Statuscodes. **Keine** Massenoperation und keine mehrstufige Business-Transaktion.
+### V0-M3 — Individual write operations
 
-**Nachweis:** CRUD-Integrationssuite einschließlich Rollback, unverändertem Update, Foreign-Key-Konflikt, nicht erlaubten Feldern und fehlender ID.
+**Goal:** Safely create, replace, patch and delete one record.
 
-### V0-M4 – Sichere Listenabfragen
+**Tasks:** POST, PUT, PATCH, DELETE; required fields, nullable values, readonly IDs, explicit complete PUT vs partial PATCH, transaction per request, unique/FK constraint handling.
 
-**Ziel:** Alltägliche Listen im Client sinnvoll nutzbar machen.
+**Tests:** valid operations, empty PATCH, missing/wrong fields, unchanged UPDATE, missing record, FK/unique conflict and rollback.
 
-**Umfang:** explizit erlaubte Gleichheitsfilter (AND), genau ein erlaubtes Sortierfeld, Offset/Limit mit verbindlichen Grenzen, stabile Default-Reihenfolge, `hasMore` ohne teure Vollzählung. Parameter werden vor SQL-Erzeugung validiert.
+**Gate:** every write is correctly scoped and returns the documented state or safe error.
 
-**Nachweis:** Filter- und Paging-Contract-Tests, Fehlertests für unbekannte Queryparameter, SQL-Injection- und Limit-Budgettests.
+### V0-M4 — Bounded list queries
 
-### V0-M5 – Betrieb und zwei unabhängige Installationen
+**Goal:** Make everyday list queries useful without introducing a SQL interpreter.
 
-**Ziel:** Reproduzierbares Deployment, sichere Fehlerdiagnose und Instanztrennung.
+**Tasks:** equality filters combined with AND, one approved sort column, limit/offset, deterministic default order, bounded `hasMore` computation.
 
-**Umfang:** JSONL-Logs ohne Secrets, öffentliche Health-/geschützte DB-Diagnose nach Review, Konfigurationsvorlage, Shared-Hosting-Anleitung, Zweitinstallation mit getrennten URL/DB/Keys/Logs, Backup-/Restore-Runbook. Keine eigene Backup-Engine.
+**Negative tests:** unknown filter/sort, SQL-fragment input, invalid/oversized pagination, unrestricted fallbacks.
 
-**Nachweis:** beide Instanzen werden aus demselben Code-Commit betrieben, Schlüssel sind nicht austauschbar, Testdaten bleiben getrennt, falsche/fehlende DB-Konfiguration wird nicht als Erfolg angezeigt.
+**Gate:** approved queries produce predictable results and cannot accidentally expand data access.
 
-### V0-M6 – Sicherheitsreview und Abnahme
+### V0-M5 — Operations and independent deployments
 
-**Ziel:** Erst nach bestandenen Tests einen stabilen V0.1.0-Stand erklären.
+**Goal:** Prove the same server can serve separate applications safely.
 
-**Umfang:** alle 17 funktionalen MUSS-Anforderungen, nichtfunktionale Mindestziele, AT-V0-01 bis AT-V0-10, Hosting-/HTTPS-/Secretpfad-Negativtests und Dokumentationsreview. Kritische Befunde werden nicht durch ein kosmetisch grünes CRUD-Demo ersetzt.
+**Tasks:** sanitized JSONL logs with UTC/request ID, minimal health and protected readiness design, deployment guide, two instances with different URLs/DBs/keys/logs/resource maps, backup and tested restore.
 
-**Gate:** vollständig dokumentiertes Testprotokoll einschließlich PHP-/DB-Versionen, Hostprofil, Restore-Test, bekannten Einschränkungen; Release-Tag **erst nach** Freigabe.
+**Tests:** cross-instance keys fail; data is isolated; private files inaccessible by HTTP; database outage not misreported as an empty successful list.
 
-### 4.1 Zuordnung zu V0-Abnahmetests
+**Gate:** two independent instances tested and operator procedures reproducible.
 
-| Meilenstein | Lastenheft-Schwerpunkte | Abnahme |
+### V0-M6 — Security review and final V0 acceptance
+
+**Goal:** Approve a complete, safely deployable V0.1.0.
+
+**Required:** all **V0-F01–V0-F17**, all **AT-V0-01–AT-V0-10**, the security test matrix, an actual hosting check, a restore test, documentation review and a release report recording versions, commit, environment, limitations, and sign-off.
+
+**Gate:** no critical security findings; only then tag/release the accepted revision. A working CRUD demo alone is not sufficient.
+
+### 4.1 Milestone to acceptance mapping
+
+| Milestone | Key V0 requirements | Acceptance focus |
 |---|---|---|
-| G0/M0 | RB-01 bis RB-07; V0-N01–N09 | Hosting/Private-Pfade vorbereitet |
-| M1 | V0-F01, F09–F13 | AT-V0-05–07 |
-| M2 | V0-F02, F06, F12 | AT-V0-02, 05 |
-| M3 | V0-F03–F05 | AT-V0-03 |
-| M4 | V0-F07–F08 | AT-V0-04 |
-| M5 | V0-F10, F14–F16 | AT-V0-01, 08, 09 |
-| M6 | V0-F17 und alle vorherigen | AT-V0-01 bis AT-V0-10 |
+| G0/M0 | hosting and nonfunctional constraints | private paths, PHP/PDO/TLS prerequisites |
+| M1 | F01, F06, F09, F11–F13 | AT-V0-05–07 |
+| M2 | F02, F06, F12 | AT-V0-02, 05 |
+| M3 | F03–F05 | AT-V0-03 |
+| M4 | F07–F08 | AT-V0-04 |
+| M5 | F10, F14–F16 | AT-V0-01, 08, 09 |
+| M6 | F17 plus all preceding requirements | AT-V0-01–10 |
 
-## 5. V1.0 – Ausbau nach erfolgreicher V0-Abnahme
+## 5. V1.0 — expansion after V0 acceptance
 
-Die detaillierten V1-Anforderungen stehen in [Lastenheft](docs/lastenheft-v1.md), [Pflichtenheft](docs/pflichtenheft-v1.md) und [Architektur](docs/architektur-v1.md). Die Reihenfolge richtet sich nach Abhängigkeiten, nicht nach optisch beeindruckenden Funktionen.
+The [V1 requirements](docs/requirements-v1.en.md), [technical specification](docs/pflichtenheft-v1.md) and [architecture](docs/architektur-v1.md) describe the intended end state. Features are ordered by dependency, not appearance.
 
-| Slice | Ergebnis | Mindest-Gate |
+| Slice | Planned outcome | Completion gate |
 |---|---|---|
-| V1-P0 | V0-Basis stabil, Vertrags- und Sicherheitstests vorhanden | alle V0-MUSS weiterhin grün |
-| V1-P1 | `/api/v1`-Vertrag, Feldalias, Config-Schema V2 | kompatible API-/Migrations-Contract-Tests |
-| V1-P2 | SQLite als zweiter echter Adapter, gemeinsame Typkonvertierung | CRUD-/Query-/Transaktionstests MariaDB **und** SQLite |
-| V1-P3 | Filteroperatoren, begrenzte OR, Projektion, Sortierung, read-only Views | Query-/Permission-/Kostenlimits |
-| V1-P4 | eine freigegebene Relationsebene, Join-/Expand-Limits | keinerlei Feld-/Count-/Relation-Leak |
-| V1-P5 | mehrere technische API-Keys, Rollen und Revokation | Auth-/Policy- und Cross-Instanz-Negativtests |
-| V1-P6 | Shared-Hosting-kompatibles Rate-Limit, Write-Audit und Readiness | Fail-Closed, Audit/Write im selben Commit |
-| V1-P7 | OpenAPI, curl/Java/.NET-Beispiele, Config-Migration | reale Routen und Schema deckungsgleich |
-| V1-P8 | vollständige Abnahme, Release-Dokumentation und Restore-Probelauf | 22 V1-MUSS + AT-V1-01–16, beide Backends |
+| **V1-P0** | Reproducible accepted V0 baseline | V0 functionality and security remain green |
+| **V1-P1** | `/api/v1` contract, field aliases, configuration schema v2 | Contract tests and migration checks |
+| **V1-P2** | Real SQLite adapter and common data-type normalization | Same CRUD/query/transaction contracts on MariaDB and SQLite |
+| **V1-P3** | Controlled comparison/OR filters, projection, sorting, read-only views | Query limits, SQL injection and permission checks |
+| **V1-P4** | Declared one-level read-only relationships | No field/count/relation leaks; bounded expansion |
+| **V1-P5** | Several technical API keys, roles and revocation | Security, RBAC, and instance-isolation tests |
+| **V1-P6** | Shared-hosting-compatible rate limits, transactional write audit, readiness | Fail-closed limiter and same-commit audit rollback |
+| **V1-P7** | Authorized OpenAPI, curl/Java/.NET samples, configuration migration | Real endpoints and generated contract agree |
+| **V1-P8** | Full release, security, hosting and recovery acceptance | 22 V1 MUST, AT-V1-01–16, both DB adapters |
 
-### 5.1 Fünf SOLL-Funktionen – bewusst nicht Release-blockierend
+### V1 SHOULD features — not default release blockers
 
-| Kennung | Funktion | Entscheidung |
+| ID | Optional function | Decision rule |
 |---|---|---|
-| V1-F09 | kontrollierte benannte, lesende SQL-Abfragen | nur nach konkretem Reporting-Bedarf |
-| V1-F14 | serverseitig erzwungene Datensatzsicht | nur mit lückenlosen Isolationstests |
-| V1-F16 | optimistic locking | nur für explizit versionierte Ressourcen |
-| V1-F22 | explizit registrierte Erweiterungs-Controller | nur mit gleicher Security-Pipeline |
-| V1-F27 | einfache Betriebsmetriken | ohne Verpflichtung zu Prometheus/Grafana |
+| V1-F09 | Preconfigured read-only named SQL queries | Include only for a specific reporting need |
+| V1-F14 | Server-enforced record-visibility constraints | Require comprehensive authorization/isolation tests |
+| V1-F16 | Optimistic locking | Only for explicitly versioned resources with concurrent-writer tests |
+| V1-F22 | Controlled controller extension points | Must preserve the same auth/policy/error/audit path |
+| V1-F27 | Lightweight metrics | No mandatory Prometheus/Grafana/worker dependency |
 
-Eine SOLL-Funktion wird nur bei eigener Entscheidung zum verbindlichen Releaseumfang. Ihre Verschiebung ist im Releasebericht ausdrücklich anzugeben.
+Each SHOULD item becomes mandatory only if separately approved for a release. Deferred items must be disclosed in the release notes.
 
-## 6. Spätere Optionen – ohne Entwicklungszusage
+## 6. Future possibilities — not committed
 
-Die [Referenzstudie](docs/referenzprodukte-funktionskatalog.md) nennt deutlich mehr Funktionen als V0/V1 benötigen. Themen für **eigene künftige Entscheidungen**, nicht Teil dieser Roadmap als feste Releases:
+The comparative feature catalog suggests many ideas, but **none is automatically included** in V0 or V1:
 
-- PostgreSQL und weitere Datenadapter; ggf. ein separates JSON-Datei-Backend mit geklärter Atomarität/Locking.
-- Fachlich spezifische API-Services, wenn einfache CRUD-Freigaben nicht ausreichen.
-- Benutzeridentitäten und OAuth/OIDC, wenn öffentliche Endnutzer-Clients erforderlich werden.
-- Mandantenfähigkeit, datenbankübergreifende Queries und komplexere Transaktionen.
-- Operator-UI, Import/Export, Datenanalyse, spezielle GIS-/Integrationsdienste.
+- PostgreSQL, JSON-file persistence, remote REST adapters and additional databases after explicit consistency/security evaluation.
+- Custom domain services for workflows that cannot be implemented safely as generic CRUD calls.
+- OIDC/OAuth and individual end-user identities if public clients genuinely require them.
+- Advanced tenancy, cross-database queries and more complex transactions.
+- A separate operator UI, data import/export, analytics or specialized integration services.
 
-**Expliziter Verzicht:** JBoss-/WebLogic-Nachbau, freie Client-SQL-Schnittstelle, HTTP-Schemaänderungen und Übernahme einer vollständigen DreamFactory-Featureliste.
+**Deliberate exclusions:** recreating a Java/Jakarta application server, a general arbitrary-client-SQL endpoint, unapproved schema mutations via HTTP or the entire DreamFactory feature list.
 
-## 7. Arbeitsweise, Issues, Pull Requests und Release-Kriterien
+## 7. Engineering workflow and release gates
 
-Jeder Arbeitsschritt wird als **kleines GitHub-Issue oder Milestone-Item** beschrieben, beispielsweise mit `V0-M2` und referenzierten Anforderungscodes. Ein Issue umfasst Ziel, nicht enthaltenen Umfang, relevante Lastenheft-/Pflichtenheft-Abschnitte, Sicherheitstests, konkrete Fertigstellungsprüfung und Dokumentationsfolgen. Erst nach bestandenen Tests erfolgt ein PR/Commit auf `main`.
+Each implementation slice is tracked in a small issue or PR with milestone/requirement IDs. Define the goal, **out-of-scope** items, security impact, positive and negative tests, and documentation changes.
 
-### 7.1 Definition of Ready
+### Definition of Ready
 
-- Anforderung und Akzeptanz eindeutig und widerspruchsfrei referenziert.
-- Hosting-/Sicherheitsfrage geklärt, wenn der Slice davon abhängt.
-- Kleiner Umfang mit klarer Verantwortlichkeit und ohne unbeabsichtigte V1-Ausweitung.
-- Nachweisbare positive und negative Tests beschrieben.
-- Bei öffentlichem API-Vertragswechsel: ADR und Contract-Test vorgesehen.
+- Requirements and acceptance behavior are clear and cross-referenced.
+- Hosting/security assumptions affecting this slice have been resolved.
+- The task fits one focused implementation change.
+- Relevant positive and negative verification can be performed.
+- Any public API/architecture change has an agreed review path or ADR.
 
-### 7.2 Definition of Done
+### Definition of Done
 
-- Anwendungscode lesbar, geschichtet, wichtige Entscheidungen nachvollziehbar kommentiert.
-- Unit-, Integrations-, Security- und Contract-Tests für geänderte Pfade vorhanden.
-- Keine Secrets, Client-PII oder produktive DB-Daten in Repository/Testartefakten/Logs.
-- CI und manueller, falls notwendig, Hosting-Test erfolgreich.
-- API-/Konfigurations-/Betriebsdokumentation aktualisiert; Changelog-Eintrag bei nutzerrelevanter Änderung.
-- Sicherheitsgrenzen bleiben nachweisbar; keine offenen kritischen Findings.
+- Readable, layered, well-commented implementation.
+- Tests relevant to the changed code **actually executed**; results recorded.
+- No credentials, private data, or full sensitive request bodies in source, test artifacts or logs.
+- Security boundaries and database constraints remain intact.
+- Relevant API/config, operations and CHANGELOG documentation updated.
+- No unresolved critical findings; open limitations clearly disclosed.
 
-### 7.3 Release Gate
+### Release gate
 
-Ein GitHub-Tag/Release wird **nicht** vor vollständiger, belegter Abnahme gesetzt. Vorgehen und Checkliste: [Release und Abnahme](docs/release-und-abnahme.md). Ein bereits dokumentierter Meilenstein gilt **nicht** automatisch als implementiert.
+**Do not create a release tag solely because code or documentation appears complete.** Record the commit, environment, test results, actual provider checks, backup/restore evidence, open risks, and explicit project approval. See [Release and acceptance](docs/release-und-abnahme.md).
 
-## 8. Abhängigkeiten, Risiken und Entscheidungspunkte
+## 8. Dependencies and risks
 
-| Risiko/Abhängigkeit | Konkrete Gegenmaßnahme | Sperrt |
+| Risk | Required mitigation | Blocks |
 |---|---|---|
-| Keine nachweisbar privaten Dateien auf Shared Hosting | Deployment isolieren oder Hostprofil ändern; keine Produktivfreigabe | V0-G0 |
-| TLS-Erkennung vertraut manipulierten Proxy-Headern | HTTPS-Policy/Providerkonfiguration verifizieren | V0-M1 |
-| API-Key in öffentlichem Client | vertrauenswürdigen Backend-Proxy verwenden oder Scope erweitern | produktiver Endkundenzugang |
-| automatische DB-Tabellenfreigabe | verpflichtende Allowlist + Negativtests | alle Datenendpunkte |
-| Filter/SQL-Injection | typisierte Queryparameter/SQL-Bindings | V0-M2/M4, V1-P3 |
-| SQLite Busy/Locking und Journaling | SQLite auf Zielhost parallel testen | V1-P2 |
-| Audit-Write schlägt fehl | Datenänderung im selben DB-Transaktionsrahmen rollbacken | V1-P6 |
-| Rate-Limit-Store nicht atomar | fail-closed / anderer geprüfter Store | V1-P6 |
-| V0→V1 bricht Clients | getrennte API-Pfade, Contract- und Migrations-Tests | V1-P8 |
+| Private credentials/paths cannot be protected on hosting | Move sensitive data outside webroot or change deployment profile; no unsafe fallback | V0-G0 |
+| Incorrect HTTPS/proxy trust | Verify provider TLS settings and reject spoofed forwarded headers | V0-M1 |
+| Shared API key embedded in public client | Require a trusted backend or separate end-user authentication | Production public-client use |
+| Accidental table/field exposure | Deny by default; allowlist and negative tests | All data routes |
+| SQL injection via filters/identifiers | Validated query parameters, bound SQL values | V0-M2/M4, V1-P3 |
+| SQLite locking and WAL assumptions | Test real host filesystem and concurrency | V1-P2 |
+| Audit write fails | Roll back data write in the same DB transaction | V1-P6 |
+| Rate-limit store loses atomicity | Tested atomic persistence and fail-closed behavior | V1-P6 |
+| V1 breaks V0 clients | Separate versioned routes and migration/contract testing | V1-P8 |
 
-Vollständige Einzelverfolgung: [Risikoregister](docs/risikoregister.md) sowie [Architekturentscheidungen](docs/adr/README.md).
+Detailed tracking: [Risk register](docs/risikoregister.md) and [Architecture decision records](docs/adr/README.md).
 
-## 9. Dokumenten- und Statuspflege
+## 9. Keeping the roadmap honest
 
-Für jeden Meilenstein gehört der aktuelle Status in GitHub-Issues/Milestones, nicht durch frei erfundene Prozentzahlen in diese Roadmap. Die Tabelle wird bei tatsächlich vollzogenen Gates aktualisiert. Entscheidungen mit längerfristiger Wirkung erhalten ein ADR; neue fachliche Anforderungen erfordern eine bewusste Änderung am Lastenheft. Kein technisches Dokument behauptet eine Abnahme ohne Testprotokoll.
+Progress belongs in actual issues, pull requests, commits and verifiable test records. Avoid invented completion percentages, dates, security results or feature availability. The roadmap should change when milestones are achieved or formally reprioritized. Significant design decisions require an ADR; changes to MUST requirements need an intentional specification update.
 
-**Nächster konkreter Schritt:** **V0-G0** – verifizierte, sichere Zielhosting-Grenzen und minimales Konfigurations-/API-Vertragsreview. Erst danach Repository-Slice M0 und Implementierung.
+**Next planned step:** **V0-G0 — verify hosting, security and configuration boundaries**, then start V0-M0 (a small repository/bootstrap skeleton).
 
 ---
-**Hinweis:** Alle in dieser Roadmap genannten Versionen und Tests sind Ziele, soweit nicht anhand von GitHub-Tags, Testprotokollen oder eindeutig freigegebenen Entscheidungen etwas anderes nachgewiesen ist.
+
+**No V0 or V1 implementation, passing test suite, or approved release is claimed by this roadmap.**

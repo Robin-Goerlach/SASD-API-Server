@@ -1,83 +1,118 @@
-> **Sprache:** [Deutsch](README.de.md) | [English (Standard)](README.md)
-
 # SASD API Server – Dokumentationsübersicht
 
-> **Stand:** 01.11.2026 · **Projektphase:** Dokumentation und Planung; keine implementierte oder abgenommene API-Version wird behauptet.  
-> [Repository](../README.md) · [Roadmap](../ROADMAP.md) · [CHANGELOG](../CHANGELOG.md)
+> **Sprache:** [English (Standard)](README.md) | **Deutsch**  
+> **Stand:** 01.11.2026 · **Status:** Dokumentation und Architekturplanung; noch keine implementierte oder abgenommene V0/V1.  
+> [Repository-README](../README.de.md) · [Roadmap](../ROADMAP.de.md) · [Änderungsprotokoll](../CHANGELOG.de.md)
 
-## 1. Lesereihenfolge und Dokumentationssystem
+## 1. Aufbau und Lesereihenfolge
 
-Die Dokumentation folgt einem klaren Aufbau. Das **Lastenheft** definiert den fachlichen Bedarf (*Was?*). Das **Pflichtenheft** konkretisiert die technische Umsetzung (*Wie?*). Die **Softwarearchitektur** erklärt die Bausteine, Schnittstellen, Datenflüsse, Sicherheitsgrenzen und technischen Entscheidungen (*Warum diese Aufteilung?*). **Roadmap und Entwicklungsplan** ordnen die Umsetzung in kleine Schritte, die **Teststrategie und Abnahme** legen fest, wie der Erfolg tatsächlich nachgewiesen wird.
+Die Dokumentation trennt bewusst:
+
+- **Lastenheft:** *Was* benötigt wird und wie sich die fachliche Erfüllung prüfen lässt.
+- **Pflichtenheft:** *Wie* diese Anforderungen konkret technisch umgesetzt werden sollen.
+- **Softwarearchitektur:** *Warum* Bausteine, Abhängigkeiten, Datenflüsse und Sicherheitsgrenzen so gestaltet sind.
+- **Roadmap/Entwicklungsplan:** *In welcher Reihenfolge* kleine, prüfbare Arbeitsschritte entstehen sollen.
+- **Tests und Abnahme:** *Welche tatsächlichen Nachweise* Funktion, Sicherheit und Hosting belegen.
+- **Betrieb und Recovery:** *Wie* eine Installation sicher betrieben und wiederhergestellt werden soll.
+- **ADRs:** *Welche technischen Entscheidungen* mit Alternativen und Konsequenzen bewusst beschlossen wurden.
 
 ~~~mermaid
 flowchart LR
     L["Lastenheft<br/>Was?"] --> P["Pflichtenheft<br/>Wie?"]
-    P --> A["Architektur<br/>Bausteine/Warum?"]
-    A --> R["Roadmap + Entwicklungsplan"]
-    R --> T["Tests + Abnahme"]
-    A --> ADR["ADRs<br/>bewusste Entscheidungen"]
-    T --> Op["Betrieb/Recovery"]
+    P --> A["Architektur<br/>Warum?"]
+    A --> R["Roadmap und Entwicklungs-Slices"]
+    R --> T["Tests und Abnahme"]
+    A --> ADR["Architekturentscheidungen"]
+    T --> B["Betrieb und Recovery"]
 ~~~
 
-**Versionen:** V0 ist unsere **kleine erste Umsetzungsstufe** auf PHP/MariaDB. V1 ist eine **spätere, stabile Ausbauversion** mit SQLite, Rollen, OpenAPI, Audit und weiteren klar begrenzten Funktionen. Die Dokumentation von V1 bedeutet nicht, dass V1 schon begonnen wurde.
+**V0** ist der geplante kleine PHP/MariaDB-Start. **V1** ist der spätere Ausbau mit SQLite, technischen Clientrollen, OpenAPI, kontrollierten Abfragen/Relationen und Audit. **Ein umfangreiches Dokument ist noch kein implementiertes Produkt.**
 
-## 2. Lastenhefte / Requirements
+## 2. Sprach- und Dateikonvention
 
-| Dokument | Sprache | Zweck |
+**Englisch ist die Standardsprache** für den Repository-Einstieg und die kanonischen Dokumentationspfade. Deutsche Fassungen haben in der Regel denselben Namen mit `.de.md` und sind gegenseitig verlinkt.
+
+| Konvention | Beispiel |
+|---|---|
+| Englische Standarddatei | `docs/architecture-v0.md` |
+| Deutsche Fassung | `docs/architecture-v0.de.md` |
+| Root-README Englisch | `README.md` |
+| Root-README Deutsch | `README.de.md` |
+| Rechtlich maßgebliche MIT-Lizenz | `LICENSE` (englisches Original) |
+| Deutsche Leseübersetzung | `LICENSE.de.md` (unverbindlich) |
+
+Die älteren Dateinamen wie `lastenheft-v0.md`, `pflichtenheft-v0.md` und `architektur-v0.md` bleiben **aus Kompatibilitätsgründen weiterhin erreichbar**, damit alte GitHub-Verweise nicht ins Leere führen. Für neue Links verwenden wir nach Möglichkeit die **englische Standarddatei beziehungsweise deren deutsche `.de.md`-Fassung**.
+
+Alle Sprachfassungen behalten dieselben **V0-F-/V1-F-, T-V0-/T-V1- und AT-V0-/AT-V1-Kennungen**, denselben technischen Inhalt, dieselben Sicherheitsanforderungen und denselben Entwurfs-/Abnahmestatus. Eine Übersetzung darf keine Funktionen unbemerkt hinzunehmen oder streichen.
+
+## 3. Lastenhefte und Vorbilder
+
+| Inhalt | Englisch (Standard) | Deutsch |
 |---|---|---|
-| [Lastenheft V0](lastenheft-v0.md) | Deutsch | 17 funktionale MUST-/MUSS-Anforderungen und 10 Abnahmeszenarien |
-| [Requirements V0](requirements-v0.en.md) | English | vollständige englische V0-Fassung mit identischen IDs |
-| [Lastenheft V1](lastenheft-v1.md) | Deutsch | 27 Anforderungen, davon 22 MUSS und 5 SOLL; 16 Abnahmeszenarien |
-| [Requirements V1](requirements-v1.en.md) | English | vollständige englische V1-Fassung mit identischen IDs |
+| Lastenheft V0: 17 MUSS, 10 Abnahmeszenarien | [Requirements V0](requirements-v0.md) | [Lastenheft V0](requirements-v0.de.md) |
+| Lastenheft V1: 22 MUSS, fünf SOLL, 16 Abnahmeszenarien | [Requirements V1](requirements-v1.md) | [Lastenheft V1](requirements-v1.de.md) |
+| PHP-CRUD-API, DreamFactory und DB2Rest im Vergleich | [Feature Catalog](reference-products-feature-catalog.md) | [Funktionskatalog](reference-products-feature-catalog.de.md) |
 
-## 3. Pflichtenhefte und Architektur
+Die Referenzproduktsammlung ist eine **Ideen- und Analysegrundlage**, kein vollständiger Entwicklungsauftrag.
 
-| Dokument | Inhalt |
-|---|---|
-| [Pflichtenheft V0](pflichtenheft-v0.md) | PHP/MariaDB, HTTP-/JSON-Vertrag, Ressourcen, API-Key, PDO, Sicherheits- und Testregeln |
-| [Architektur V0](architektur-v0.md) | C4-/Mermaid-Sichten, Komponenten, Datenflüsse, Trust Boundaries, ADR-Kandidaten |
-| [Pflichtenheft V1](pflichtenheft-v1.md) | Versionierter Vertrag, SQLite, QueryPlan, Rollen, Transaktionsaudit, OpenAPI |
-| [Architektur V1](architektur-v1.md) | Adapter-/Policy-/Auditarchitektur, Migration, optionale V1-Module, technische Tests |
+## 4. Pflichtenhefte und Softwarearchitektur
 
-**Status:** Alle vier Dokumente sind technische Entwürfe, keine Aussage über ausgeführten Code. Der Schwerpunkt liegt zunächst auf V0, nicht auf der vollständigen Implementierung der V1-Zielarchitektur.
+| Inhalt | Englisch (Standard) | Deutsch |
+|---|---|---|
+| V0: PHP/MariaDB, HTTP/JSON, Ressourcen, Sicherheit, Konfiguration und Tests | [Technical Specification V0](technical-specification-v0.md) | [Pflichtenheft V0](technical-specification-v0.de.md) |
+| V1: zwei Adapter, Rollen, Filter, Audit, OpenAPI und Migration | [Technical Specification V1](technical-specification-v1.md) | [Pflichtenheft V1](technical-specification-v1.de.md) |
+| V0: Komponenten, Schichten, Abläufe, Trust Boundaries und ADRs | [Architecture V0](architecture-v0.md) | [Softwarearchitektur V0](architecture-v0.de.md) |
+| V1: Adapter-, Policy-, Query-, Audit- und Deploymentarchitektur | [Architecture V1](architecture-v1.md) | [Softwarearchitektur V1](architecture-v1.de.md) |
 
-## 4. Umsetzung, Tests, Betrieb und Governance
+Diese Dokumente sind **detaillierte Entwürfe**. Die erwähnten PHP-Klassen, Routen, Tests und Workflows existieren nicht allein aufgrund ihrer Beschreibung.
 
-| Dokument | Verantwortungsbereich |
-|---|---|
-| [ROADMAP.md](../ROADMAP.md) | geplante Meilensteine und Freigabegates V0→V1 |
-| [Entwicklungsplan V0](entwicklungsplan-v0.md) | kleine technische Slices inklusive Positiv-/Negativtests und Voraussetzungen |
-| [Teststrategie](teststrategie.md) | Unit-, DB-Integration-, HTTP-Contract-, Security-, Hosting- und V1-Adaptertests |
-| [Betrieb und Deployment](betrieb-und-deployment.md) | sicherer Webroot, Hosting, Installation, Logging, Backup/Restore, Störungs-Runbook |
-| [Release und Abnahme](release-und-abnahme.md) | Releasechecklisten, tatsächlich erforderliche Testnachweise und Abnahmevorlage |
-| [Risikoregister](risikoregister.md) | Risiken und blockierende Hosting-/Security-Entscheidungen |
-| [ADR-Register](adr/README.md) und [ADR-Vorlage](adr/0000-template.md) | vorgeschlagene, überprüfbare Architekturentscheidungen |
-| [CONTRIBUTING.md](../CONTRIBUTING.md) | Beiträge, Codequalität und PR-Konventionen |
-| [SECURITY.md](../SECURITY.md) | verantwortliche Schwachstellenmeldungen und Sicherheitspflichten |
-| [CHANGELOG.md](../CHANGELOG.md) | Dokumentationsänderungen, spätere echte Release-Notes |
-| [LICENSE](../LICENSE) | vorhandene MIT-Lizenz |
+## 5. Entwicklungs-, Test- und Betriebsdokumente
 
-## 5. Referenzprojekte
+| Thema | Englisch (Standard) | Deutsch |
+|---|---|---|
+| Roadmap und Release-Gates | [ROADMAP.md](../ROADMAP.md) | [ROADMAP.de.md](../ROADMAP.de.md) |
+| Kleine V0-Slices und Abnahmebedingungen | [Development Plan V0](development-plan-v0.md) | [Entwicklungsplan V0](development-plan-v0.de.md) |
+| Unit-/SQL-/HTTP-/Security-/Hosting-/Recovery-Tests | [Test Strategy](test-strategy.md) | [Teststrategie](test-strategy.de.md) |
+| Deployment, Shared Hosting, Konfiguration, Backup und Recovery | [Deployment/Operations](deployment-operations.md) | [Betrieb und Deployment](deployment-operations.de.md) |
+| Freigabechecklisten und konkrete Testnachweise | [Release/Acceptance](release-acceptance.md) | [Release und Abnahme](release-acceptance.de.md) |
+| Risiken, Blocker und Sicherheitsmaßnahmen | [Risk Register](risk-register.md) | [Risikoregister](risk-register.de.md) |
+| ADR-Register | [ADR Register](adr/README.md) | [ADR-Register](adr/README.de.md) |
+| ADR-Vorlage | [ADR Template](adr/0000-template.md) | [ADR-Vorlage](adr/0000-template.de.md) |
 
-- [Funktionskatalog der Referenzprodukte – Deutsch](referenzprodukte-funktionskatalog.md): PHP-CRUD-API, DreamFactory und DB2Rest, Funktionen, Grenzen, Quellen.
-- [Feature Catalog – English](reference-products-feature-catalog.en.md): englische Fassung derselben Recherche.
+## 6. Projektregeln, Open Source und GitHub
 
-Die Referenzsammlung ist **ein Ideenpool**. Aus der Existenz einer Funktion in DreamFactory, PHP-CRUD-API oder DB2Rest folgt **keine** Verpflichtung zur SASD-Implementierung. Editions- und Lizenzgrenzen der Vorbilder werden beachtet.
+| Bereich | Englisch (Standard) | Deutsch |
+|---|---|---|
+| Projektbeschreibung | [README](../README.md) | [README](../README.de.md) |
+| Agentenregeln | [AGENTS](../AGENTS.md) | [AGENTS](../AGENTS.de.md) |
+| Mitwirkung und Codestandards | [CONTRIBUTING](../CONTRIBUTING.md) | [Mitwirken](../CONTRIBUTING.de.md) |
+| Sicherheitsmeldungen | [SECURITY](../SECURITY.md) | [Sicherheitsrichtlinie](../SECURITY.de.md) |
+| Zusammenarbeit | [CODE_OF_CONDUCT](../CODE_OF_CONDUCT.md) | [Verhaltenskodex](../CODE_OF_CONDUCT.de.md) |
+| Änderungshistorie | [CHANGELOG](../CHANGELOG.md) | [Änderungsprotokoll](../CHANGELOG.de.md) |
+| MIT-Lizenz | [LICENSE (maßgeblich)](../LICENSE) | [Leseübersetzung](../LICENSE.de.md) |
+| GitHub-Fehlervorlage | [Bug Report](../.github/ISSUE_TEMPLATE/bug_report.md) | [Fehlerbericht](../.github/ISSUE_TEMPLATE/bug_report.de.md) |
+| GitHub-Funktionswunsch | [Feature Request](../.github/ISSUE_TEMPLATE/feature_request.md) | [Funktionswunsch](../.github/ISSUE_TEMPLATE/feature_request.de.md) |
+| GitHub-Pull-Request-Vorlage | [Pull Request](../.github/PULL_REQUEST_TEMPLATE.md) | [Pull Request](../.github/PULL_REQUEST_TEMPLATE.de.md) |
 
-## 6. Anwendungsfall: „Ich möchte mit der Entwicklung beginnen“
+## 7. Wie wir mit der Implementierung beginnen
 
-1. [Roadmap](../ROADMAP.md) lesen: **V0-G0 und V0-M0** als nächster Fokus, nicht V1.
-2. [V0-Lastenheft](lastenheft-v0.md) und [V0-Pflichtenheft](pflichtenheft-v0.md) als fachlichen und technischen Vertrag heranziehen.
-3. [Architektur V0](architektur-v0.md) für Komponenten, Requestfolge und Sicherheitsgrenzen prüfen.
-4. [Risiko R-001/R-002](risikoregister.md) im tatsächlichen Hosting klären: private Dateien und TLS.
-5. Kleine Aufgaben aus dem [V0-Entwicklungsplan](entwicklungsplan-v0.md) auswählen.
-6. Tests und Negativfälle aus der [Teststrategie](teststrategie.md) für jeden Slice definieren.
-7. Ergebnis, Abweichungen, offene Risiken und ggf. ADR dokumentieren; erst nach bestandener [Abnahme](release-und-abnahme.md) einen Release markieren.
+1. [Roadmap](../ROADMAP.de.md) lesen: zuerst **V0-G0** (Hosting-/Security-Review), danach **V0-M0** (kleines Projektgerüst).
+2. Fachlichen Umfang im [Lastenheft V0](requirements-v0.de.md) nachlesen.
+3. Konkrete API-, Ressourcen- und Datenregeln im [Pflichtenheft V0](technical-specification-v0.de.md) prüfen.
+4. Komponenten und Sicherheitsgrenzen in [Architektur V0](architecture-v0.de.md) verstehen.
+5. Kritische Risiken **R-001/R-002** zu privaten Dateien und TLS auf dem realen Hosting prüfen.
+6. Einen kleinen Schritt aus dem [Entwicklungsplan V0](development-plan-v0.de.md) wählen.
+7. Positive und negative Fälle aus der [Teststrategie](test-strategy.de.md) ableiten.
+8. Grundsatzentscheidungen im [ADR-Register](adr/README.de.md) dokumentieren.
+9. Umsetzung und echte Prüfergebnisse festhalten; ein Release erst nach [Abnahme](release-acceptance.de.md) als fertig erklären.
 
-## 7. Dokumentenpflege und Statussprache
+## 8. Zweisprachige Pflege und ehrlicher Projektstatus
 
-**„Geplant“** bedeutet dokumentiert, **„in Arbeit“** bedeutet belegbar begonnene Umsetzung, **„abgenommen“** bedeutet vorhandene Test- und Freigabenachweise. Kapitel oder Checkboxen ersetzen keine ausgeführten Tests. Ausdrückliche Änderungen an funktionalen Anforderungen werden im Lastenheft vorgenommen und dann in Pflichtenheft, Architektur, Roadmap, Tests und gegebenenfalls Übersetzungen übernommen.
+- **Englisch ist für die Navigation der Standard**, die deutsche Fassung soll fachlich gleichwertig bleiben.
+- Änderungen an MUSS-/SOLL-Anforderungen in **beiden Sprachen** nachführen und anschließend Pflichtenhefte, Architektur, Roadmap und Tests anpassen.
+- Kennungen in allen Sprachen stabil halten.
+- **Geplant** heißt spezifiziert, **in Arbeit** heißt belegbar entwickelt, **abgenommen** heißt mit echten Prüfungen und Freigaben nachgewiesen.
+- Keine Funktion, Pipeline oder Hostingkonfiguration allein wegen eines Dokuments als fertig beziehungsweise sicher bezeichnen.
+- Alte Links so lange bestehen lassen, bis ein bewusster Migrationsschritt ihre Entfernung ohne Schaden ermöglicht.
 
-Ein zunächst auf Deutsch gepflegtes Dokument wird durch englische Übersetzungen nicht automatisch normativ ersetzt. Anforderungen verwenden dieselben IDs über Sprachversionen hinweg. Im Konfliktfall entscheidet die formal freigegebene Fassung; aktuell gibt es **noch keine** förmlich freigegebenen Anforderungsversionen.
-
-**Dokumentstatus:** Navigationshilfe, keine Implementierung.
+**Status:** Zweisprachige Dokumentationsnavigation; keine Implementierung und keine Softwareabnahme behauptet.

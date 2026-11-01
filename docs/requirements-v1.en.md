@@ -497,7 +497,7 @@ An installation reports database failure through its protected readiness check. 
 1. **[V0 requirements](./requirements-v0.en.md):** the small initial release; its mandatory requirements remain part of the foundation.
 2. **This V1 requirements specification:** planned scope for a stable future V1.0, not evidence of an existing implementation.
 3. **[Reference catalog DE](./referenzprodukte-funktionskatalog.md) / [EN](./reference-products-feature-catalog.en.md):** external research and possible inspiration, not proof that all upstream features were tested.
-4. **Future V1 technical implementation specification:** architecture, actual formats, REST examples, and test design.
+4. **[V1 technical implementation specification (German)](./pflichtenheft-v1.md) (draft):** architecture, actual formats, REST examples, and test design.
 5. **Change management:** Every additional feature receives an ID, justification, priority, and verifiable acceptance criterion. Deferred SHOULD requirements are recorded.
 
 ---

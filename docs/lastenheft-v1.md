@@ -497,7 +497,7 @@ Eine Instanz meldet einen Datenbankausfall über einen geschützten Readiness-Te
 1. **[Lastenheft V0](./lastenheft-v0.md):** kleine erste Version, deren MUSS-Anforderungen erhalten bleiben.
 2. **Dieses Lastenheft V1:** späterer Zielumfang für stabile V1.0; noch kein implementierter Produktstand.
 3. **[Referenzkatalog DE](./referenzprodukte-funktionskatalog.md) / [EN](./reference-products-feature-catalog.en.md):** externe Recherche und Ideenquelle, keine vollständige technische Abnahme der Vorbilder.
-4. **Pflichtenheft V1 (später):** technische Architektur, konkrete Formate, REST-Beispiele und Testdesign.
+4. **[Pflichtenheft V1](./pflichtenheft-v1.md) (technischer Entwurf):** technische Architektur, konkrete Formate, REST-Beispiele und Testdesign.
 5. **Änderungskontrolle:** Jede zusätzliche Funktion erhält eine ID, Nutzenbegründung, Priorität und Abnahmebeschreibung. Verschobene SOLL-Anforderungen werden ausdrücklich protokolliert.
 
 ---

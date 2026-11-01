@@ -1,5 +1,7 @@
 # Security Policy – SASD API Server
 
+> **Language:** **English (default)** | [Deutsch](SECURITY.de.md)
+
 > **Project status:** As of 2026-11-01, V0 and V1 are documented designs, not accepted releases. This document describes intended security handling; it is **not** evidence of a completed security audit or supported production service.
 
 ## 1. Supported versions
@@ -65,11 +67,11 @@ Clients receive consistent error codes without internal SQL, stack traces, crede
 5. Restore from a verified backup if needed; rotate secrets before restoring normal access.
 6. Coordinate relevant notifications and any legal obligations with the responsible operator.
 
-The [deployment and recovery runbook](docs/betrieb-und-deployment.md), [risk register](docs/risikoregister.md), and [test strategy](docs/teststrategie.md) provide the intended verification approach.
+The [deployment and recovery runbook](docs/deployment-operations.md), [risk register](docs/risk-register.md), and [test strategy](docs/test-strategy.md) provide the intended verification approach.
 
 ## 5. Security release criteria
 
-A release is blocked by any unresolved critical issue that can expose private files, bypass authentication/authorization, execute arbitrary SQL, leak keys, or cause unaudited protected writes. Release evidence must include actual tests rather than solely static document descriptions. See [Release and acceptance](docs/release-und-abnahme.md).
+A release is blocked by any unresolved critical issue that can expose private files, bypass authentication/authorization, execute arbitrary SQL, leak keys, or cause unaudited protected writes. Release evidence must include actual tests rather than solely static document descriptions. See [Release and acceptance](docs/release-acceptance.md).
 
 ---
 This policy is updated when the project's actual released version and maintainer reporting options become known.

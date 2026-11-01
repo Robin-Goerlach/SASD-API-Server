@@ -1,5 +1,7 @@
 # Contributing to SASD API Server
 
+> **Language:** **English (default)** | [Deutsch](CONTRIBUTING.de.md)
+
 Thank you for considering a contribution to **SASD API Server**. This repository currently focuses on planning a small, configurable, PHP-based REST data API. The project welcomes constructive architecture discussions, documentation corrections, reproducible bug reports, tests, and carefully scoped code contributions.
 
 > **Project status:** V0.1.0 and V1.0 are planned targets. The specifications and diagrams do **not** mean that the described server has already been implemented, tested, or released.
@@ -8,9 +10,9 @@ Thank you for considering a contribution to **SASD API Server**. This repository
 
 - [Roadmap](ROADMAP.md): current V0-first sequence and release gates.
 - [Documentation index](docs/README.md): requirements, technical specifications, architecture, operations, and tests.
-- [V0 requirements](docs/lastenheft-v0.md) and [V0 technical specification](docs/pflichtenheft-v0.md): immediate scope.
-- [Architecture V0](docs/architektur-v0.md): responsibilities, boundaries, and layering.
-- [Test strategy](docs/teststrategie.md) and [security policy](SECURITY.md): mandatory negative tests and responsible disclosure.
+- [V0 requirements](docs/requirements-v0.de.md) and [V0 technical specification](docs/technical-specification-v0.md): immediate scope.
+- [Architecture V0](docs/architecture-v0.md): responsibilities, boundaries, and layering.
+- [Test strategy](docs/test-strategy.md) and [security policy](SECURITY.md): mandatory negative tests and responsible disclosure.
 - [ADR register](docs/adr/README.md): how to propose durable architectural decisions.
 
 The primary planning documents are in German. English requirements and reference-product catalogs are also available. Please preserve requirement identifiers across translations and updates.
@@ -45,7 +47,7 @@ A clear small change with tests is preferred to a broad refactor that tries to i
 
 ## 5. Testing expectations
 
-For every behavior change, include a positive case and relevant **negative/security** tests. The [test strategy](docs/teststrategie.md) specifies unit, integration, HTTP contract, database, security, hosting, and migration checks.
+For every behavior change, include a positive case and relevant **negative/security** tests. The [test strategy](docs/test-strategy.md) specifies unit, integration, HTTP contract, database, security, hosting, and migration checks.
 
 Examples of essential negative cases: unknown tables, prohibited columns, missing or revoked API keys, SQL injection through sorting/filters/IDs, requests over body limits, accidental exposure of configuration files, role bypass, and transaction rollback.
 

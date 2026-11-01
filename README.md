@@ -5,6 +5,8 @@ A lightweight, open-source REST API server designed for reusable data access acr
 
 - [Lastenheft V0 (Deutsch)](docs/lastenheft-v0.md) — small initial version, scope and acceptance criteria.
 - [Lastenheft V1 (Deutsch)](docs/lastenheft-v1.md) — planned stable release, priorities and acceptance criteria.
+- [Pflichtenheft V0 (Deutsch)](docs/pflichtenheft-v0.md) — detailed technical design for the small PHP/MariaDB V0 implementation.
+- [Pflichtenheft V1 (Deutsch)](docs/pflichtenheft-v1.md) — technical architecture and verification plan for the planned V1 expansion.
 - [Requirements Specification V0 (English)](docs/requirements-v0.en.md) — English translation of the initial V0 requirements and acceptance criteria.
 - [Requirements Specification V1 (English)](docs/requirements-v1.en.md) — English translation of the planned V1 requirements and acceptance criteria.
 - [Reference products — feature catalog (Deutsch)](docs/referenzprodukte-funktionskatalog.md).

@@ -1,194 +1,217 @@
-# AGENTS.md – Arbeitsanweisungen für Coding-Agenten
+# AGENTS.md – Instructions for Coding Agents
 
-> **Language:** **English (default)** | [Deutsch](AGENTS.de.md)
+> **Language:** **English (default)** | [Deutsch](AGENTS.de.md)  
+> **Scope:** Entire `Robin-Goerlach/SASD-API-Server` repository. More specific nested AGENTS.md files may add instructions but must not weaken security constraints.  
+> **Updated:** November 1, 2026 · **Status:** working guidelines, **not** evidence of implemented software or accepted releases.
 
-> **Gültigkeit:** gesamtes Repository `Robin-Goerlach/SASD-API-Server`. Spezifischere Anweisungen in Unterverzeichnissen dürfen diese Regeln ergänzen, nicht Sicherheitsanforderungen abschwächen.  
-> **Stand:** 01.11.2026 · **Status:** Entwicklungsrichtlinien, keine Aussage über einen bereits implementierten oder getesteten Produktstand.
+## 1. Project goals and priorities
 
-## 1. Projektziel und Prioritäten
+**SASD API Server** is planned as a small, configurable open-source **REST/JSON data service** usable by several independently deployed applications. The same code revision should support different URLs and instance-specific databases, credentials, resource allowlists and logs.
 
-Der **SASD API Server** ist als schlanker, konfigurierbarer **REST/JSON-Datendienst** für mehrere SASD-Anwendungen geplant. Dieselbe Codebasis wird künftig mehrfach unter unterschiedlichen URLs eingesetzt; jede Installation besitzt eigene Ressourcen, Datenbank, Zugangsdaten und Betriebsdateien.
+**Core priorities:**
 
-Die wichtigsten Grundsätze:
-1. **V0 zuerst**: V0.1.0 vollständig und sicher implementieren und abnehmen, erst danach den V1-Ausbau beginnen.
-2. **Analyse vor Programmierung**: Anforderungen, Auswirkungen, Sicherheitsgrenzen und relevante Tests prüfen.
-3. **Saubere Architektur vor Optimierung**: lesbarer, wartbarer und ausführlich kommentierter Code; keine unnötigen Frameworks und Abstraktionen.
-4. **Deny by default**: unbekannte Datenressourcen, Felder, Methoden, Filter oder Rollen niemals automatisch freigeben.
-5. **Tests tatsächlich ausführen** und nicht ausgeführte Prüfungen als solche kennzeichnen.
-6. **Kleine Entwicklungs-Slices** statt großer ungetesteter Implementierungsblöcke.
+1. **Finish and accept V0.1.0 first.** V1 is a later goal, not permission to implement the entire future catalog immediately.
+2. **Analyze before coding.** Check requirements, architecture, API compatibility, data integrity, security boundaries and tests.
+3. **Prioritize clear architecture over premature optimization.** Write readable, maintainable, thoroughly explained source code.
+4. **Deny by default.** Unknown resources, fields, methods, filters, relations and roles are never made public automatically.
+5. **Execute and report tests accurately.** Say which tests really ran and identify checks that were not executed.
+6. **Use small reviewable development slices**, not large unverified rewrites.
+7. **Do not silently decide important security or compatibility trade-offs.** Record reviews and ADRs where applicable.
 
-## 2. Normative Projektunterlagen
+## 2. Relevant project documents
 
-Vor der Bearbeitung einer Aufgabe die passenden Dokumente lesen:
+Before starting a task, read the **pertinent sections** of the following documents:
 
-| Zweck | Datei |
+| Purpose | Document |
 |---|---|
-| Projektüberblick und tatsächlicher Status | [README.md](README.md) |
-| Meilensteine, V0 vor V1 | [ROADMAP.md](ROADMAP.md) |
-| Dokumentationsnavigation | [docs/README.md](docs/README.md) |
-| Fachlicher V0-Vertrag | [docs/requirements-v0.de.md](docs/requirements-v0.de.md) |
-| Technische V0-Anforderungen | [docs/technical-specification-v0.md](docs/technical-specification-v0.md) |
-| V0-Komponenten, Datenflüsse, Sicherheitsgrenzen | [docs/architecture-v0.md](docs/architecture-v0.md) |
-| Kleine V0-Entwicklungsschritte | [docs/development-plan-v0.md](docs/development-plan-v0.md) |
-| Tests und tatsächliche Release-Abnahme | [docs/test-strategy.md](docs/test-strategy.md), [docs/release-acceptance.md](docs/release-acceptance.md) |
-| Betrieb, Hosting, Recovery | [docs/deployment-operations.md](docs/deployment-operations.md) |
-| Risiken und blockierende Fragen | [docs/risk-register.md](docs/risk-register.md) |
-| Sicherheit und Offenlegung | [SECURITY.md](SECURITY.md) |
-| Mitwirkungsregeln | [CONTRIBUTING.md](CONTRIBUTING.md) |
-| Architekturentscheidungen | [docs/adr/README.md](docs/adr/README.md) |
-| Spätere V1-Anforderungen | [docs/requirements-v1.de.md](docs/requirements-v1.de.md), [docs/technical-specification-v1.md](docs/technical-specification-v1.md), [docs/architecture-v1.md](docs/architecture-v1.md) |
+| Overview and actual project status | [README.md](README.md) |
+| Priorities, V0-before-V1 and milestones | [ROADMAP.md](ROADMAP.md) |
+| Documentation navigation | [docs/README.md](docs/README.md) |
+| V0 functional requirements | [docs/requirements-v0.md](docs/requirements-v0.md) |
+| V0 implementation contract | [docs/technical-specification-v0.md](docs/technical-specification-v0.md) |
+| V0 component and security design | [docs/architecture-v0.md](docs/architecture-v0.md) |
+| V0 development slices | [docs/development-plan-v0.md](docs/development-plan-v0.md) |
+| Testing and acceptance | [docs/test-strategy.md](docs/test-strategy.md), [docs/release-acceptance.md](docs/release-acceptance.md) |
+| Shared hosting, backups and recovery | [docs/deployment-operations.md](docs/deployment-operations.md) |
+| Risks and blockers | [docs/risk-register.md](docs/risk-register.md) |
+| Vulnerability disclosure | [SECURITY.md](SECURITY.md) |
+| Contribution and reviews | [CONTRIBUTING.md](CONTRIBUTING.md) |
+| Architectural decisions | [docs/adr/README.md](docs/adr/README.md) |
+| Future V1 | [V1 requirements](docs/requirements-v1.md), [technical specification](docs/technical-specification-v1.md), [architecture](docs/architecture-v1.md) |
 
-**Bei Widersprüchen:** aktuelle ausdrückliche Aufgabenstellung und unverzichtbare Sicherheitsregeln → fachliche MUSS-Anforderungen des Lastenhefts → tatsächlich angenommene Architekturentscheidungen → Pflichtenheft/Architektur → Roadmap und Beispiele. Viele Dokumente haben derzeit **Entwurfsstatus**. Nicht so tun, als seien sie formell genehmigt: Widersprüche benennen, bevor eine irreversible technische Entscheidung getroffen wird.
+**When documents conflict:** explicit current task and non-negotiable security rules → MUST requirements of the relevant requirements specification → actually **accepted** ADRs → technical specification and architecture → roadmap, implementation plan and examples. Many documents are still **drafts**; do not present a disputed implementation choice as already approved. Do not silently rewrite a functional requirement to match convenient code.
 
-**Sprache:** Projektkommunikation und primäre Planung auf Deutsch; Codebezeichner, API-Felder und technische Klassen in verständlichem Englisch. Die englischen Lastenhefte in `docs/requirements-v0.md` und `docs/requirements-v1.md` sind bei Änderungen der Anforderungen anhand derselben IDs konsistent zu halten.
+**Language:** English is the **repository default**, and parallel German documents should remain available. Public API fields, types and code identifiers should use clear English; team discussions can be conducted in German as appropriate. Keep the **same requirement IDs** across English and German texts. If a requirement changes, update both versions consistently.
 
-## 3. Verifiziere den tatsächlichen Repositoryzustand
+## 3. Verify the actual repository state
 
-Die vorhandenen Lasten-/Pflichtenhefte, Architekturen und Pläne beschreiben **beabsichtigte Funktionen**, keine nachgewiesene Implementierung. Vor **jeder** Coding-Aufgabe prüfen: aktuellen Branch/Commit, Git-Status, Dateien, Composer-Konfiguration, tatsächlich vorhandene Tests und Workflows. Keine nicht existierenden Klassen, Skripte, CI-Gates oder erfolgreich ausgeführten Tests behaupten.
+Current requirements, specifications, diagrams and roadmaps describe **planned** functionality; a written class name is not evidence of existing PHP code.
 
-Bestehende uncommittete Änderungen nicht überschreiben. Aufgabenfremde Reformatierungen, strukturelle Großumbauten und Änderungen an fremder Arbeit vermeiden. Wenn eine Funktion noch nicht implementiert ist, das ausdrücklich kennzeichnen.
+**Before every coding task check actual facts:** branch, HEAD commit, working-tree status, files, Composer configuration, unit/integration tests, CI workflows, dependency versions and any relevant uncommitted changes. Never invent a source file, script, available tool, build result or successful release.
 
-## 4. Versions- und Scope-Grenzen
+Do not overwrite someone else's uncommitted work. Limit changes to files relevant to the task. Avoid unrelated mass-formatting, structural rewrites or speculative improvements.
 
-### V0.1.0 – unmittelbarer Entwicklungsauftrag
+## 4. Version boundaries and immediate scope
 
-- **PHP 8.4** als Runtime, **MariaDB 10.11/MySQL über PDO** als erster und einziger V0-Produktivadapter.
-- Einsatz auf gewöhnlichem **PHP Shared Hosting**, ohne Pflicht für Docker, Redis, Root, Queue oder dauerhaft laufende Prozesse.
-- Ein kleiner `index.php`-Front-Controller im öffentlichen Webroot. Bei unzuverlässigem URL-Rewriting zusätzlich `index.php?route=/api/v0/...`.
-- **Einzelne** GET-/POST-/PUT-/PATCH-/DELETE-Operationen auf **ausdrücklich** freigegebene Tabellen/Felder.
-- Einspaltige Primärschlüssel, einfache Gleichheitsfilter (AND), erlaubte Sortierung, begrenzte Pagination, einheitliches HTTP/JSON-Fehlerformat.
-- Installationsspezifischer API-Key, HTTPS, requestbegrenzende Schutzregeln, redigiertes Logging und Basis-Health.
-- Zwei unabhängige Installationen aus derselben Codebasis als Abnahmefall.
-- **Abnahme:** alle `V0-F01` bis `V0-F17` und `AT-V0-01` bis `AT-V0-10`.
+### V0.1.0 — first implementation target
 
-### V1.0 – spätere Ausbaustufe
+- **Runtime:** PHP 8.4, preferably without a mandatory heavyweight framework.
+- **Persistence:** MariaDB 10.11 / compatible MySQL using PDO MySQL; **exactly one production V0 database adapter**.
+- **Hosting:** conventional PHP shared hosting without mandatory Docker, Redis, root permissions, background workers or queues.
+- **HTTP:** a small public root `index.php` front controller and `index.php?route=/api/v0/...` fallback where URL rewriting fails.
+- **Core functions:** single-record GET/POST/PUT/PATCH/DELETE for explicitly approved tables and fields.
+- **Queries:** single-column primary keys, equality/AND filters, approved sorting and bounded limit/offset.
+- **Security:** installation-specific API key, HTTPS, strict data/resource/method allowlists, body/query limits and safe error mapping.
+- **Operations:** private configuration, sanitized logging, minimal health, independent instances and documented backup/restore.
+- **Acceptance:** `V0-F01` through `V0-F17` and `AT-V0-01` through `AT-V0-10`.
 
-Nach abgenommener V0 folgen eine stabilere API-Version, SQLite als zweiter Pflichtadapter, Feldaliase, kontrollierte Relationen/Views, Rollen und mehrere technische Schlüssel, OpenAPI, Audit und Rate-Limits. Fünf V1-SOLL-Funktionen bleiben **optional**, bis sie gesondert freigegeben werden.
+### V1.0 — only after accepted V0
 
-**In V0 nicht eigenmächtig entwickeln:** SQLite/PostgreSQL/JSON-Datei-Adapter, Endbenutzer-Login, OAuth/SSO, umfassende Mandantenfähigkeit, vollständige Datenbank-Schemafreigabe, GraphQL, beliebige SQL-Abfragen, generische Join-/Massenschreibsysteme, HTTP-DDL, Web-Admin oder eine DreamFactory-Nachbildung. Referenzprodukte sind Ideenquellen, **keine** 1:1-Featureliste.
+V1 introduces a stable versioned contract, SQLite as second adapter, external field aliases, bounded advanced filters/relations/views, multiple technical keys, RBAC, OpenAPI, write audit, rate limits and configuration migration. Five V1 SHOULD capabilities remain **optional** until explicitly approved.
 
-## 5. Architektur und Abhängigkeiten
+**Do not introduce into V0 without scope approval:** SQLite/PostgreSQL/JSON-file/remote REST adapters, user registration, OAuth/SSO, full multitenancy, GraphQL, arbitrary SQL, generic joins/bulk updates, database DDL over HTTP, web admin UI or a complete DreamFactory equivalent.
 
-Schichten und Fluss:
+Reference-product documentation is a source of ideas, **not** a requirement to implement every researched feature.
+
+## 5. Architecture and dependency rules
+
+The intended layering is:
 
 ~~~text
-Client (HTTPS / REST / JSON)
+Client (HTTPS, REST, JSON)
   → HTTP: Router, Request, ResourceController
-  → Application: CrudService, Validierung
+  → Application: CrudService, Validation
   → Domain: ResourceDefinition, FieldDefinition
   → Contracts: RecordRepository (Port)
   ← Infrastructure: MariaDbPdoRepository (Adapter)
   → MariaDB
 
-Querschnitt: Security, Config, Errors, Logging, Health
-Zusammenführung der Komponenten: Bootstrap / index.php
+Cross-cutting: Security, Config, Error Mapping, Logging, Health
+Composition root: Bootstrap / index.php
 ~~~
 
-**Nicht verhandelbare Schichtregeln:**
-- `index.php` und HTTP-Controller enthalten **kein SQL** und keine DB-Zugangsdaten.
-- Anwendungsservices steuern CRUD und Transaktionen; sie hängen nicht direkt von `PDO` oder `$_SERVER` ab.
-- Domänen-/Ressourcendefinitionen enthalten keine HTTP-Response- oder DB-Verbindungsobjekte.
-- Der Repository-Port ist klein und unabhängig vom SQL-Dialekt; konkrete PDO-Implementierung nur in Infrastructure.
-- Die ResourceRegistry/Policy ist die Autorität für veröffentlichte Ressourcen, Felder und Methoden.
-- Ein neuer Adapter oder Controller darf nie Authentifizierung, Validierung, Fehlerabbildung oder Logging umgehen.
-- Schnittstellen nur einführen, wenn ein konkreter Use Case oder Test sie benötigt; kein Overengineering.
+**Mandatory architectural constraints:**
 
-**Codequalität:** gut lesbares PHP, klare Namespaces, passende PHP-Typen und PHPDoc. Fachlich relevante und öffentliche Methoden, ungewöhnliche Fehlerfälle, sicherheitskritische Entscheidungen und Abhängigkeitsgrenzen **ausführlich kommentieren**. Kommentare erklären vor allem das *Warum*. Verständlichkeit und Korrektheit haben Vorrang vor Mikrooptimierungen.
+- `index.php` and Controllers **must not contain SQL** or database credentials.
+- Application services coordinate CRUD, validation and transaction boundaries. They must not depend directly on `PDO` or `$_SERVER`.
+- Domain/resource definitions should not depend on HTTP response or SQL driver types.
+- Repository ports must remain **small, storage-independent contracts**; PDO details stay in Infrastructure.
+- ResourceRegistry/AccessPolicy is authoritative for published resources, methods, readable/writable fields and queries.
+- New adapters, controllers or extensions must not bypass common security, validation, error mapping or logs.
+- Introduce interfaces for **actual use cases**, not hypothetical future databases.
 
-## 6. HTTP-Verträge respektieren
+**Code conventions:** readable PHP, clear namespaces, appropriate type declarations and PHPDoc. Explain public interfaces, non-obvious failures, transaction boundaries, security invariants and architecture decisions with useful, sometimes detailed comments. Explain **why**, not every self-evident line. Correctness and maintainability matter more than micro-optimization.
 
-Geplante V0-Routen (noch nicht zwingend implementiert):
+## 6. Respect public HTTP/JSON contracts
 
-| Methode | Route | Bedeutung |
+The following **planned V0 contract** is not evidence of existing endpoints:
+
+| Method | Path | Meaning |
 |---|---|---|
-| GET | `/api/v0/{resource}` | Liste |
-| GET | `/api/v0/{resource}/{id}` | Einzelobjekt |
-| POST | `/api/v0/{resource}` | einzelner Insert |
-| PUT | `/api/v0/{resource}/{id}` | kompletter Ersatz der **clientseitig schreibbaren** Felder |
-| PATCH | `/api/v0/{resource}/{id}` | nur gelieferte Felder ändern |
-| DELETE | `/api/v0/{resource}/{id}` | genau einen Datensatz entfernen |
-| GET | `/api/v0/health` | nicht sensitiver Grundstatus |
+| GET | `/api/v0/{resource}` | List |
+| GET | `/api/v0/{resource}/{id}` | Single record |
+| POST | `/api/v0/{resource}` | Create exactly one record |
+| PUT | `/api/v0/{resource}/{id}` | Replace complete client-writable representation |
+| PATCH | `/api/v0/{resource}/{id}` | Update only provided writable fields |
+| DELETE | `/api/v0/{resource}/{id}` | Delete exactly one record |
+| GET | `/api/v0/health` | Minimal non-sensitive health status |
 
-Der Fallback `/index.php?route=/api/v0/{resource}` muss identische Regeln ausführen. Keine URI-Parameter zu Dateipfaden umdeuten. Unzulässige, doppelt kodierte oder mehrdeutige Eingaben kontrolliert ablehnen.
+`/index.php?route=/api/v0/{resource}` must use the **same** routing and authorization pipeline. Normalize routes, reject traversal and double encoding; never interpret a client route as a local filesystem path.
 
-**Response-/Fehlerregeln:** dokumentierte `data`-/`meta`-Hüllen, Fehler mit maschinenlesbarem Code und `requestId`, konsistente HTTP-Codes. Keine SQL-Statements, Hostpfade, Stacktraces oder Credentials in Antworten. Bei ungültigen Filtern **nicht** unbemerkt alle Datensätze zurückgeben.
+**Responses:** standard `data` / `meta` envelopes, machine-readable error codes, `requestId` and defined HTTP status codes. Do not expose SQL statements, passwords, stack traces, secret file paths or internal DB details.
 
-**Datenänderungen:** Transaktion pro Schreibrequest, eindeutiger Primärschlüssel, strenger PUT-/PATCH-Unterschied, Datenbank-Constraints respektieren. `rowCount()===0` beweist bei einem UPDATE **nicht**, dass ein Datensatz fehlt. V0 besitzt kein Optimistic Locking. Public API-/Config-Vertragsänderungen nur nachvollziehbar dokumentieren und mit Contract-Tests absichern.
+**Never ignore an invalid filter and accidentally return every record.**
 
-## 7. SQL, Ressourcen und Konfiguration
+**Write semantics:** one request addresses one record and uses a local transaction. PUT replaces the **complete client-writable representation**, PATCH only submitted fields; system-controlled fields remain protected. For updates, `rowCount()===0` does **not** necessarily mean the record does not exist. V0 does **not** guarantee optimistic concurrency.
 
-1. **Default-Deny:** Eine physisch vorhandene Tabelle wird erst nach expliziter Ressourcenfreigabe über die API sichtbar.
-2. **SQL-Parameter:** Werte werden mit PDO Prepared Statements gebunden. Tabellen-, Spalten-, ORDER-BY- und Relationsbezeichner werden ausschließlich aus validierten serverseitigen Allowlists übernommen.
-3. **Nur erlaubte Daten:** Keine unkontrollierte `SELECT *`-Antwort; keine Änderung nicht schreibbarer Felder; `UPDATE` und `DELETE` nur mit vollständiger, eindeutig adressierender Schlüsselbedingung.
-4. **Least Privilege:** Eigene DB-Zugangsdaten je Instanz und minimal nötige SQL-GRANTs; API-Policy ist ein **zusätzlicher** Schutz.
-5. **Transaktionen und Fehler:** Einzelne Schreiboperationen atomar. DB-Ausfälle nicht als erfolgreiche leere Listen ausgeben. SQL-Constraints in neutrale API-Fehler übersetzen.
-6. **Konfiguration:** versioniertes, validiertes Ressourcenformat; bei Fehlern **fail closed**. Keine HTTP-Routen, die beliebige Konfiguration, SQL-Schema oder DB-Verbindungen ändern.
-7. **Kein fingierter Backend-Support:** Erst wenn ein zweiter Adapter implementiert und mit derselben Suite getestet wurde, darf dessen Unterstützung behauptet werden.
+An observable contract change needs documentation, HTTP contract tests and a conscious version/architecture decision when incompatible.
 
-## 8. Hosting- und Sicherheitsregeln
+## 7. Data access and configuration standards
 
-**Produktiv zwingend:** Nur der erforderliche HTTP-Einstieg liegt im Document Root. **Secrets, DB-Credentials, Ressourcen-Konfiguration, Logs, Backups und spätere SQLite-Dateien liegen außerhalb öffentlich ausgelieferter Pfade.** Ein möglicherweise ignoriertes `.htaccess` ist **keine** ausreichende Schutzgrenze.
+1. **Explicit allowlists:** physical database tables are invisible until their public resources are approved.
+2. **Safe SQL:** PDO prepared/bound client values; only server-validated table/column/sort/operator identifiers are permitted in SQL text.
+3. **Data minimization:** do not expose unrestricted `SELECT *`; select approved readable columns only. UPDATE/DELETE must include the full target key condition.
+4. **Least privilege:** use a dedicated, minimally privileged DB account per instance; API permissions are an **additional** defense.
+5. **Integrity:** test transactions, constraints, null/default values, IDs, Boolean/UTC/decimal behavior and neutral error categories.
+6. **Configuration:** versioned and validated; invalid settings **fail closed**. No freely writable public API for config, DB schema or credentials.
+7. **No fake portability:** do not claim an adapter exists until it is implemented and tested with the common contract.
 
-- Externe Datenrouten nur über **HTTPS**; Proxy-/`X-Forwarded-Proto`-Informationen nur nach nachweisbar vertrauenswürdigem Hostingweg akzeptieren.
-- API-Key ausschließlich im HTTP-Header; niemals in URL, Querystring, Git, Tests, Logs, Screenshots oder öffentlich zugänglicher Konfiguration.
-- **CORS ist keine Authentifizierung**. Ein API-Key in Browser-JavaScript oder einer breit verteilten App ist **kein zuverlässig geheimes Credential**; dafür wäre ein zusätzlicher Vertrauens-/Auth-Dienst nötig.
-- Bodygrößen, Query-Komplexität, Filter, Pagination und Ausgabemengen durchsetzen. Hostabhängige Grenzwerte wirklich messen.
-- Technische Logs mit UTC, Request-ID und neutralen Fehlercodes; **keine** ganzen Payloads, Passwörter, Tokens oder SQL-Bindwerte.
-- Öffentlicher Health-Endpunkt ohne Interna; tiefere Diagnose nur geschützt.
-- Sicherheitskritische Fragen über Hosting, TLS, Dateipfade und Berechtigungen **vor** öffentlicher Freigabe klären. Wenn ein Provider die Bedingungen nicht erfüllen kann, **keinen unsicheren Workaround einbauen**.
+## 8. Hosting, secrets and security by default
 
-Security-Incidents nach [SECURITY.md](SECURITY.md), Architektur-/Hosting-Risiken nach [Risikoregister](docs/risk-register.md) behandeln.
+**Production-critical rule:** public root `index.php` may be inside document root; **resource configuration, API keys, DB credentials, logs, backups, and future SQLite files must be outside** all publicly served paths. A possibly ignored `.htaccess` does **not** provide sufficient protection.
 
-## 9. Tests und Nachweise
+- Never commit keys, tokens, real passwords, production records or confidential logs to Git, chat, screenshots, CI output or issues.
+- API keys belong in a protected secret store and an HTTP **header**, not in URLs or query parameters.
+- A key embedded in public JavaScript or downloadable application binaries is **not** a reliably hidden secret. A trusted backend or separately specified user-auth system is needed.
+- Protected data routes require **HTTPS**. Trust `X-Forwarded-Proto` only when the provider/proxy trust path is verified. A redirect alone cannot protect a plaintext key already transmitted.
+- CORS is **not authentication**.
+- Enforce request-body, JSON nesting, query/filter complexity, pagination and result-size budgets; test limits on the real host.
+- Log UTC, request ID and safe error status **without** full payloads, Auth headers, passwords, SQL bindings or secrets.
+- Public health returns minimal information. Detailed database readiness is protected.
+- When hosting cannot meet mandatory TLS/private-path conditions, **do not build an unsafe workaround or approve production**.
 
-Für jede relevante Änderung einen **positiven** Test und die wesentlichen **negativen** Fälle liefern:
+Follow [SECURITY.md](SECURITY.md) for vulnerabilities and [Risk register](docs/risk-register.md) for blockers.
 
-- **Unit:** Router, Konfiguration, API-Key-/Policy, Filter-/Datentypvalidierung, ErrorMapper.
-- **Integration:** eigene MariaDB-Testdatenbank, CRUD, Constraints, Commit/Rollback, nicht vorhandene ID, unverändertes Update.
-- **Contract:** HTTP-Methoden, JSON, Status, Header, API-Version und Routing-Fallback.
-- **Security:** nicht erlaubte Tabellen/Felder/Methoden, falscher/fremder Key, SQL-Injection in ID/Filter/Sort, Bodylimits, Secret- und TLS-Leaks.
-- **Deployment:** echte PHP-Hostingumgebung, direkte HTTP-Anfragen auf private Dateien müssen scheitern.
-- **Isolation:** zwei Instanzen mit unterschiedlichen URLs, DBs, API-Keys, Logs und Ressourcen.
-- **Recovery:** Backup und Restore auf einer separaten Testinstallation.
-- **V1 später:** zusätzliche MariaDB/SQLite-Parität, rollenabhängige Projektion/Relationen, Audit-Rollback, Rate-Fail-Closed und OpenAPI.
+## 9. Tests: positive and negative cases
 
-**Vor dem Testen prüfen, welche Kommandos tatsächlich existieren.** `composer test`, GitHub-Actions-Workflows, Datenbankcontainer oder Release-Tags nicht erfinden. Nicht ausführbare Checks explizit als **„nicht ausgeführt“** mit Grund berichten. Niemals Produktionsdaten für Tests verändern.
+Every meaningful feature needs successful and prohibited/invalid cases:
 
-Ein grüner Unit-Test ersetzt keinen echten Shared-Hosting-/Sicherheitstest. Ein Dokument oder ein erfolgreicher Build beweist **keine Abnahme**; dazu sind die vorgeschriebenen `AT-V0`-/`AT-V1`-Tests und Freigaben erforderlich.
+- **Unit:** route/config/resource/query parsers, key/policy checks, ErrorMapper.
+- **Integration:** real isolated MariaDB, CRUD, constraints, rollback and unchanged UPDATE.
+- **HTTP contract:** methods, routes, JSON, headers, status/error structure and query-routing fallback.
+- **Security:** unknown table/field/method, invalid or foreign key, SQL injection in IDs/filters/sorts, size/TLS/secret-path failures.
+- **Deployment:** real PHP hosting and direct HTTP requests to private files (must fail).
+- **Instance isolation:** two instances from the same release but with distinct URLs/DBs/keys/logs.
+- **Recovery:** backup **and restore** on a separate test system.
+- **V1 later:** shared MariaDB/SQLite contracts, RBAC/field/count/relation leaks, audit rollback, limiter fail-closed and OpenAPI.
 
-## 10. Agenten-Workflow bei jedem Auftrag
+Check **actual available commands and workflows** before attempting them. Do not assume `composer test`, GitHub Actions or DB containers exist merely because a specification mentions them.
 
-### Vor der Änderung
+If a check cannot run due to missing DB, hosting, credentials, test tool or implementation, report **“not executed” with a reason**, never “passed”. Never reset or delete production data for tests.
 
-1. Aufgabe, Zielversion, betroffene Anforderungen und Nicht-Ziele benennen.
-2. Git-Branch, Commit und Arbeitsbaum prüfen; kein Überschreiben fremder Änderungen.
-3. Passende Lasten-/Pflichtenheft-/Architekturabschnitte und Risiken lesen.
-4. Kleinsten sinnvollen Slice wählen; bei verbindlichen Architekturentscheidungen ein [ADR](docs/adr/README.md) vorschlagen.
+Unit tests alone are **not** substitutes for real hosting, security and recovery evidence. V0 acceptance requires all required functions/scenarios; V1 adds mandatory adapter tests and the V1 gates.
 
-### Bei der Änderung
+## 10. Workflow for each coding task
 
-1. Code nach Schichtenverantwortung entwickeln; die jeweiligen Entscheidungen erklären und sinnvoll kommentieren.
-2. API-Verträge und Sicherheitsvorgaben respektieren; keine „temporär offene“ Produktionsroute einführen.
-3. Positive/negative Tests hinzufügen und tatsächlich ausführen, soweit die Umgebung es erlaubt.
-4. Betroffene Dokumente und gegebenenfalls [CHANGELOG.md](CHANGELOG.md) aktualisieren.
-5. Nur beauftragte Dateien ändern, keine unaufgeforderten großen Refactorings.
-6. Keine destruktiven Git-Operationen, Force Pushes, Releases, Produktionsmigrationen oder Secret-Uploads ohne ausdrückliche Genehmigung.
+### Before editing
 
-### Im Abschlussbericht
+1. Identify the exact user task, target version, related requirement IDs and **non-goals**.
+2. Check branch/HEAD, git status, real source files, dependencies, tests and workflows.
+3. Read relevant requirements, technical spec, architecture, risks and prior decisions.
+4. Identify impact on permissions, SQL, secrets, transport, public contracts and data migration.
+5. Propose an [ADR](docs/adr/README.md) for a long-lived architecture trade-off.
 
-- **Änderungen:** welche Dateien/Funktionen/Anforderungs-IDs tatsächlich bearbeitet wurden.
-- **Tests:** exakt ausgeführte Kommandos und Ergebnisse oder **„nicht ausgeführt“ mit Begründung**.
-- **Sicherheit und Risiken:** offene Punkte, insbesondere Provider-, Auth- und Datenintegritätsgrenzen.
-- **Dokumentation:** geänderte API-/Config-/Betriebsunterlagen und ggf. ADRs.
-- **Nächster Schritt:** ein kleiner realistischer Folgeslice; keine unbeauftragte Ausweitung auf V1.
+### During implementation
 
-## 11. GitHub, Reviews und Definition of Done
+1. Implement the **smallest coherent slice** and preserve layer boundaries.
+2. Write understandable, complete and well-commented code.
+3. Add **positive and negative** verification for new routes, SQL paths, fields and permissions.
+4. Keep README, configuration/API docs and [CHANGELOG.md](CHANGELOG.md) aligned as relevant.
+5. Do not perform unrelated refactors or premature V1 work.
+6. No destructive Git operations, force pushes, unrelated branch changes, production migrations or secret uploads without explicit authorization.
 
-Kleine, nachvollziehbare Git-Änderungen und aussagekräftige Commitnachrichten bevorzugen, etwa `docs: add AGENTS guidance`, `feat(v0): add resource registry` oder `test(v0): reject unknown fields`. Pull Requests nennen Anforderungs-IDs, Tests, Nicht-Ziele und Risiken. [CONTRIBUTING.md](CONTRIBUTING.md) und die vorhandenen GitHub-Issue-/PR-Vorlagen beachten.
+### Final task report
 
-**Fertig ist ein Slice erst**, wenn der vereinbarte Umfang umgesetzt, die Schichtentrennung bewahrt, positive und negative Fälle belegt, Geheimnisse geschützt und Dokumentation/Vertrag konsistent sind. Fehlende Host- oder Recovery-Tests bleiben **offen**; keinen Tag, Release, Audit oder erfolgreichen CI-Lauf behaupten, bevor er tatsächlich existiert.
+State, accurately and concisely:
 
-**Erster geplanter Schritt:** `V0-G0` (Hosting-/Security-Grenzen), danach `V0-M0` (kleines Projektgerüst). **V0 sicher und nachvollziehbar fertigstellen – anschließend gezielt V1.**
+- **Changes actually made:** files, requirement IDs and material design choices.
+- **Tests actually executed:** exact commands, environments and results; separately list anything **not run** and why.
+- **Risks/open decisions:** especially shared-hosting, authorization and data-integrity blockers.
+- **Documentation updated:** API/config/runbook/changelog/ADR as appropriate.
+- **Smallest useful next step**, without performing unrelated work.
+
+A completed design document is **not** a passing build or an accepted product.
+
+## 11. GitHub reviews and Definition of Done
+
+Prefer small thematic branches and PRs with meaningful commit messages such as `docs: add agent guidance`, `feat(v0): add resource registry` or `test(v0): reject unauthorized fields`. If committing directly to main is explicitly requested, verify state first and change only the intended files.
+
+Use [CONTRIBUTING.md](CONTRIBUTING.md) and the repository's issue/PR templates. Do not import third-party code/docs without license and attribution review.
+
+An implementation slice is **done** only when agreed scope, architecture, positive/negative tests, confidentiality and documentation agree. Unverified provider/security/recovery gates must remain **open**.
+
+**First planned work:** **V0-G0** — verify actual shared-hosting/private-file/TLS constraints — followed by **V0-M0** (minimal project skeleton). **Build and accept V0 safely before expanding to V1.**
 
 ---
-**Agentenhinweis:** Diese Datei beschreibt Arbeitsrichtlinien. Sie erteilt **keine** Erlaubnis für ungefragte Aktionen in Produktivsystemen oder für das Abschwächen von Sicherheitsvorgaben.
+
+**Agent safety boundary:** This file provides development guidelines, **not authorization** for unsolicited production changes, public releases or bypassing protective controls.

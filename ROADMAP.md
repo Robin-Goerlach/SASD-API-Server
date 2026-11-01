@@ -3,7 +3,7 @@
 > **Language:** **English (default)** | [Deutsch](ROADMAP.de.md)  
 > **Updated:** November 1, 2026 · **Status:** planning; no implemented or accepted milestones are claimed.  
 > **Requirements:** [V0 (English)](docs/requirements-v0.md) · [V1 (English)](docs/requirements-v1.md)  
-> **Technical designs (German):** [V0](docs/technical-specification-v0.md) · [V1](docs/technical-specification-v1.md) · [Architecture V0](docs/architecture-v0.md) · [Architecture V1](docs/architecture-v1.md)  
+> **Technical designs (English default):** [V0](docs/technical-specification-v0.md) · [V1](docs/technical-specification-v1.md) · [Architecture V0](docs/architecture-v0.md) · [Architecture V1](docs/architecture-v1.md)  
 > **Implementation:** [V0 development plan](docs/development-plan-v0.md) · [Test strategy](docs/test-strategy.md) · [Release and acceptance](docs/release-acceptance.md)
 
 ## 1. Product vision and principles

@@ -1,5 +1,7 @@
 # API Server Reference Products — Feature Catalog
 
+> **Language:** **English (legacy file path)** · [English (default)](reference-products-feature-catalog.md) · [Deutsch](reference-products-feature-catalog.de.md)  
+
 > **SASD-API-Server — technical reference study, as of November 1, 2026**
 >
 > This is the English counterpart of [the original German reference study](./referenzprodukte-funktionskatalog.md). It documents features of the three selected reference products: **PHP-CRUD-API**, **DreamFactory**, and **DB2Rest**. It is a research and idea catalog, **not a product specification or implementation commitment** for SASD V0.1.0.

@@ -1,5 +1,7 @@
 # SASD API Server
 
+> **Language:** **English (default)** | [Deutsch](README.de.md)
+
 **A lightweight, configurable, open-source REST/JSON data API server for multiple independent applications.**
 
 SASD API Server is a project by **SASD — Scientific and Software Development**. Its goal is to avoid repeatedly implementing the same database-access infrastructure in different applications. Instead, a reusable server core will expose **explicitly approved data resources** over a predictable, language-independent HTTP interface.
@@ -13,7 +15,7 @@ The initial release is intentionally small: **PHP 8.4, MariaDB/MySQL, single-rec
 >
 > Do **not** consider this a production-ready API server based solely on its documentation. Implementation, tests, real shared-hosting verification, security review, and release approval are still required.
 
-[**Roadmap**](ROADMAP.md) · [**Documentation index**](docs/README.md) · [**V0 requirements (English)**](docs/requirements-v0.en.md) · [**V1 requirements (English)**](docs/requirements-v1.en.md) · [**Contributing**](CONTRIBUTING.md)
+[**Roadmap**](ROADMAP.md) · [**Documentation index**](docs/README.md) · [**V0 requirements (English)**](docs/requirements-v0.md) · [**V1 requirements (English)**](docs/requirements-v1.md) · [**Contributing**](CONTRIBUTING.md)
 
 ---
 
@@ -108,7 +110,7 @@ A larger feature set is not automatically better. The goal is a **small and reli
 
 V0 includes **17 functional MUST requirements** and **10 acceptance scenarios**. V1 adds **22 mandatory requirements**, **five optional SHOULD requirements**, and **16 acceptance scenarios**. These are design requirements, not test results.
 
-Further details: [ROADMAP.md](ROADMAP.md), [V0 requirements](docs/requirements-v0.en.md), [V1 requirements](docs/requirements-v1.en.md).
+Further details: [ROADMAP.md](ROADMAP.md), [V0 requirements](docs/requirements-v0.md), [V1 requirements](docs/requirements-v1.md).
 
 ## V0 functional scope
 
@@ -141,7 +143,7 @@ The first database adapter is **MariaDB/MySQL via PDO**. There is no requirement
 
 No automatic SQL schema modification, arbitrary SQL endpoint, multi-row bulk writes, joins, GraphQL, web-based administration, interactive user accounts, SSO, distributed transactions, data-import engine, or framework-style application hosting.
 
-V0 is a **data API**, not an enterprise integration platform or a business-process engine. See [V0 requirements](docs/requirements-v0.en.md) for precise constraints and acceptance criteria.
+V0 is a **data API**, not an enterprise integration platform or a business-process engine. See [V0 requirements](docs/requirements-v0.md) for precise constraints and acceptance criteria.
 
 ## V1 planned expansion
 
@@ -168,7 +170,7 @@ After V0 passes acceptance, the server is intended to grow into a more capable b
 
 **Important:** A second storage adapter is not a data-migration tool. Moving an existing application from MariaDB to SQLite requires an independent data-migration procedure and compatibility checks.
 
-Read the [V1 technical specification](docs/pflichtenheft-v1.md) and [architecture](docs/architektur-v1.md) for detailed design decisions.
+Read the [V1 technical specification](docs/technical-specification-v1.md) and [architecture](docs/architecture-v1.md) for detailed design decisions.
 
 ## Architecture and design
 
@@ -586,7 +588,7 @@ If the hosting platform cannot safely separate public and private paths, the ins
 9. Perform a **backup followed by a restore on a separate test installation**.
 10. Record the release commit, tested versions, actual results and deployment approval.
 
-**There is no runnable installer or verified `composer install` / `composer test` workflow yet.** Those tools and commands must be implemented and verified during development. The full [operations and recovery runbook](docs/betrieb-und-deployment.md) describes the proposed process.
+**There is no runnable installer or verified `composer install` / `composer test` workflow yet.** Those tools and commands must be implemented and verified during development. The full [operations and recovery runbook](docs/deployment-operations.md) describes the proposed process.
 
 ## Proposed project structure
 
@@ -673,7 +675,7 @@ The five V1 SHOULD items may be postponed only through an explicit recorded scop
 
 **Test evidence must be real:** record the commit, environment, exact commands, result, known issues, and release authorization. A README, a passing syntax check, or an architecture drawing is not proof of successful acceptance.
 
-See [test strategy](docs/teststrategie.md) and [release/acceptance checklists](docs/release-und-abnahme.md).
+See [test strategy](docs/test-strategy.md) and [release/acceptance checklists](docs/release-acceptance.md).
 
 ## Roadmap and milestones
 
@@ -693,7 +695,7 @@ Development follows small, documented increments rather than speculative timelin
 
 The current **next planned milestone** is **V0-G0: hosting/security architecture review**, followed by the initial repository/bootstrap slice.
 
-There is **no committed completion date**. Only changes evidenced by source code, tests, review and release decisions can be marked completed. For the full sequence, see [ROADMAP.md](ROADMAP.md) and [V0 development plan](docs/entwicklungsplan-v0.md).
+There is **no committed completion date**. Only changes evidenced by source code, tests, review and release decisions can be marked completed. For the full sequence, see [ROADMAP.md](ROADMAP.md) and [V0 development plan](docs/development-plan-v0.md).
 
 ## Documentation library
 
@@ -703,10 +705,10 @@ The planning work intentionally keeps the user requirements, implementation spec
 
 | Document family | V0 | V1 |
 |---|---|---|
-| Requirements (English) | [Requirements V0](docs/requirements-v0.en.md) | [Requirements V1](docs/requirements-v1.en.md) |
-| Requirements (German) | [Lastenheft V0](docs/lastenheft-v0.md) | [Lastenheft V1](docs/lastenheft-v1.md) |
-| Technical specification (German) | [Pflichtenheft V0](docs/pflichtenheft-v0.md) | [Pflichtenheft V1](docs/pflichtenheft-v1.md) |
-| Software architecture (German) | [Architektur V0](docs/architektur-v0.md) | [Architektur V1](docs/architektur-v1.md) |
+| Requirements (English) | [Requirements V0](docs/requirements-v0.md) | [Requirements V1](docs/requirements-v1.md) |
+| Requirements (German) | [Lastenheft V0](docs/requirements-v0.de.md) | [Lastenheft V1](docs/requirements-v1.de.md) |
+| Technical specification (German) | [Pflichtenheft V0](docs/technical-specification-v0.md) | [Pflichtenheft V1](docs/technical-specification-v1.md) |
+| Software architecture (German) | [Architektur V0](docs/architecture-v0.md) | [Architektur V1](docs/architecture-v1.md) |
 
 The requirements specify **what** is needed. The technical specification details **how** the solution should satisfy it. The architecture documents explain the **components, boundaries, trade-offs and rationale**.
 
@@ -716,11 +718,11 @@ The requirements specify **what** is needed. The technical specification details
 |---|---|
 | [Documentation index](docs/README.md) | Reading order and document navigation |
 | [Roadmap](ROADMAP.md) | Feature/milestone scope, priorities and release gates |
-| [V0 development plan](docs/entwicklungsplan-v0.md) | Small, testable implementation slices |
-| [Test strategy](docs/teststrategie.md) | Unit, integration, contract, security, deployment and recovery checks |
-| [Deployment and recovery](docs/betrieb-und-deployment.md) | Private-file boundaries, configuration, hosting, backups and incidents |
-| [Release and acceptance](docs/release-und-abnahme.md) | Checklists, evidence and formal acceptance process |
-| [Risk register](docs/risikoregister.md) | Unresolved safety and operational risks |
+| [V0 development plan](docs/development-plan-v0.md) | Small, testable implementation slices |
+| [Test strategy](docs/test-strategy.md) | Unit, integration, contract, security, deployment and recovery checks |
+| [Deployment and recovery](docs/deployment-operations.md) | Private-file boundaries, configuration, hosting, backups and incidents |
+| [Release and acceptance](docs/release-acceptance.md) | Checklists, evidence and formal acceptance process |
+| [Risk register](docs/risk-register.md) | Unresolved safety and operational risks |
 | [ADR index](docs/adr/README.md) · [ADR template](docs/adr/0000-template.md) | Architecture decision recording |
 | [AGENTS.md](AGENTS.md) | Instructions for coding agents |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution and engineering guidelines |
@@ -742,7 +744,7 @@ SASD API Server was informed by the study of several existing API platforms:
 
 The reference products are **sources of design ideas**, not a 157-item delivery checklist. Their licensing, deployment requirements and free/commercial feature boundaries must be verified independently before reuse.
 
-The complete research is in the [English reference catalog](docs/reference-products-feature-catalog.en.md) and [German catalog](docs/referenzprodukte-funktionskatalog.md).
+The complete research is in the [English reference catalog](docs/reference-products-feature-catalog.md) and [German catalog](docs/reference-products-feature-catalog.de.md).
 
 ### Explicit non-goals
 

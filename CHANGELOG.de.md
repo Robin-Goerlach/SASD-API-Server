@@ -15,6 +15,9 @@ Wesentliche Projektänderungen werden hier dokumentiert. Der Aufbau orientiert s
 - Mitwirkungsregeln, Sicherheitsrichtlinie und Dokumentationsnavigation.
 - Zweisprachige Einstiegspunkte und Sprachumschaltung (soweit verfügbar).
 
+- **Englisch als Standardsprache** für kanonische Markdown-Dateien eingeführt; die **deutschen Fassungen unter `.de.md`** sind für Lastenhefte, Pflichtenhefte, Architektur, Roadmap, Betrieb, Tests, Risiken, Projektregeln und GitHub-Vorlagen verfügbar.
+- Bisherige deutsche und englische Dateipfade mit Sprachverweisen für bestehende Links beibehalten; unverbindliche deutsche MIT-Lizenzübersetzung ergänzt, rechtlich maßgeblich bleibt `LICENSE`.
+
 ### Wichtige Statushinweise
 
 - **Es wird keine implementierte oder abgenommene V0.1.0 oder V1.0.0 behauptet.**

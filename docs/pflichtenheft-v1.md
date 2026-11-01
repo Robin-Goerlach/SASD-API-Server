@@ -1,5 +1,7 @@
 # SASD-API-Server – Pflichtenheft V1
 
+> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](technical-specification-v1.md) · [Deutsch (kanonisch)](technical-specification-v1.de.md)  
+
 > **Status:** Technischer Entwurf für V1.0 · **Dokumentversion:** 0.1 · **Stand:** 01.11.2026  
 > **Grundlagen:** [Lastenheft V1](./lastenheft-v1.md) · [Pflichtenheft V0](./pflichtenheft-v0.md) · [Lastenheft V0](./lastenheft-v0.md)  
 > **Recherche:** [Referenzprodukte-Funktionskatalog](./referenzprodukte-funktionskatalog.md)  

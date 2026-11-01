@@ -1,5 +1,7 @@
 # SASD-API-Server – Lastenheft V0
 
+> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](requirements-v0.md) · [Deutsch (kanonisch)](requirements-v0.de.md)  
+
 > **Status:** Entwurf zur fachlichen Abstimmung · **Version:** 0.1 · **Erstellt:** 01.11.2026  
 > **Repository:** [Robin-Goerlach/SASD-API-Server](https://github.com/Robin-Goerlach/SASD-API-Server)  
 > **Weiterführend:** [Lastenheft V1](./lastenheft-v1.md) · [Funktionskatalog der Referenzprodukte](./referenzprodukte-funktionskatalog.md) · [englischer Funktionskatalog](./reference-products-feature-catalog.en.md)

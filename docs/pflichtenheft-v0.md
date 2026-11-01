@@ -1,5 +1,7 @@
 # SASD-API-Server – Pflichtenheft V0
 
+> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](technical-specification-v0.md) · [Deutsch (kanonisch)](technical-specification-v0.de.md)  
+
 > **Status:** Technischer Entwurf, vor Implementierung zu prüfen · **Dokumentversion:** 0.1 · **Stand:** 01.11.2026  
 > **Architektur:** [Softwarearchitektur V0](./architektur-v0.md) (Architekturentwurf)  
 > **Geltungsbereich:** V0.1.0 · **Sprache:** Deutsch  

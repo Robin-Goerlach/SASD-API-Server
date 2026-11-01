@@ -738,7 +738,7 @@ SASD API Server was informed by the study of several existing API platforms:
 |---|---|---|
 | [PHP-CRUD-API](https://github.com/mevdschee/php-crud-api) | Lightweight PHP CRUD, filtering, middleware, configuration | Automatic, unrestricted exposure of database tables |
 | [DreamFactory](https://github.com/dreamfactorysoftware/dreamfactory) | Configurable services, policy, documentation and administration concepts | The entire integration suite, all editions, or a no-code management product |
-| [DB2Rest](https://github.com/kdhrubo/db2rest) | Relational API queries, SQL dialect abstractions, observability | Unbounded RSQL, arbitrary raw SQL, bulk features or every supported backend |
+| [DB2Rest](https://github.com/9tigerio/db2rest) | Relational API queries, SQL dialect abstractions, observability | Unbounded RSQL, arbitrary raw SQL, bulk features or every supported backend |
 
 The reference products are **sources of design ideas**, not a 157-item delivery checklist. Their licensing, deployment requirements and free/commercial feature boundaries must be verified independently before reuse.
 

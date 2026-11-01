@@ -1,5 +1,7 @@
 # SASD-API-Server — Requirements Specification V1
 
+> **Language:** **English (legacy file path)** · [English (default)](requirements-v1.md) · [Deutsch](requirements-v1.de.md)  
+
 > **Status:** Draft for the future 1.0 product release · **Document version:** 0.1 · **Created:** 2026-11-01  
 > **Repository:** [Robin-Goerlach/SASD-API-Server](https://github.com/Robin-Goerlach/SASD-API-Server)  
 > **German source:** [Lastenheft V1](./lastenheft-v1.md) · **Foundation:** [Requirements Specification V0](./requirements-v0.en.md) · [Reference catalog (DE)](./referenzprodukte-funktionskatalog.md) · [Feature catalog (EN)](./reference-products-feature-catalog.en.md)

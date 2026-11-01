@@ -328,7 +328,7 @@ The **precise endpoint syntax** below is provisional and must be finalized in th
 - **V0 requirements (this document):** intended mandatory scope **once approved** by the project owner.
 - [V1 requirements](./requirements-v1.en.md): separate planned scope for a later stable product release. V1 expands upon an accepted V0 baseline.
 - [German reference catalog](./referenzprodukte-funktionskatalog.md): external research and inspiration, not automatically included requirements.
-- **V0 technical implementation specification (not yet written):** concrete implementation, data formats, configuration, keys, tests, and HTTP error contracts.
+- **[V0 technical implementation specification (German)](./pflichtenheft-v0.md) (draft):** concrete implementation, data formats, configuration, keys, tests, and HTTP error contracts.
 - **Change control:** New requirements require a stable identifier, a rationale, and an explicit assignment to V0, V1, or a later release.
 
 ---

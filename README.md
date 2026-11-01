@@ -61,6 +61,7 @@ V1 also includes five **SHOULD** capabilities, such as read-only named queries a
 
 ## Contributing, security, and license
 
+- [AGENTS.md](AGENTS.md) — instructions for coding agents: V0-first architecture, security, tests and working practices.
 - [CONTRIBUTING.md](CONTRIBUTING.md) — project scope, contribution guidelines, review and tests.
 - [SECURITY.md](SECURITY.md) — how to report vulnerabilities privately and how security is designed.
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — community expectations.

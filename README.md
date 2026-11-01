@@ -707,8 +707,8 @@ The planning work intentionally keeps the user requirements, implementation spec
 |---|---|---|
 | Requirements (English) | [Requirements V0](docs/requirements-v0.md) | [Requirements V1](docs/requirements-v1.md) |
 | Requirements (German) | [Lastenheft V0](docs/requirements-v0.de.md) | [Lastenheft V1](docs/requirements-v1.de.md) |
-| Technical specification (German) | [Pflichtenheft V0](docs/technical-specification-v0.md) | [Pflichtenheft V1](docs/technical-specification-v1.md) |
-| Software architecture (German) | [Architektur V0](docs/architecture-v0.md) | [Architektur V1](docs/architecture-v1.md) |
+| Technical specification (English) | [Technical Specification V0](docs/technical-specification-v0.md) | [Technical Specification V1](docs/technical-specification-v1.md) |
+| Software architecture (English) | [Architecture V0](docs/architecture-v0.md) | [Architecture V1](docs/architecture-v1.md) |
 
 The requirements specify **what** is needed. The technical specification details **how** the solution should satisfy it. The architecture documents explain the **components, boundaries, trade-offs and rationale**.
 
@@ -730,7 +730,7 @@ The requirements specify **what** is needed. The technical specification details
 | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Community expectations |
 | [CHANGELOG.md](CHANGELOG.md) | Unreleased work and future genuine release notes |
 
-The requirements and feature catalog are available in **English and German**. Most technical and operational documents are currently maintained in **German**. Their draft status is preserved; translating text does not constitute product approval.
+**All project documentation is now linked in English and German**, with English as the default navigation language. See the [bilingual document matrix](docs/README.md). Translation and publication do **not** constitute implementation, testing or product approval.
 
 ## Reference products and non-goals
 

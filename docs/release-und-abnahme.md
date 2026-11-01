@@ -1,5 +1,7 @@
 # SASD API Server – Releaseprozess, Abnahme und Checklisten
 
+> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](release-acceptance.md) · [Deutsch (kanonisch)](release-acceptance.de.md)  
+
 > **Status:** Verfahrensentwurf, kein Release oder bestandener Test wird behauptet · **Stand:** 01.11.2026  
 > Referenzen: [Roadmap](../ROADMAP.md), [Teststrategie](teststrategie.md), [Entwicklungsplan V0](entwicklungsplan-v0.md), [Lastenheft V0](lastenheft-v0.md), [Lastenheft V1](lastenheft-v1.md)
 

@@ -14,6 +14,9 @@ All notable project changes will be recorded here. The project intends to follow
 - V0-first [roadmap](ROADMAP.md), detailed V0 development plan, test strategy, deployment and recovery runbook, risk register, release/acceptance process, and ADR register.
 - Contributor and security guidance, plus documentation navigation.
 
+- Introduced **English-default canonical Markdown paths** with separate **German `.de.md` companions** for requirements, technical specifications, architecture, roadmap, operations, testing, risk, governance, and GitHub templates.
+- Preserved legacy German and English filenames with language-navigation links for backward compatibility; provided an unofficial German translation of the MIT license while keeping `LICENSE` authoritative.
+
 ### Important status notes
 
 - **No V0.1.0 or V1.0.0 implementation or successful acceptance is claimed here.**

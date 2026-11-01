@@ -3,6 +3,7 @@
 > **Status:** Technischer Entwurf für V1.0 · **Dokumentversion:** 0.1 · **Stand:** 01.11.2026  
 > **Grundlagen:** [Lastenheft V1](./lastenheft-v1.md) · [Pflichtenheft V0](./pflichtenheft-v0.md) · [Lastenheft V0](./lastenheft-v0.md)  
 > **Recherche:** [Referenzprodukte-Funktionskatalog](./referenzprodukte-funktionskatalog.md)  
+> **Architektur:** [Softwarearchitektur V1](./architektur-v1.md) (Architekturentwurf)  
 > **Gültigkeit:** zukünftige, noch nicht implementierte V1.0; keine formale Freigabe oder Abnahme behauptet.
 
 ## 1. Zweck und Voraussetzungen

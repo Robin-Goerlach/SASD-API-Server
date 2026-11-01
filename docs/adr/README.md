@@ -1,73 +1,74 @@
 # SASD API Server – Architecture Decision Records (ADRs)
 
-> **Status:** ADR-Register vorbereitet. Die nachstehenden Einträge sind **Entscheidungskandidaten, keine bereits freigegebenen Beschlüsse**.  
-> Ausgangsbasis: [Architektur V0](../architektur-v0.md), [Architektur V1](../architektur-v1.md), [Risikoregister](../risikoregister.md), [Roadmap](../../ROADMAP.md)
+> **Language:** **English (default)** | [Deutsch](README.de.md)  
+> **Status:** This is a registry of **proposed decisions**, not a list of already approved architecture changes.  
+> References: [V0 architecture](../architecture-v0.md) · [V1 architecture](../architecture-v1.md) · [Risk register](../risk-register.md) · [Roadmap](../../ROADMAP.md)
 
-## 1. Zweck
+## 1. Purpose
 
-Eine Architecture Decision Record (ADR) hält eine technisch wichtige **Entscheidung samt Begründung** langfristig fest. Ein ausführliches Pflichtenheft beschreibt die Gesamtarchitektur; eine ADR beantwortet dagegen eine einzelne, umstrittene oder langfristig bindende Frage: Welche Alternativen gab es, warum wurde genau diese gewählt, welche Konsequenzen folgen daraus und welche Tests belegen sie?
+An **Architecture Decision Record (ADR)** preserves the context, alternatives, justification, consequences and verification of an important technical decision. Technical specifications describe the system as a whole; an ADR answers a narrower long-lived question: **Why this solution rather than another?**
 
-Wir wollen keine Flut nutzloser Kleindokumente. Eine ADR ist sinnvoll, wenn eine Entscheidung den API-Vertrag, die Sicherheit, Datenbank-Portabilität, Deploymentgrenzen, Versions-/Konfigurationsschema oder längerfristige Wartbarkeit beeinflusst.
+Do not create paperwork for every insignificant edit. An ADR is useful when a choice affects security, public API behavior, database portability, deployment, config-versioning, system boundaries or long-term maintainability.
 
-## 2. Statusmodell
+## 2. Decision status
 
-| Status | Bedeutung |
+| Status | Meaning |
 |---|---|
-| Vorgeschlagen | Ein Lösungsvorschlag, noch nicht freigegeben |
-| Angenommen | bewusster Beschluss nach Review |
-| Ersetzt | durch eine neue ADR ausdrücklich abgelöst |
-| Verworfen | Alternative wurde geprüft und abgelehnt |
-| Zurückgezogen | Entscheidung derzeit nicht notwendig |
+| **Proposed** | Suggested solution; not yet accepted |
+| **Accepted** | Decision explicitly approved after review |
+| **Superseded** | Replaced by an identified newer ADR |
+| **Rejected** | Evaluated, deliberately not selected |
+| **Withdrawn** | No longer necessary |
 
-**Wichtig:** Ein Eintrag in der Architektur oder dieses Register allein begründet **noch keinen** „Angenommen“-Status.
+**Listing a candidate here does not make it accepted.** Draft architecture documentation does not constitute approval.
 
-## 3. Vorgesehene ADRs V0
+## 3. Candidate decisions for V0
 
-| Geplante ID | Frage / Kandidat | Verbindung |
+| Proposed ID | Question | Related requirement / risk |
 |---|---|---|
-| ADR-0001 | PHP 8.4 + PDO ohne Frameworkpflicht für Shared Hosting | Architektur V0 ``3–4 |
-| ADR-0002 | Ressourcen/Felder/Methoden explizit per Allowlist | V0-F01/F06, R-003 |
-| ADR-0003 | index.php im Webroot, private Dateien außerhalb | R-001/R-006 |
-| ADR-0004 | API-Key je V0-Instanz statt Endnutzerverwaltung | V0-F11, R-005 |
-| ADR-0005 | kleiner Repository-Port, MariaDB als einziger V0-Adapter | V0-F02–05 |
-| ADR-0006 | PUT-Vollersatz/PATCH-Teiländerung und atomarer Einzelrequest | V0-F04 |
-| ADR-0007 | begrenzte eq/AND-Filter statt freiem SQL | V0-F07/F08 |
-| ADR-0008 | Query-Routing-Fallback bei eingeschränktem Rewriting | V0-RB04 |
-| ADR-0009 | HTTPS-/Proxy-Vertrauensgrenze | R-002 |
+| ADR-0001 | PHP 8.4 and PDO without a required heavyweight framework | V0 deployment and layer boundaries |
+| ADR-0002 | Explicit resource/field/method allowlists | V0-F01/F06; R-003 |
+| ADR-0003 | Root index.php with private files physically outside the document root | R-001/R-006 |
+| ADR-0004 | One technical API key per V0 instance, no end-user identity system | V0-F11; R-005 |
+| ADR-0005 | Small repository port and one MariaDB adapter | V0-F02–F05 |
+| ADR-0006 | Defined PUT replacement vs PATCH partial-update semantics | V0-F04 |
+| ADR-0007 | Bounded equality/AND filters instead of raw SQL | V0-F07/F08 |
+| ADR-0008 | Query-parameter routing fallback when rewrite is restricted | V0 hosting constraint |
+| ADR-0009 | HTTPS and trusted reverse-proxy boundary | R-002 |
 
-## 4. Vorgesehene ADRs V1
+## 4. Candidate decisions for V1
 
-| Geplante ID | Frage / Kandidat | Verbindung |
+| Proposed ID | Question | Related requirement / risk |
 |---|---|---|
-| ADR-0010 | Separater API-V1-Vertragsraum | V1-F01 |
-| ADR-0011 | SQLite als zweiter verpflichtender DB-Adapter | V1-F10, R-018/R-019 |
-| ADR-0012 | AST-/QueryPlan vor SQL-Compiler | V1-F05/F07 |
-| ADR-0013 | mehrere technische API-Key-Identitäten und rollenbasierte Policies | V1-F12/F13 |
-| ADR-0014 | Write-Audit im gleichen lokalen DB-Commit | V1-F19, R-017 |
-| ADR-0015 | Dateibasierter oder DB-basierter Rate-Limit-Store ohne Redis | V1-F17, R-020 |
-| ADR-0016 | OpenAPI aus autorisierten Ressourcendefinitionen | V1-F21 |
-| ADR-0017 | Ressourcen-/Konfigurationsschema Version 2 mit Migration | V1-F23 |
-| ADR-0018 | fünf SOLL-Funktionen als getrennte, optionale Slices | V1-F09/F14/F16/F22/F27 |
+| ADR-0010 | Separate V1 HTTP contract namespace | V1-F01 |
+| ADR-0011 | SQLite as the second mandatory adapter | V1-F10; R-018/R-019 |
+| ADR-0012 | Typed query AST/QueryPlan before SQL compilation | V1-F05/F07 |
+| ADR-0013 | Multiple technical keys and role-based access control | V1-F12/F13 |
+| ADR-0014 | Write-audit record and data change in the same local DB transaction | V1-F19; R-017 |
+| ADR-0015 | Persistent, atomic rate limiting without mandatory Redis | V1-F17; R-020 |
+| ADR-0016 | OpenAPI generated from authorized resources | V1-F21 |
+| ADR-0017 | Versioned resource configuration schema v2 and migration | V1-F23 |
+| ADR-0018 | Five SHOULD modules as separate optional slices | V1-F09/F14/F16/F22/F27 |
 
-Die Nummern reservieren noch **keine Dateien**. Bei tatsächlichen Reviewentscheidungen können wir die erste akzeptierte ADR als `0001-kurztitel.md` anlegen; eine weitere Entscheidung ersetzt sie nur durch ausdrückliche Referenz.
+The IDs indicate *candidates*, not existing accepted ADR files.
 
-## 5. ADR-Prozess
+## 5. ADR workflow
 
-1. Eine Frage oder ein Risiko benennt einen langfristig bedeutsamen Architekturkonflikt.
-2. Erstelle eine Kopie von [0000-template.md](0000-template.md) mit eindeutiger ID und sprechendem Dateinamen.
-3. Beschreibe Kontext, zwingende Anforderungen, mindestens eine sinnvolle Alternative und Konsequenzen für Tests/Security/Hosting.
-4. Markiere `Vorgeschlagen`; prüfe im Review mit Bezug zu Lastenheft und Pflichtenheft.
-5. Nach bewusster Freigabe auf `Angenommen` setzen, Begründung und Entscheiddatum vermerken.
-6. Verlinke die ADR aus Architektur, PR, Roadmap oder betroffener Testdokumentation.
-7. Ändert sich die Entscheidung später, lege eine neue ADR an; die alte wird `Ersetzt` statt rückwirkend umgeschrieben.
+1. Identify a specific architectural problem or long-term trade-off.
+2. Copy [0000-template.md](0000-template.md) to a uniquely numbered, descriptive filename.
+3. Record context, mandatory constraints, meaningful alternatives, security/operational consequences and verifiable tests.
+4. Mark the ADR **Proposed** and seek a technical review against requirements, specifications and risks.
+5. On explicit approval, mark **Accepted** and document the decision date and evidence.
+6. Link the ADR from the relevant architecture chapter, code PR, roadmap and tests.
+7. When reversing a decision, write a new ADR and mark the old one **Superseded** rather than rewriting history.
 
-## 6. Besondere Reviewfragen für SASD
+## 6. SASD review questions
 
-- Sind private Konfigurations-/Schlüsseldateien wirklich außerhalb des Webroots?
-- Bleiben unbekannte Datenbankressourcen standardmäßig geschlossen?
-- Wird der V0-Clientvertrag durch die Entscheidung unbemerkt verändert?
-- Erlaubt eine Abstraktion V1-Adapter, ohne jetzt Überengineering einzuführen?
-- Gibt es einen negativen Sicherheits- und einen realen Provider-Test?
-- Kann die Entscheidung bei Problemen anhand eines dokumentierten Backups zurückgenommen werden?
+- Are secrets/config/logs **physically outside the public document root**?
+- Are unknown tables and fields **denied by default**?
+- Does the proposed change break the V0 client contract or its hosting target?
+- Does the adapter boundary support V1 without premature V0 complexity?
+- Is there a negative security test and, where relevant, a real provider test?
+- Can the change be safely reversed through a documented restore/recovery process?
 
-**Dokumentstatus:** Register und Vorgehen vorhanden; bisher keine individualisierte, akzeptierte ADR durch dieses Dokument behauptet.
+**Current status:** The register and template exist; no individual approved ADR is claimed by this document.

@@ -328,7 +328,7 @@ Die **konkrete Schreibweise** der folgenden Beispiele ist vorläufig und wird im
 - **Lastenheft V0 (dieses Dokument):** verbindlicher gewünschter Funktionsumfang **nach** fachlicher Freigabe.
 - [Lastenheft V1](./lastenheft-v1.md): separates Zielbild für einen späteren, stabileren Produktrelease. V1 erweitert die tatsächlich abgenommene V0-Basis.
 - [Funktionskatalog](./referenzprodukte-funktionskatalog.md): externe Inspirations-/Recherchequelle, kein automatischer Teil dieses Lastenhefts.
-- **Pflichtenheft V0 (noch zu erstellen):** technische Umsetzung und konkrete API-Verträge, Entscheidungen zu Konfigurationsformat, IDs, Tests und Fehlerobjekten.
+- **[Pflichtenheft V0](./pflichtenheft-v0.md) (technischer Entwurf):** technische Umsetzung und konkrete API-Verträge, Entscheidungen zu Konfigurationsformat, IDs, Tests und Fehlerobjekten.
 - **Änderungssteuerung:** Neue Anforderungen nur mit eigener Kennung, nachvollziehbarer Begründung und bewusster Zuordnung zu V0/V1/später aufnehmen.
 
 ---

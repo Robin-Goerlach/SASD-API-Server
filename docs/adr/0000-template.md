@@ -1,64 +1,66 @@
-# ADR-XXXX: Kurzer eindeutiger Titel
+# ADR-XXXX: Short, specific decision title
 
-> **Status:** Vorgeschlagen  
-> **Entscheidungsdatum:** noch offen  
-> **Betroffene Version:** V0 / V1 / später  
-> **Verantwortung:** Projekt-/Architekturreview  
-> **Verweise:** Lastenheft-ID, Pflichtenheftabschnitt, Risiko-ID, Issue/PR
+> **Language:** **English (default)** | [Deutsch](0000-template.de.md)  
+> **Status:** Proposed  
+> **Decision date:** pending  
+> **Target version:** V0 / V1 / later  
+> **Decision owner:** project/architecture review  
+> **Links:** requirement IDs, specification sections, risks, issues and PRs
 
-## Kontext und Problem
+## Context and problem
 
-Was ist aktuell unklar? Welcher konkrete Anwendungsfall, welche Hosting- oder Sicherheitsgrenze löst die Frage aus? Welche bestehenden Vereinbarungen müssen respektiert werden?
+What is unclear? Which application need, operational constraint or security boundary makes this decision necessary? Which existing requirements and guarantees must be preserved?
 
-## Entscheidungstreiber
+## Decision drivers
 
-Welche Anforderungen sind wichtig, beispielsweise Sicherheit, kleine V0, IONOS-PHP-Shared-Hosting, Datentypkonsistenz, Wiederherstellung, Performance oder Wartbarkeit? Welche sind zwingend, welche nur wünschenswert?
+What matters? Examples: security, small V0 scope, PHP 8.4 shared hosting, database portability, recovery, testability, maintainability, performance. Distinguish **mandatory** from **desirable** constraints.
 
-## Geprüfte Alternativen
+## Considered alternatives
 
-| Alternative | Vorteile | Nachteile und Risiken |
+| Option | Advantages | Disadvantages / risks |
 |---|---|---|
 | A: ... | ... | ... |
 | B: ... | ... | ... |
 | C: ... (optional) | ... | ... |
 
-## Entscheidung
+## Decision
 
-**Noch nicht getroffen.** Bei Annahme die gewählte Alternative, den konkreten Geltungsbereich und die Begründung eindeutig benennen. Neue Funktionalität darf nicht nur durch die Existenz dieser Vorlage als freigegeben gelten.
+**Not decided yet.** After review, state the chosen alternative, its exact scope and why it was preferred. This template does **not** approve any technical implementation.
 
-## Konsequenzen
+## Consequences
 
-### Positive Auswirkungen
-
-- ...
-
-### Negative Auswirkungen und technische Schulden
+### Positive effects
 
 - ...
 
-### Sicherheit und Datenintegrität
+### Negative effects and technical debt
 
 - ...
 
-### Deployment und Betrieb
+### Security and data integrity
 
 - ...
 
-## Umsetzung und Prüfverfahren
+### Deployment and operations
 
-- [ ] Verknüpfte Anforderungen und Versionen benannt.
-- [ ] Positive Contract-/Integrationstests angegeben.
-- [ ] Negative Security-Tests angegeben.
-- [ ] Provider-/Restore-Test erforderlich? Wenn ja, welcher?
-- [ ] Dokumentationsänderungen benannt.
-- [ ] Fehlende Freigaben oder Risiken dokumentiert.
+- ...
 
-## Gültigkeit, Review und Ablösung
+## Implementation and verification
 
-- **Status:** Vorgeschlagen / Angenommen / Ersetzt / Verworfen / Zurückgezogen
-- **Review-/Entscheiddatum:**
-- **Referenzen zu PR/Commit:**
-- **Ersetzt durch:** (falls vorhanden)
+- [ ] Related requirements, versions and risk IDs are identified.
+- [ ] Positive contract/integration tests are defined.
+- [ ] Negative security tests are defined.
+- [ ] Real hosting and/or restore tests are defined when needed.
+- [ ] Required documentation updates are listed.
+- [ ] Outstanding decisions and accepted residual risks are explicit.
+
+## Review, status and supersession
+
+- **Status:** Proposed / Accepted / Superseded / Rejected / Withdrawn
+- **Review / decision date:**
+- **Associated PR / commit:**
+- **Superseded by:** (if relevant)
 
 ---
-**Vorlage** – kein angenommener Architekturentscheid. [ADR-Register](README.md).
+
+This is a **template**, not an accepted ADR. See the [ADR register](README.md).

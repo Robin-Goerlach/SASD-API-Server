@@ -5,6 +5,8 @@ A lightweight, open-source REST API server designed for reusable data access acr
 
 - [Lastenheft V0 (Deutsch)](docs/lastenheft-v0.md) — small initial version, scope and acceptance criteria.
 - [Lastenheft V1 (Deutsch)](docs/lastenheft-v1.md) — planned stable release, priorities and acceptance criteria.
+- [Architektur V0 (Deutsch)](docs/architektur-v0.md) — component, deployment, trust-boundary and request-flow views for the initial API.
+- [Architektur V1 (Deutsch)](docs/architektur-v1.md) — adapter, authorization, audit, migration and contract architecture for V1.
 - [Pflichtenheft V0 (Deutsch)](docs/pflichtenheft-v0.md) — detailed technical design for the small PHP/MariaDB V0 implementation.
 - [Pflichtenheft V1 (Deutsch)](docs/pflichtenheft-v1.md) — technical architecture and verification plan for the planned V1 expansion.
 - [Requirements Specification V0 (English)](docs/requirements-v0.en.md) — English translation of the initial V0 requirements and acceptance criteria.

@@ -183,7 +183,7 @@ Beispiel: `GET /api/v0/books?filter[published]=true&sort=-id&limit=20&offset=0`.
   },
   "requestId": "9fc085c3b2a043d3"
 }
-``
+```
 
 | Status | Code (Beispiel) | Ursache |
 |---|---|---|

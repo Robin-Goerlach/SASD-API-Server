@@ -1,5 +1,7 @@
 # SASD API Server – Teststrategie und Qualitätssicherung
 
+> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](test-strategy.md) · [Deutsch (kanonisch)](test-strategy.de.md)  
+
 > **Status:** Testkonzept, keine Testausführung behauptet · **Stand:** 01.11.2026  
 > Bezug: [Lastenheft V0](lastenheft-v0.md), [Pflichtenheft V0](pflichtenheft-v0.md), [Lastenheft V1](lastenheft-v1.md), [Pflichtenheft V1](pflichtenheft-v1.md)  
 > Prozess: [Entwicklungsplan](entwicklungsplan-v0.md) · [Release und Abnahme](release-und-abnahme.md) · [Roadmap](../ROADMAP.md)

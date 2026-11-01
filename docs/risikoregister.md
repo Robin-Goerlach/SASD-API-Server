@@ -1,5 +1,7 @@
 # SASD API Server – Risikoregister
 
+> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](risk-register.md) · [Deutsch (kanonisch)](risk-register.de.md)  
+
 > **Stand:** 01.11.2026 · **Status:** Initiale Architektur- und Planungsbewertung; keine gemessenen Eintrittswahrscheinlichkeiten  
 > Querverweise: [Roadmap](../ROADMAP.md), [Sicherheitsregeln](../SECURITY.md), [Architektur V0](architektur-v0.md), [Architektur V1](architektur-v1.md), [Teststrategie](teststrategie.md), [ADR-Register](adr/README.md)
 

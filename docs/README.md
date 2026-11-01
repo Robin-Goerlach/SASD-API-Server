@@ -1,86 +1,118 @@
 # SASD API Server – Documentation
 
 > **Language:** **English (default)** | [Deutsch](README.de.md)  
-> **Updated:** November 1, 2026 · **Status:** planning and architecture; no implemented or approved API release is claimed.  
-> [Repository](../README.md) · [Roadmap](../ROADMAP.md) · [Changelog](../CHANGELOG.md)
+> **Updated:** November 1, 2026 · **Status:** documentation and architectural design; no running or accepted V0/V1 implementation is claimed.  
+> [Repository README](../README.md) · [Roadmap](../ROADMAP.md) · [Changelog](../CHANGELOG.md)
 
-## 1. Reading order and documentation model
+## 1. How to read this documentation
 
-This repository distinguishes between **what** the product should do, **how** it should be implemented, **why** the architecture is organized as it is, **when** development is planned, and **how successful implementation will be demonstrated**.
+The documentation intentionally distinguishes:
+
+- **Requirements:** *What* functionality must be delivered and how it will be accepted.
+- **Technical specifications:** *How* the server is planned to satisfy those requirements.
+- **Software architecture:** *Why* components, dependencies, data flows and security boundaries are arranged as designed.
+- **Roadmap/development plans:** *In which order* work should be implemented in small reviewable stages.
+- **Testing and acceptance:** *What evidence* proves behavior, security and deployment actually work.
+- **Operations and recovery:** *How* instances should be protected, maintained and restored.
+- **ADRs:** *Which choices* were considered, approved or replaced, with explicit trade-offs.
 
 ~~~mermaid
 flowchart LR
-    R["Requirements<br/>What?"] --> S["Technical specifications<br/>How?"]
-    S --> A["Architecture<br/>Why these components?"]
-    A --> Road["Roadmap and development plan"]
-    Road --> Tests["Tests and acceptance"]
+    R["Requirements<br/>What?"] --> S["Technical specification<br/>How?"]
+    S --> A["Architecture<br/>Why?"]
+    A --> P["Roadmap and development slices"]
+    P --> T["Test evidence and acceptance"]
     A --> ADR["Architecture decisions"]
-    Tests --> Ops["Operations and recovery"]
+    T --> O["Operations and recovery"]
 ~~~
 
-The **requirements specification** defines user-oriented scope. The **technical specification** defines implementation requirements and API contracts. The **architecture** describes layers, components, data flows, trust boundaries and trade-offs. The **roadmap and development plan** schedule small deliverables; the **test strategy and acceptance documentation** define how to prove they are really complete.
+**V0** is the small initial PHP/MariaDB release, not yet implemented. **V1** is the later expansion including SQLite, technical-client RBAC, authorized OpenAPI, controlled queries/relations and write audit. Detailed design documentation **does not mean either release already exists**.
 
-**V0** is the first intentionally small PHP/MariaDB implementation. **V1** is the later expansion with SQLite, technical-client roles, OpenAPI, transactional audit, bounded relations and other reviewed capabilities. Documentation for V1 is **not evidence that V1 has started**.
+## 2. Language convention
 
-## 2. Requirements documents
+**English is the default for entry-point and canonical documentation paths.** German versions use a corresponding `.de.md` path and are linked near the top of each canonical document.
 
-| Document | Language | Purpose |
-|---|---|---|
-| [Requirements V0](requirements-v0.en.md) | **English** | 17 mandatory functional requirements and 10 acceptance scenarios for the first version |
-| [Lastenheft V0](lastenheft-v0.md) | German | German equivalent; same V0-F requirement IDs |
-| [Requirements V1](requirements-v1.en.md) | **English** | 27 requirements: 22 MUST, 5 SHOULD; 16 acceptance scenarios |
-| [Lastenheft V1](lastenheft-v1.md) | German | German equivalent; same V1-F requirement IDs |
-
-## 3. Technical specifications and software architectures
-
-| V0 document | V1 document | Purpose |
-|---|---|---|
-| [Technical Specification V0 (German)](pflichtenheft-v0.md) | [Technical Specification V1 (German)](pflichtenheft-v1.md) | Implementation, API/JSON contracts, security, configuration, database behavior and test cases |
-| [Architecture V0 (German)](architektur-v0.md) | [Architecture V1 (German)](architektur-v1.md) | C4/Mermaid views, components, requests, dependencies, trust boundaries, technical decisions |
-
-**Status:** Both versions are still technical proposals. English versions will be cross-linked here as they are added; the absence of a translation must not be confused with a missing technical requirement.
-
-## 4. Planning, testing, operations and governance
-
-| Document | Responsibility |
+| Canonical rule | Example |
 |---|---|
-| [Roadmap (English default)](../ROADMAP.md) · [Deutsch](../ROADMAP.de.md) | Milestones, dependencies, V0-first policy and release gates |
-| [V0 implementation plan](entwicklungsplan-v0.md) | Small slices with prerequisites and acceptance checks (currently German) |
-| [Test strategy](teststrategie.md) | Unit, SQL integration, HTTP contract, security and hosting tests (currently German) |
-| [Deployment, backup and recovery](betrieb-und-deployment.md) | Hosting boundaries, protected configuration, operations, incident handling (currently German) |
-| [Release and acceptance](release-und-abnahme.md) | Approval gates, checklists, test evidence (currently German) |
-| [Risk register](risikoregister.md) | Safety, shared-hosting and data-integrity blockers (currently German) |
-| [Architecture decision register](adr/README.md) · [Template](adr/0000-template.md) | How design alternatives are proposed and accepted (currently German) |
-| [AGENTS.md](../AGENTS.md) | Coding-agent instructions (English default) |
-| [CONTRIBUTING.md](../CONTRIBUTING.md) | Engineering and contribution guidelines |
-| [SECURITY.md](../SECURITY.md) | Vulnerability reporting and mandatory security boundaries |
-| [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) | Community standards |
-| [CHANGELOG.md](../CHANGELOG.md) | Unreleased planning updates and actual future releases |
-| [LICENSE](../LICENSE) | Authoritative MIT license text |
+| English default | `docs/architecture-v0.md` |
+| German translation | `docs/architecture-v0.de.md` |
+| Root English entry | `README.md` |
+| Root German entry | `README.de.md` |
+| Legally authoritative license | `LICENSE` (English MIT) |
+| German explanatory license | `LICENSE.de.md` (non-authoritative translation) |
 
-## 5. Reference-product research
+Earlier German paths such as `lastenheft-v0.md`, `pflichtenheft-v0.md` and `architektur-v0.md` remain accessible as **compatibility aliases/copies** so older links continue working. For new documentation links, prefer the canonical **English default / German .de.md pair**.
 
-- [API Server Reference Products — Feature Catalog (English)](reference-products-feature-catalog.en.md) — PHP-CRUD-API, DreamFactory and DB2Rest: detailed functions, edition constraints, source references, and architectural implications.
-- [Referenzprodukte-Funktionskatalog (Deutsch)](referenzprodukte-funktionskatalog.md) — the German companion.
+The **same V0-F / V1-F, T-V0 / T-V1 and AT-V0 / AT-V1 identifiers**, technical meaning, security requirements and draft/accepted status must be maintained in both languages. Neither translation may silently add or remove mandatory product requirements.
 
-The catalog is **research**, not an obligation to implement every feature from reference products.
+## 3. Requirements and reference research
 
-## 6. How to begin implementation
+| Content | English (default) | Deutsch |
+|---|---|---|
+| Requirements V0: 17 MUST, 10 acceptance scenarios | [Requirements V0](requirements-v0.md) | [Lastenheft V0](requirements-v0.de.md) |
+| Requirements V1: 22 MUST, 5 SHOULD, 16 acceptance scenarios | [Requirements V1](requirements-v1.md) | [Lastenheft V1](requirements-v1.de.md) |
+| Detailed reference products: PHP-CRUD-API, DreamFactory, DB2Rest | [Feature Catalog](reference-products-feature-catalog.md) | [Funktionskatalog](reference-products-feature-catalog.de.md) |
 
-1. Read the [roadmap](../ROADMAP.md): current planned focus is **V0-G0**, then **V0-M0**, not V1.
-2. Read the [V0 requirements](requirements-v0.en.md) for the functional scope and the [technical specification](pflichtenheft-v0.md) for implementation details.
-3. Review the [V0 architecture](architektur-v0.md) for components, SQL, configuration and trust boundaries.
-4. Resolve the most important [hosting/security risks](risikoregister.md), especially private files **outside the document root** and trustworthy TLS enforcement.
-5. Select a small task from the [V0 development plan](entwicklungsplan-v0.md).
-6. Derive positive and negative cases from the [test strategy](teststrategie.md).
-7. Document the implementation, actual test results, risks and any accepted [ADR](adr/README.md). Only a fully verified and approved release may be marked complete under [release and acceptance](release-und-abnahme.md).
+The external reference catalog provides **ideas and comparisons**, not automatic implementation requirements.
 
-## 7. Language, versions and maintenance
+## 4. Technical specifications and architecture
 
-**English is the default language for repository entry points and navigation.** German versions are provided through language switches/parallel files. Both versions should retain the **same requirement IDs, technical meaning, status, safety constraints, and revision scope**. Translation must not introduce extra mandatory features or inadvertently claim a feature is implemented.
+| Content | English (default) | Deutsch |
+|---|---|---|
+| V0 detailed technical requirements, HTTP/JSON, configuration, security and testing | [Technical Specification V0](technical-specification-v0.md) | [Pflichtenheft V0](technical-specification-v0.de.md) |
+| V1 detailed technical design, two adapters, RBAC, audit, OpenAPI and migration | [Technical Specification V1](technical-specification-v1.md) | [Pflichtenheft V1](technical-specification-v1.de.md) |
+| V0 static/dynamic views, component responsibilities, boundaries, ADR candidates | [Software Architecture V0](architecture-v0.md) | [Softwarearchitektur V0](architecture-v0.de.md) |
+| V1 adapter, query, policy, transaction and deployment architecture | [Software Architecture V1](architecture-v1.md) | [Softwarearchitektur V1](architecture-v1.de.md) |
 
-**Planned** means specified; **in progress** means code work can be substantiated; **accepted** requires real tests, reviews and approval. Headings, checkboxes and translations are not test records.
+These are **detailed design documents** and do not claim that the classes, files, test workflows or endpoints described have been created.
 
-Changes to functional requirements should be made consistently across the two languages and then propagated to technical specifications, architecture, roadmap, tests and any affected ADR. Neither language becomes a formal release contract merely by being published as a draft.
+## 5. Development, testing and operations
 
-**Current status:** documentation/navigation only; no implementation or acceptance is claimed.
+| Topic | English (default) | Deutsch |
+|---|---|---|
+| Release milestones and priorities | [ROADMAP.md](../ROADMAP.md) | [ROADMAP.de.md](../ROADMAP.de.md) |
+| Detailed V0 implementation slices and gates | [Development Plan V0](development-plan-v0.md) | [Entwicklungsplan V0](development-plan-v0.de.md) |
+| Unit, SQL, HTTP, security, hosting and recovery testing | [Test Strategy](test-strategy.md) | [Teststrategie](test-strategy.de.md) |
+| Deployment, shared hosting, credentials, backup and recovery | [Deployment and Operations](deployment-operations.md) | [Betrieb und Deployment](deployment-operations.de.md) |
+| Acceptance, checklist and release evidence | [Release and Acceptance](release-acceptance.md) | [Release und Abnahme](release-acceptance.de.md) |
+| Hosting/security blockers and risk tracking | [Risk Register](risk-register.md) | [Risikoregister](risk-register.de.md) |
+| Architecture Decision Record register | [ADR Register](adr/README.md) | [ADR-Register](adr/README.de.md) |
+| ADR template | [ADR Template](adr/0000-template.md) | [ADR-Vorlage](adr/0000-template.de.md) |
+
+## 6. Repository governance and contribution documents
+
+| Topic | English (default) | Deutsch |
+|---|---|---|
+| Main project description | [README](../README.md) | [README](../README.de.md) |
+| Coding-agent guidance | [AGENTS](../AGENTS.md) | [AGENTS](../AGENTS.de.md) |
+| Contributions and coding standards | [CONTRIBUTING](../CONTRIBUTING.md) | [Mitwirken](../CONTRIBUTING.de.md) |
+| Vulnerability reporting and security controls | [SECURITY](../SECURITY.md) | [Sicherheitsrichtlinie](../SECURITY.de.md) |
+| Community conduct | [CODE_OF_CONDUCT](../CODE_OF_CONDUCT.md) | [Verhaltenskodex](../CODE_OF_CONDUCT.de.md) |
+| Change tracking and release notes | [CHANGELOG](../CHANGELOG.md) | [Änderungsprotokoll](../CHANGELOG.de.md) |
+| MIT license | [LICENSE (authoritative)](../LICENSE) | [LICENSE (informal translation)](../LICENSE.de.md) |
+| Bug report issue template | [Bug Report](../.github/ISSUE_TEMPLATE/bug_report.md) | [Fehlerbericht](../.github/ISSUE_TEMPLATE/bug_report.de.md) |
+| Feature request issue template | [Feature Request](../.github/ISSUE_TEMPLATE/feature_request.md) | [Funktionswunsch](../.github/ISSUE_TEMPLATE/feature_request.de.md) |
+| Pull request template | [Pull Request](../.github/PULL_REQUEST_TEMPLATE.md) | [Pull Request](../.github/PULL_REQUEST_TEMPLATE.de.md) |
+
+## 7. Recommended development reading order
+
+1. Read the [Roadmap](../ROADMAP.md): the first priority is **V0-G0** (security/hosting review), then **V0-M0** (small repository skeleton).
+2. Understand the functional scope in [V0 Requirements](requirements-v0.md).
+3. Read [V0 Technical Specification](technical-specification-v0.md) for concrete contracts.
+4. Review the [V0 Architecture](architecture-v0.md) for the structure and trust boundaries.
+5. Resolve risk **R-001/R-002** (private files and TLS) with real provider checks in [Risk Register](risk-register.md).
+6. Choose a small task from [Development Plan V0](development-plan-v0.md).
+7. Define positive and negative tests using [Test Strategy](test-strategy.md).
+8. Record architecture decisions through [ADRs](adr/README.md).
+9. Update documentation and evidence; only mark a release completed after the real [Release and Acceptance](release-acceptance.md) gate.
+
+## 8. Maintaining both languages and project status
+
+- **English is canonical for navigation**, but German translations must preserve technical equivalence.
+- Functional requirement changes must be updated in **both versions**, then reflected in technical specifications, architecture, roadmap, tests and ADRs.
+- Retain stable IDs across languages; do not change semantics under translation.
+- **Planned** means specified, **in progress** means development can be verified, and **accepted** means real test and approval evidence exists.
+- Never report a feature as implemented, CI as passing or a provider deployment as safe merely because documentation describes it.
+- Legacy filenames can remain until a deliberate link-migration strategy makes removal safe.
+
+**Document status:** English/German navigation and design references; no software implementation or release acceptance claimed.

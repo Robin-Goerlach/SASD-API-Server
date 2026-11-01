@@ -1,5 +1,7 @@
 # AGENTS.md – Arbeitsanweisungen für Coding-Agenten
 
+> **Language:** **English (default)** | [Deutsch](AGENTS.de.md)
+
 > **Gültigkeit:** gesamtes Repository `Robin-Goerlach/SASD-API-Server`. Spezifischere Anweisungen in Unterverzeichnissen dürfen diese Regeln ergänzen, nicht Sicherheitsanforderungen abschwächen.  
 > **Stand:** 01.11.2026 · **Status:** Entwicklungsrichtlinien, keine Aussage über einen bereits implementierten oder getesteten Produktstand.
 
@@ -24,21 +26,21 @@ Vor der Bearbeitung einer Aufgabe die passenden Dokumente lesen:
 | Projektüberblick und tatsächlicher Status | [README.md](README.md) |
 | Meilensteine, V0 vor V1 | [ROADMAP.md](ROADMAP.md) |
 | Dokumentationsnavigation | [docs/README.md](docs/README.md) |
-| Fachlicher V0-Vertrag | [docs/lastenheft-v0.md](docs/lastenheft-v0.md) |
-| Technische V0-Anforderungen | [docs/pflichtenheft-v0.md](docs/pflichtenheft-v0.md) |
-| V0-Komponenten, Datenflüsse, Sicherheitsgrenzen | [docs/architektur-v0.md](docs/architektur-v0.md) |
-| Kleine V0-Entwicklungsschritte | [docs/entwicklungsplan-v0.md](docs/entwicklungsplan-v0.md) |
-| Tests und tatsächliche Release-Abnahme | [docs/teststrategie.md](docs/teststrategie.md), [docs/release-und-abnahme.md](docs/release-und-abnahme.md) |
-| Betrieb, Hosting, Recovery | [docs/betrieb-und-deployment.md](docs/betrieb-und-deployment.md) |
-| Risiken und blockierende Fragen | [docs/risikoregister.md](docs/risikoregister.md) |
+| Fachlicher V0-Vertrag | [docs/requirements-v0.de.md](docs/requirements-v0.de.md) |
+| Technische V0-Anforderungen | [docs/technical-specification-v0.md](docs/technical-specification-v0.md) |
+| V0-Komponenten, Datenflüsse, Sicherheitsgrenzen | [docs/architecture-v0.md](docs/architecture-v0.md) |
+| Kleine V0-Entwicklungsschritte | [docs/development-plan-v0.md](docs/development-plan-v0.md) |
+| Tests und tatsächliche Release-Abnahme | [docs/test-strategy.md](docs/test-strategy.md), [docs/release-acceptance.md](docs/release-acceptance.md) |
+| Betrieb, Hosting, Recovery | [docs/deployment-operations.md](docs/deployment-operations.md) |
+| Risiken und blockierende Fragen | [docs/risk-register.md](docs/risk-register.md) |
 | Sicherheit und Offenlegung | [SECURITY.md](SECURITY.md) |
 | Mitwirkungsregeln | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | Architekturentscheidungen | [docs/adr/README.md](docs/adr/README.md) |
-| Spätere V1-Anforderungen | [docs/lastenheft-v1.md](docs/lastenheft-v1.md), [docs/pflichtenheft-v1.md](docs/pflichtenheft-v1.md), [docs/architektur-v1.md](docs/architektur-v1.md) |
+| Spätere V1-Anforderungen | [docs/requirements-v1.de.md](docs/requirements-v1.de.md), [docs/technical-specification-v1.md](docs/technical-specification-v1.md), [docs/architecture-v1.md](docs/architecture-v1.md) |
 
 **Bei Widersprüchen:** aktuelle ausdrückliche Aufgabenstellung und unverzichtbare Sicherheitsregeln → fachliche MUSS-Anforderungen des Lastenhefts → tatsächlich angenommene Architekturentscheidungen → Pflichtenheft/Architektur → Roadmap und Beispiele. Viele Dokumente haben derzeit **Entwurfsstatus**. Nicht so tun, als seien sie formell genehmigt: Widersprüche benennen, bevor eine irreversible technische Entscheidung getroffen wird.
 
-**Sprache:** Projektkommunikation und primäre Planung auf Deutsch; Codebezeichner, API-Felder und technische Klassen in verständlichem Englisch. Die englischen Lastenhefte in `docs/requirements-v0.en.md` und `docs/requirements-v1.en.md` sind bei Änderungen der Anforderungen anhand derselben IDs konsistent zu halten.
+**Sprache:** Projektkommunikation und primäre Planung auf Deutsch; Codebezeichner, API-Felder und technische Klassen in verständlichem Englisch. Die englischen Lastenhefte in `docs/requirements-v0.md` und `docs/requirements-v1.md` sind bei Änderungen der Anforderungen anhand derselben IDs konsistent zu halten.
 
 ## 3. Verifiziere den tatsächlichen Repositoryzustand
 
@@ -135,7 +137,7 @@ Der Fallback `/index.php?route=/api/v0/{resource}` muss identische Regeln ausfü
 - Öffentlicher Health-Endpunkt ohne Interna; tiefere Diagnose nur geschützt.
 - Sicherheitskritische Fragen über Hosting, TLS, Dateipfade und Berechtigungen **vor** öffentlicher Freigabe klären. Wenn ein Provider die Bedingungen nicht erfüllen kann, **keinen unsicheren Workaround einbauen**.
 
-Security-Incidents nach [SECURITY.md](SECURITY.md), Architektur-/Hosting-Risiken nach [Risikoregister](docs/risikoregister.md) behandeln.
+Security-Incidents nach [SECURITY.md](SECURITY.md), Architektur-/Hosting-Risiken nach [Risikoregister](docs/risk-register.md) behandeln.
 
 ## 9. Tests und Nachweise
 

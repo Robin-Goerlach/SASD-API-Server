@@ -1,5 +1,7 @@
 # SASD API Server – Betrieb, Deployment, Backup und Recovery
 
+> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](deployment-operations.md) · [Deutsch (kanonisch)](deployment-operations.de.md)  
+
 > **Status:** Entwurfs-Runbook für V0/V1, keine produktive Installation nachgewiesen · **Stand:** 01.11.2026  
 > Bezüge: [Architektur V0](architektur-v0.md), [Pflichtenheft V0](pflichtenheft-v0.md), [Architektur V1](architektur-v1.md), [Sicherheitsregeln](../SECURITY.md), [Releaseprozess](release-und-abnahme.md)
 

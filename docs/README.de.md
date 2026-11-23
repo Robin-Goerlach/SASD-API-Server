@@ -94,6 +94,13 @@ Diese Dokumente sind **detaillierte Entwürfe**. Die erwähnten PHP-Klassen, Rou
 | GitHub-Funktionswunsch | [Feature Request](../.github/ISSUE_TEMPLATE/feature_request.md) | [Funktionswunsch](../.github/ISSUE_TEMPLATE/feature_request.de.md) |
 | GitHub-Pull-Request-Vorlage | [Pull Request](../.github/PULL_REQUEST_TEMPLATE.md) | [Pull Request](../.github/PULL_REQUEST_TEMPLATE.de.md) |
 
+## 6.1 Vorgeschlagene Geo-IP-/CIDR-Sicherheitsanforderung
+
+- [SEC-GEO-001 – IP- und länderbezogene Netzsperren](ip-geoblocking.de.md) · [English](ip-geoblocking.md) – frühe V0-Eingangskontrolle mit privater CIDR-Datei, verifizierter Client-IP, Gültigkeit/Aktualisierung, Fail-Closed und zwölf geplanten Tests.
+- [ADR-0019 (Vorschlag)](adr/0019-ip-geoblocking.de.md) · [English](adr/0019-ip-geoblocking.md) – Entscheidungsvorlage Datei vs. Tabelle, GeoIP-Daten und WAF, **noch nicht als Architekturentscheidung angenommen**.
+
+Die zusätzliche Anforderung ist **vorgeschlagen** und noch nicht in die bestehende Zählung von 17 V0-F-Anforderungen beziehungsweise zehn AT-V0-Abnahmen übernommen. Es gibt keine produktiv aktivierte Ländersperrliste.
+
 ## 7. Wie wir mit der Implementierung beginnen
 
 1. [Roadmap](../ROADMAP.de.md) lesen: zuerst **V0-G0** (Hosting-/Security-Review), danach **V0-M0** (kleines Projektgerüst).

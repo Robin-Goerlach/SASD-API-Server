@@ -55,6 +55,12 @@ Priorities are **qualitative judgments**, not mathematically calculated likeliho
 | R-025 | All | **P1** | Documentation is mistaken for running/accepted functionality. | Honest status, real implementation and acceptance records, changelog evidence. | Open |
 | R-026 | All | **P2** | Unplanned additions increase scope and attack surface. | Issue explaining use case, priority, exclusions, tests and ADR when appropriate. | Open |
 
+### R-027 — Proposed country/IP restriction ingress risk (SEC-GEO-001)
+
+**Phase:** V0-G0 / prospective V0-M1; **Priority: P1**, escalating to **P0 production blocker** when the operator or applicable legal requirement mandates active geo-IP blocking. **Status: Open**.
+
+Risks include spoofed client IP headers, IPv6/mapped-address bypass, wrongly classified VPN/proxy exits, stale or huge geo datasets, partial rule updates, excessive IP retention and overly broad assumptions about EU sanctions. Countermeasure: validated private file-first CIDR policy, verifiable proxy trust, atomic rules and fail-closed for required enforcement; legal/policy review plus [AT-GEO-01–12](ip-geoblocking.md#7-acceptance-and-regression-tests) and tested hosting resource bounds. [SEC-GEO-001](ip-geoblocking.md) · [ADR-0019](adr/0019-ip-geoblocking.md). **No country list or functionality has been approved/implemented.**
+
 ## 3. Blocking decisions before V0
 
 **V0-G0 must answer:**

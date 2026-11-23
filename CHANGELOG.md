@@ -6,6 +6,13 @@ All notable project changes will be recorded here. The project intends to follow
 
 ## [Unreleased]
 
+### Proposed security design — 2026-11-23
+
+- Added bilingual [SEC-GEO-001](docs/ip-geoblocking.md) / [Deutsch](docs/ip-geoblocking.de.md): early configurable IPv4/IPv6 CIDR restriction with trusted client-IP resolution, safe fail-closed policy behavior, protected file-first rules and 12 proposed tests.
+- Added [ADR-0019 (proposed)](docs/adr/0019-ip-geoblocking.md) / [Deutsch](docs/adr/0019-ip-geoblocking.de.md); updated requirements, architecture, technical specification, risk/test documents, roadmap and navigation.
+- **Status:** design-only, not implemented; no real countries/networks selected and no change to the existing 17 V0-F requirements or ten acceptance scenarios pending formal scope approval.
+
+
 ### Added – documentation and project planning (2026-11-01)
 
 - Research catalog comparing PHP-CRUD-API, DreamFactory, and DB2Rest, in German and English.

@@ -94,6 +94,13 @@ These are **detailed design documents** and do not claim that the classes, files
 | Feature request issue template | [Feature Request](../.github/ISSUE_TEMPLATE/feature_request.md) | [Funktionswunsch](../.github/ISSUE_TEMPLATE/feature_request.de.md) |
 | Pull request template | [Pull Request](../.github/PULL_REQUEST_TEMPLATE.md) | [Pull Request](../.github/PULL_REQUEST_TEMPLATE.de.md) |
 
+## 6.1 Proposed IP/CIDR and geographic restrictions
+
+- [SEC-GEO-001 — IP and country-based network restrictions](ip-geoblocking.md) · [Deutsch](ip-geoblocking.de.md) — proposed early V0 admission-control security requirement, including private CIDR file, trusted client-IP resolution, policy freshness, fail-closed behavior and 12 proposed tests.
+- [ADR-0019 (proposed)](adr/0019-ip-geoblocking.md) · [Deutsch](adr/0019-ip-geoblocking.de.md) — file-first versus database/GeoIP/WAF trade-offs; **not yet an accepted architectural decision**.
+
+The cross-cutting requirement is **proposed**, not yet formally merged into the existing 17 V0-F requirement count or the ten AT-V0 acceptance cases. No embargo-country list has been selected or implemented.
+
 ## 7. Recommended development reading order
 
 1. Read the [Roadmap](../ROADMAP.md): the first priority is **V0-G0** (security/hosting review), then **V0-M0** (small repository skeleton).

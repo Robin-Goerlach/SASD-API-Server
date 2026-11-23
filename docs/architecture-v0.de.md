@@ -398,6 +398,16 @@ Diese Einträge sind Entscheidungen **zur Freigabe**, keine bereits abgezeichnet
 | V0-F16 | ``3/10/14 Dokumentation | T-V0-12 |
 | V0-F17 | `11 Tests/Fitness | T-V0-12 |
 
+### Vorgesehene Eingangserweiterung SEC-GEO-001 (vor der Implementierung)
+
+Eine optionale neue Sicherheitsstufe `TrustedClientIpResolver → IpAccessPolicy` wird **nach verifizierter TLS-/Proxyermittlung und vor API-Key-Authentifizierung** in die gemeinsame HTTP-Pipeline eingebunden. Erste Regelquelle ist eine private, versionierte **IPv4-/IPv6-CIDR-Datei**; spätere DB-Provider dürfen die **Anwendungsdatenbank** nicht zur Voraussetzung der frühen Sperrentscheidung machen.
+
+Bei Treffer: neutraler **403**. Eine ausdrücklich verpflichtende aktivierte, aber defekte/fehlende/veraltete Regeldatei führt zu **Fail-Closed mit 503**. Bei fehlendem Treffer gelten weiterhin alle Authentifizierungs- und Ressourcenrechte. Der Query-Fallback, andere API-Versionen und ein späterer Auth-Service dürfen die Eingangsprüfung nicht umgehen. Die Client-IP wird nur aus einer **verifizierten** Peer-/Proxykette bestimmt.
+
+Für vollständige Länderzuordnungen sind **lizenzierte lokale indizierte** Geo-IP-/Präfixdaten vorzusehen, keine externe Abfrage oder große lineare Suche je PHP-Request. Betroffene Länder/Leistungen benötigen Betreiber-/Rechtsprüfung; IP-Standort ist nicht beweissicher.
+
+**Dies ist eine V0-G0-/V0-M1-Entwurfsergänzung, noch keine Freigabe einer weiteren V0-F-MUSS-Anforderung.** [Konzept](ip-geoblocking.de.md) · [ADR-0019](adr/0019-ip-geoblocking.de.md) · [AT-GEO-01 bis AT-GEO-12](ip-geoblocking.de.md#7-abnahmetests).
+
 ## 16. Review, Änderungen, Definition of Done
 
 Änderungen an HTTP-Verträgen, Ressourcen-/Feldfreigaben, Key-Handling, Repository-Ports, SQL-Bau, TLS-/Config-Grenzen oder Fehlerformat sind **architekturrelevant** und benötigen Review plus Contract-/Security-Tests. Fachliche Änderungen werden zuerst im Lastenheft, danach im Pflichtenheft und in dieser Architektur nachgeführt.

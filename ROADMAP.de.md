@@ -139,6 +139,10 @@ flowchart LR
 | M5 | V0-F10, F14–F16 | AT-V0-01, 08, 09 |
 | M6 | V0-F17 und alle vorherigen | AT-V0-01 bis AT-V0-10 |
 
+### Vorgeschlagene Ergänzung SEC-GEO-001 in V0-G0/V0-M1
+
+Die länder-/IP-netzbezogene Sperrregel wird in **V0-G0** fachlich, rechtlich und technisch geprüft. Bei Freigabe wird in **V0-M1** eine frühe, dateibasierte CIDR-Kontrolle **vor Authentifizierung und SQL** eingeplant: IPv4/IPv6, verifizierte Proxykette, geprüfte Regeldatei außerhalb des Document Root, atomare Updates und Fail-Closed für erforderliche aktive Regeln. **Die Nummerierung der 17 vorhandenen V0-F-Anforderungen und zehn V0-Abnahmeszenarien bleibt bis zur formalen Scope-Änderung unverändert.** Siehe [SEC-GEO-001](docs/ip-geoblocking.de.md) und [ADR-0019](docs/adr/0019-ip-geoblocking.de.md).
+
 ## 5. V1.0 – Ausbau nach erfolgreicher V0-Abnahme
 
 Die detaillierten V1-Anforderungen stehen in [Lastenheft](docs/lastenheft-v1.md), [Pflichtenheft](docs/pflichtenheft-v1.md) und [Architektur](docs/architektur-v1.md). Die Reihenfolge richtet sich nach Abhängigkeiten, nicht nach optisch beeindruckenden Funktionen.

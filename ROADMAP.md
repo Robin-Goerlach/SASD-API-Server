@@ -70,6 +70,8 @@ Version numbers represent **planned targets**, not Git tags already published.
 
 **Blocking gate:** if private configuration and keys cannot be kept inaccessible to HTTP clients, or TLS cannot be enforced safely, **do not approve a production deployment**.
 
+**Proposed SEC-GEO-001 cross-cutting security gate:** resolve IP/CIDR/Geo-IP restrictions during V0-G0, before implementing HTTP data endpoints. Decide legal/policy scope and actual client-IP/proxy trust. If included in V0, put a protected file-backed CIDR admission filter **before authentication and SQL** in V0-M1, with IPv4/IPv6 support, fail-closed required enforcement and deterministic negative tests. Full country datasets need licensed, refreshed and efficiently indexed local mapping; no synchronous remote geolocation request per HTTP call. This is a **proposed scope extension**, not yet part of the 17 numbered V0-F requirements or 10 existing acceptance scenarios. See [SEC-GEO-001](docs/ip-geoblocking.md) and [ADR-0019](docs/adr/0019-ip-geoblocking.md).
+
 ### V0-M0 — Repository and development environment
 
 **Goal:** Establish a reproducible, understandable project skeleton.

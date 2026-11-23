@@ -335,4 +335,18 @@ The **precise endpoint syntax** below is provisional and must be finalized in th
 
 ---
 
+## 13. Proposed additional security requirement — SEC-GEO-001
+
+**SEC-GEO-001 (proposed, not yet incorporated into the 17 numbered V0-F MUST requirements):** Before authentication and business-resource processing, an instance must be able to **deny requests originating from operator-configured IPv4/IPv6 CIDR ranges**, including ranges assigned to countries/territories under a separately approved restriction policy. A protected file outside document root is the recommended initial rule source; a database-backed provider may be added later.
+
+The policy must verify the client's real network address through an explicitly trusted proxy chain, reject forged forwarded headers, support both address families, and apply rules consistently to all protected paths. A valid blocked match returns **403**. If an explicitly mandatory enforced policy is missing, invalid or too old, access must **fail closed** (controlled **503**) rather than silently allowing traffic. Unblocked IPs still require ordinary authentication and resource permissions.
+
+Country-to-IP mapping requires a **reliable, licensed and refreshed** dataset. Geo-IP may identify a VPN/proxy exit rather than the user; it is **not complete sanctions compliance**. Operator/legal review determines which jurisdictions, services, countries or territories to restrict. IP-related personal-data handling and log retention must be reviewed.
+
+**Proposed acceptance:** `AT-GEO-01`–`AT-GEO-12`, covering IPv4/IPv6 boundaries, header spoofing, proxy bypass, invalid/stale rules, atomic updates, instance isolation, response confidentiality and performance with real country-level datasets.
+
+**Scope control:** This addendum is recorded for **V0-G0 architecture review and possible V0-M1 integration**. The existing V0-F01–F17 and AT-V0-01–10 identifiers/counts remain unchanged until a formal decision includes SEC-GEO-001 in the release baseline. [Complete specification](ip-geoblocking.md) · [ADR-0019 (proposed)](adr/0019-ip-geoblocking.md).
+
+---
+
 **Document status:** Detailed requirements **draft**. It does not claim completed implementation, successful test acceptance, or formal approval by the project owner.

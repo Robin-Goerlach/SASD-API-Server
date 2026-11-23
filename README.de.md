@@ -406,6 +406,10 @@ Die Konfiguration definiert, unter welchem externen Ressourcennamen eine Tabelle
 
 V1 ergänzt Feldaliase, Views, Relationen und Rollen sowie eine versionierte Migration des Konfigurationsschemas.
 
+### Vorgeschlagene frühe IP-/Geo-IP-Zugriffssperre
+
+Die neue Sicherheitsanforderung **[SEC-GEO-001](docs/ip-geoblocking.de.md)** ([English](docs/ip-geoblocking.md)) wird in V0-G0 geprüft. Geplant sind eine **IPv4-/IPv6-CIDR-Sperre an der HTTP-Eingangsstelle**, eine geschützte lokale Regeldatei, verifizierte Client-IP-/Proxy-Herkunft und **Fail-Closed** bei fehlender verpflichtender Sperrliste. Eine Datenbanktabelle könnte später denselben Providervertrag ergänzen. **Es sind noch keine realen Länder/IP-Netze freigegeben, keine Sperre implementiert und keine rechtliche Prüfung abgeschlossen.** Siehe [ADR-0019](docs/adr/0019-ip-geoblocking.de.md).
+
 ## Sicherheitsmodell
 
 Der API Server bildet eine Schutzgrenze vor persistenten Daten. Die Sicherheit muss deshalb **bereits zur Grundarchitektur gehören**.

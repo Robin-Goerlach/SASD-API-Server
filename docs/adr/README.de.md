@@ -53,6 +53,10 @@ Wir wollen keine Flut nutzloser Kleindokumente. Eine ADR ist sinnvoll, wenn eine
 
 Die Nummern reservieren noch **keine Dateien**. Bei tatsächlichen Reviewentscheidungen können wir die erste akzeptierte ADR als `0001-kurztitel.md` anlegen; eine weitere Entscheidung ersetzt sie nur durch ausdrückliche Referenz.
 
+### Neue ausdrücklich vorgeschlagene ADR
+
+- [ADR-0019: Frühe IP-/CIDR- und Ländersperren](0019-ip-geoblocking.de.md) · [English](0019-ip-geoblocking.md) – **Vorgeschlagen, nicht angenommen**. Geschützte CIDR-Datei, spätere DB-Quelle, verifizierte Client-IP und Fail-Closed. Siehe [SEC-GEO-001](../ip-geoblocking.de.md).
+
 ## 5. ADR-Prozess
 
 1. Eine Frage oder ein Risiko benennt einen langfristig bedeutsamen Architekturkonflikt.

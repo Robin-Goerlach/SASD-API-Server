@@ -335,4 +335,18 @@ Die **konkrete Schreibweise** der folgenden Beispiele ist vorläufig und wird im
 
 ---
 
+## 13. Vorgeschlagene weitere Sicherheitsanforderung – SEC-GEO-001
+
+**SEC-GEO-001 (vorgeschlagen; noch nicht in die 17 nummerierten V0-F-MUSS-Anforderungen aufgenommen):** Der Server soll HTTP-Anfragen **vor Authentifizierung und fachlicher Verarbeitung anhand einer betreiberseitig konfigurierten IPv4-/IPv6-CIDR-Sperrliste abweisen** können. Die Netze können nach geprüftem Betreiberbeschluss Ländern oder Gebieten mit Zugriffsrestriktionen zugeordnet sein. Als erste Regelquelle wird eine **geschützte Datei außerhalb des Document Root** vorgesehen; eine Datenbanktabelle ist ein später möglicher Provider.
+
+Die Client-IP muss aus einer **nachweislich vertrauenswürdigen Proxykette** stammen; beliebige `X-Forwarded-For`-Header dürfen die Sperre nicht umgehen. Treffer erzeugen einen neutralen **403**. Eine ausdrücklich verpflichtende aktive Sperre mit ungültigem, fehlendem oder gemäß Richtlinie veraltetem Datenstand verweigert den Zugriff **fail closed** (kontrollierter **503**). Nicht gesperrte Clients benötigen weiterhin alle normalen API-Schlüssel und Ressourcenrechte.
+
+Die Zuordnung von Ländern zu IP-Netzen verlangt **geprüfte, lizenzkonforme und aktualisierte Daten**. VPNs und Proxys begrenzen die Zuverlässigkeit. Geo-IP allein ist **kein vollständiger Sanktionsnachweis**; die betroffenen Rechtsräume, Dienste und Länder/Gebiete müssen freigegeben werden. Datenschutz und Aufbewahrungsfristen sind zu prüfen.
+
+**Geplante Nachweise:** `AT-GEO-01` bis `AT-GEO-12` mit IPv4/IPv6, Proxy-Spoofing, ungültigen/alten Listen, atomaren Updates, isolierten Instanzen, vertraulicher Antwortgestaltung und echten Hosting-Messungen.
+
+**Scope-Status:** Erst für **V0-G0** prüfen und gegebenenfalls **V0-M1** integrieren. Die vorhandenen Kennungen/Zählungen V0-F01–F17 und AT-V0-01–10 bleiben bis zum bewussten Aufnahmebeschluss unverändert. [Ausführliches Konzept](ip-geoblocking.de.md) · [ADR-0019 (Vorschlag)](adr/0019-ip-geoblocking.de.md).
+
+---
+
 **Hinweis:** Diese Fassung ist als gründlicher **Entwurf** erstellt. Sie ist nicht als bereits implementiert, getestet oder durch den Auftraggeber formal freigegeben gekennzeichnet.

@@ -50,6 +50,12 @@ Dieses Register sammelt technische, sicherheitsrelevante und organisatorische Ri
 | R-025 | Alle | **P1** | Dokumentation wird mit implementiertem Verhalten verwechselt; Fehlfreigabe. | keine erfundenen Testergebnisse; Implementierungs-/Abnahmeprotokoll, CHANGELOG. | Offen |
 | R-026 | Alle | **P2** | Neue Features ohne Roadmap/ADR erhöhen Scope und Angriffsfläche. | Issue mit Begründung, Priorität, Nicht-Zielen und Tests. | Offen |
 
+### R-027 – Vorgeschlagenes Risiko der frühen Länder-/IP-Sperre (SEC-GEO-001)
+
+**Phase:** V0-G0 / gegebenenfalls V0-M1; **Priorität P1**, als **P0-Produktionsblocker**, wenn rechtlich oder durch Betreiberpolitik eine aktive IP-Sperre vorgeschrieben ist. **Status: Offen**.
+
+Risiken sind gefälschte IP-Header, IPv6-/Mapped-IP-Bypass, VPN-/Proxy-Fehlzuordnung, überalterte/große Geo-Daten, teilweise geschriebene Regeln, unnötige IP-Speicherung und zu weit gefasste Annahmen über EU-Sanktionen. Maßnahme: geprüfte private dateibasierte CIDR-Regel, verifizierte Proxykette, atomare Aktualisierung und Fail-Closed bei Pflichtregeln sowie Rechtsprüfung und [AT-GEO-01–12](ip-geoblocking.de.md#7-abnahmetests) auf realem Hosting. [SEC-GEO-001](ip-geoblocking.de.md) · [ADR-0019](adr/0019-ip-geoblocking.de.md). **Noch keine freigegebene Länder-/Netzliste und keine Implementierung.**
+
 ## 3. Blockierende Entscheidungen vor V0
 
 **V0-G0:**

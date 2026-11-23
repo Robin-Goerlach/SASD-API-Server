@@ -395,4 +395,18 @@ Die Meilensteine sind eine **sachliche Reihenfolge**, keine Termin- oder Arbeits
 
 Dieses Dokument wird zusammen mit dem V0-Lastenheft versioniert. Änderungen am öffentlich sichtbaren HTTP-Vertrag sind mit Contract-Tests und nachvollziehbarer Entscheidung zu dokumentieren; eine Änderung der fachlichen MUSS-Anforderung erfordert eine Aktualisierung des Lastenhefts. Geplante V1-Features werden nicht rückwirkend zur V0-Abnahmebedingung.
 
+## 14. Vorgeschlagene frühe IP-/CIDR-Zugriffssperre (SEC-GEO-001)
+
+**Status:** Entwurf einer zusätzlichen Sicherheitsanforderung; noch kein Bestandteil der bisherigen nummerierten 17 V0-F-MUSS-Anforderungen.
+
+Der HTTP-Einstieg erhält bei Freigabe einen `TrustedClientIpResolver` und eine `IpAccessPolicy` **vor API-Key-Prüfung, Ressourcen-Routing und SQL**. Client-IP nur anhand einer verifizierten Proxykette; keine unkontrollierten `X-Forwarded-For`-/Provider-Header. IPv4, IPv6, Mapped IPv6 und ungültige Adressen behandeln.
+
+**V0-Quelle:** betreiberseitig gepflegte private `blocked-networks.tsv` außerhalb des Document Root (CIDR, Ländercode/Regelkennung) und getrennte Richtlinienkonfiguration. Nur vollständig validierte, **atomar aktivierte** Snapshots einschließlich Quelle, Version und Ablaufdatum verwenden. Keine Abhängigkeit von fachlicher MariaDB oder externer Geo-IP-Abfrage je Request. Eine DB-Regeltabelle kann später denselben Providervertrag nutzen; ganze Länder benötigen gegebenenfalls **indizierte lokale** Geo-IP-Daten statt linearer Textsuche.
+
+Bei `mode=enforce` und Treffer: neutraler **403** mit `access_restricted`. Bei erforderlichem, aber defektem/fehlendem/abgelaufenem Regelstand: **Fail-Closed mit 503**. Ohne Treffer gelten weiterhin API-Key und Ressourcenrechte. Health/Auth-/Fallback-Routen müssen über eine einheitliche Eingangsregel erfasst werden. Nur bereinigte lokale Ereignisse, LogSink später optional.
+
+**Tests:** `AT-GEO-01` bis `AT-GEO-12`. **V0-G0** soll den Scope freigeben; eine Implementierung könnte in **V0-M1** erfolgen. Die bisherige Anforderungs-/Abnahmezählung wird nicht stillschweigend verändert. [Gesamtkonzept](ip-geoblocking.de.md) · [ADR-0019](adr/0019-ip-geoblocking.de.md).
+
+---
+
 **Status: technischer Entwurf, nicht implementiert, nicht getestet, nicht formal freigegeben.**

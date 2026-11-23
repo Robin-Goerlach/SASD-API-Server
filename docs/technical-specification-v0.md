@@ -436,4 +436,18 @@ Milestones describe a **logical dependency order**, not a claimed delivery sched
 
 Version this specification with the functional requirements. Any observable HTTP API change requires contract tests and an explicit decision; changed mandatory user requirements must first update the requirements document. Future V1 functionality does **not** retroactively become a V0 acceptance condition.
 
+## 14. Proposed early IP/CIDR access restriction (SEC-GEO-001)
+
+**Status: proposed design/scope extension, not part of the original numbered V0-F01–F17 baseline yet.**
+
+Introduce `TrustedClientIpResolver` and `IpAccessPolicy` as an **early HTTP middleware** before API key verification, resource routing and SQL. Derive the client IP from a verified peer/trusted proxy chain only; do not trust arbitrary `X-Forwarded-For` or vendor-specific IP headers. Match IPv4 and IPv6 CIDRs (including IPv4-mapped IPv6), rejecting invalid addresses.
+
+**V0 source:** protected, operator-maintained `blocked-networks.tsv` (CIDR, country/rule metadata) outside document root, plus protected policy settings. Load a **fully validated and atomically switched rule snapshot**, including source/version/expiry. Do not rely on business MariaDB or remote per-request GeoIP. A database-backed rule source may be added through a provider port later; complete-country coverage may require a **locally indexed** licensed GeoIP dataset rather than linear text scanning.
+
+With `mode=enforce` and a **valid blocked network match**, return **403** and neutral `access_restricted`. With a **required but unavailable, invalid or expired policy**, **fail closed with 503**. A nonmatch proceeds through ordinary API-key/resource checks; it does not authorize. Health/Auth/alternate-route coverage requires an explicit common ingress policy. Emit only minimal, sanitized local events; LogSink integration is a later optional integration.
+
+**Test candidates:** `AT-GEO-01`–`AT-GEO-12`. Treat approval as part of **V0-G0** and possible implementation in **V0-M1**; existing requirement/acceptance totals are not silently changed. [Detailed bilingual contract](ip-geoblocking.md) · [ADR-0019](adr/0019-ip-geoblocking.md).
+
+---
+
 **Status: technical proposal, not implemented, not tested, not formally accepted.**

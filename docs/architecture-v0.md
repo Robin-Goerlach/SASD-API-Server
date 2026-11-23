@@ -484,6 +484,16 @@ No fabricated schedule or cost estimate is implied. V1 architecture becomes the 
 | V0-F16 | ``3/10/14 documentation | T-V0-12 |
 | V0-F17 | `11 tests and fitness | T-V0-12 |
 
+### Proposed ingress extension: SEC-GEO-001 (before implementation)
+
+A planned `TrustedClientIpResolver → IpAccessPolicy` stage may be inserted **between trusted HTTPS/proxy identification and API-key authentication**, applying one shared policy to all protected API paths. Its private, versioned **IPv4/IPv6 CIDR** rule source is initially a file; an optional database/provider source may follow without making the **business database** a request-admission prerequisite.
+
+Blocked matches return neutral **403**. An explicitly mandatory enforced but missing/invalid/stale snapshot **fails closed** (503). Unblocked IPs still require the full existing authentication and authorization pipeline. The same policy must not be bypassable through query-routing fallback, alternate versions or separate Auth-Service entry points. The real client IP is derived only from a **verified** peer/proxy chain.
+
+For large country datasets, use a **licensed local indexed GeoIP/prefix lookup** and offline policy generation rather than repeated remote calls or huge per-request linear scans. Country restrictions require operator/legal approval; a client IP is not guaranteed proof of location.
+
+**This is a proposed V0-G0/V0-M1 security addendum, not an already accepted change to the 17 V0-F baseline.** [Design](ip-geoblocking.md) · [ADR-0019](adr/0019-ip-geoblocking.md) · [Tests AT-GEO-01..12](ip-geoblocking.md#7-acceptance-and-regression-tests).
+
 ## 16. Change control and Definition of Done
 
 Any change to the HTTP contract, resource allowlist, key model, repository interface, SQL building, transport/config boundaries or error format is an **architecture-relevant change** requiring review and appropriate contract/security tests. Change mandatory functional requirements in the requirements specification **before** changing their technical meaning here.

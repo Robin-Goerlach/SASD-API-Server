@@ -134,6 +134,10 @@ Relevant profiles include single GET/POST, initial/large-offset pages, 100-plus-
 
 CI should use synthetic data, test secrets, minimal artifacts and no production access. Hosting-specific manual checks remain **additional** release gates. Failure output should identify the test and sanitized error, not the API key.
 
+### Proposed additional cross-cutting tests: SEC-GEO-001
+
+[SEC-GEO-001](ip-geoblocking.md) introduces **12 proposed geo/network access tests**, `AT-GEO-01`–`AT-GEO-12`: IPv4/IPv6, CIDR boundaries, mapped addresses, spoofed forwarded headers, real proxy trust, missing/corrupt/stale policy fail-closed, atomic updates, two-instance policy isolation, sanitized logging and bounded lookup cost for real country-level data. These cases are **not yet part of the established 10 V0 acceptance scenarios** until V0-G0 scope approval. Do not treat a city/country IP geolocation result as proof of legal sanctions compliance.
+
 ## 10. Exit criteria
 
 **V0:** V0-F01–F17, AT-V0-01–10, SQL/API negative tests, isolated second instance, shared-host deployment and tested restore.  

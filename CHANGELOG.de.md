@@ -4,7 +4,14 @@
 
 Wesentliche Projektänderungen werden hier dokumentiert. Der Aufbau orientiert sich an [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) und nutzt Versionsangaben in Anlehnung an Semantic Versioning. Dieses Dokument ersetzt weder die Git-Historie noch Tags und Abnahmeprotokolle.
 
-## [Unreleased] – Noch nicht veröffentlicht
+## [Unreleased]
+
+### Vorgeschlagene Sicherheitsarchitektur – 23.11.2026
+
+- [SEC-GEO-001](docs/ip-geoblocking.de.md) / [English](docs/ip-geoblocking.md) für frühe konfigurierbare IPv4-/IPv6-CIDR-Sperren ergänzt, mit verifizierter Client-IP, Fail-Closed, privater Regeldatei und zwölf vorgeschlagenen Tests.
+- [ADR-0019 (Vorschlag)](docs/adr/0019-ip-geoblocking.de.md) / [English](docs/adr/0019-ip-geoblocking.md) angelegt; Lastenheft, Pflichtenheft, Architektur, Risiko-/Testdokumentation, Roadmap und Navigation verknüpft.
+- **Status:** reine Planung, keine implementierte Sperre und keine freigegebenen Länder/IP-Netze. Die bisherige Zählung von 17 V0-F-Anforderungen und zehn Abnahmeszenarien bleibt bis zur formalen Scope-Freigabe unverändert.
+ – Noch nicht veröffentlicht
 
 ### Hinzugefügt – Dokumentation und Projektplanung (01.11.2026)
 

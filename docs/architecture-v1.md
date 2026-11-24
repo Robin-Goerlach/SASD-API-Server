@@ -56,6 +56,8 @@ flowchart LR
 
 Each installation has **one configured primary data source** for its core operations. This boundary keeps credentials, audit transactions and application records isolated.
 
+**Future database extensibility:** [Proposed ADR-0020](adr/0020-pluggable-database-adapters.md) describes a trusted, explicitly registered storage adapter boundary and backend-specific dialect/capability checks. PostgreSQL, Oracle, IBM Db2 and Firebird are future candidates, **not implemented V1 adapters or new V1 MUST requirements**; V1 remains MariaDB plus SQLite.
+
 **Domain-specific workflows stay outside generic CRUD.** Library loans/returns, symptom validation or business-specific multi-step processes belong in their applications/domain services. Technical API keys are **not** end-user identities.
 
 ## 3. Container, deployment and trust-boundary view

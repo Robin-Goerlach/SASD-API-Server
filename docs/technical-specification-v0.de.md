@@ -405,6 +405,8 @@ Der HTTP-Einstieg erhält bei Freigabe einen `TrustedClientIpResolver` und eine 
 
 Bei `mode=enforce` und Treffer: neutraler **403** mit `access_restricted`. Bei erforderlichem, aber defektem/fehlendem/abgelaufenem Regelstand: **Fail-Closed mit 503**. Ohne Treffer gelten weiterhin API-Key und Ressourcenrechte. Health/Auth-/Fallback-Routen müssen über eine einheitliche Eingangsregel erfasst werden. Nur bereinigte lokale Ereignisse, LogSink später optional.
 
+**Allowlist-Ergänzung (24.11.2026):** `defaultAction=allow` (Denylist) beziehungsweise `defaultAction=deny` (**Firmen-Allowlist**) und private Quellen `allowed-networks.tsv` / `blocked-networks.tsv` vorsehen. Priorität **jede explizite Sperre > Freigabe > Standardaktion**, ohne heimliche Übersteuerung durch spezifischeres Allow-Präfix. Nicht eingetragene IPs erhalten im Firmenmodus **403**, eine fehlende/leere erforderliche Allowlist **503 (Fail-Closed)**. Firmen-/VPN-Ausgangsnetze unter IPv4/IPv6 prüfen und Verwaltung/Rollback **außerhalb der API** ermöglichen. Netzzulassung ersetzt **keine Authentifizierung**. Geplante Zusatzfälle **AT-GEO-13–AT-GEO-18**. [Details](ip-geoblocking.de.md).
+
 **Tests:** `AT-GEO-01` bis `AT-GEO-12`. **V0-G0** soll den Scope freigeben; eine Implementierung könnte in **V0-M1** erfolgen. Die bisherige Anforderungs-/Abnahmezählung wird nicht stillschweigend verändert. [Gesamtkonzept](ip-geoblocking.de.md) · [ADR-0019](adr/0019-ip-geoblocking.de.md).
 
 ---

@@ -592,33 +592,33 @@ These are **proposed** decisions, not accepted individual ADR files. Acceptance 
 
 | V1 requirement | Architecture | Technical test |
 |---|---|---|
-| V1-F01 | `5 versioned HTTP contract | T-V1-01 |
-| V1-F02 | `7 registry/field aliases | T-V1-02 |
-| V1-F03 | ``5/8 CRUD | T-V1-03 |
-| V1-F04 | ``5/8 type validation | T-V1-03 |
-| V1-F05 | `7 typed query filters | T-V1-04 |
-| V1-F06 | ``5/7 sort/page/projection | T-V1-04 |
-| V1-F07 | `7 one-level relations | T-V1-05 |
-| V1-F08 | `7 read-only views | T-V1-06 |
-| V1-F09 | `13 named queries (**SHOULD**) | T-V1-15 optional |
-| V1-F10 | `8 two adapters | T-V1-03/07 |
-| V1-F11 | ``2–3 instance isolation | T-V1-07 |
-| V1-F12 | `9 key lifecycle | T-V1-08 |
-| V1-F13 | `9 RBAC | T-V1-08 |
-| V1-F14 | `13 row visibility (**SHOULD**) | T-V1-16 optional |
-| V1-F15 | ``6/8/10 transactions/errors | T-V1-09 |
-| V1-F16 | `13 optimistic lock (**SHOULD**) | T-V1-16 optional |
-| V1-F17 | ``6/9 rate and query limits | T-V1-10 |
-| V1-F18 | ``3/9 TLS/CORS | T-V1-10 |
-| V1-F19 | `10 write audit/logging | T-V1-09 |
-| V1-F20 | `10 health/readiness | T-V1-11 |
-| V1-F21 | `11 OpenAPI | T-V1-01 |
-| V1-F22 | `13 extensions (**SHOULD**) | T-V1-16 optional |
-| V1-F23 | `12 configuration versioning | T-V1-12 |
-| V1-F24 | ``3/12 deployment/restore | T-V1-12 |
-| V1-F25 | `11 curl/Java/.NET | T-V1-13 |
-| V1-F26 | `14 test gates | T-V1-14 |
-| V1-F27 | ``10/13 metrics (**SHOULD**) | T-V1-16 optional |
+| V1-F01 | 5 versioned HTTP contract | T-V1-01 |
+| V1-F02 | 7 registry/field aliases | T-V1-02 |
+| V1-F03 | 5/8 CRUD | T-V1-03 |
+| V1-F04 | 5/8 type validation | T-V1-03 |
+| V1-F05 | 7 typed query filters | T-V1-04 |
+| V1-F06 | 5/7 sort/page/projection | T-V1-04 |
+| V1-F07 | 7 one-level relations | T-V1-05 |
+| V1-F08 | 7 read-only views | T-V1-06 |
+| V1-F09 | 13 named queries (**SHOULD**) | T-V1-15 optional |
+| V1-F10 | 8 two adapters | T-V1-03/07 |
+| V1-F11 | 2–3 instance isolation | T-V1-07 |
+| V1-F12 | 9 key lifecycle | T-V1-08 |
+| V1-F13 | 9 RBAC | T-V1-08 |
+| V1-F14 | 13 row visibility (**SHOULD**) | T-V1-16 optional |
+| V1-F15 | 6/8/10 transactions/errors | T-V1-09 |
+| V1-F16 | 13 optimistic lock (**SHOULD**) | T-V1-16 optional |
+| V1-F17 | 6/9 rate and query limits | T-V1-10 |
+| V1-F18 | 3/9 TLS/CORS | T-V1-10 |
+| V1-F19 | 10 write audit/logging | T-V1-09 |
+| V1-F20 | 10 health/readiness | T-V1-11 |
+| V1-F21 | 11 OpenAPI | T-V1-01 |
+| V1-F22 | 13 extensions (**SHOULD**) | T-V1-16 optional |
+| V1-F23 | 12 configuration versioning | T-V1-12 |
+| V1-F24 | 3/12 deployment/restore | T-V1-12 |
+| V1-F25 | 11 curl/Java/.NET | T-V1-13 |
+| V1-F26 | 14 test gates | T-V1-14 |
+| V1-F27 | 10/13 metrics (**SHOULD**) | T-V1-16 optional |
 
 ## 18. Implementation stages, review and Definition of Done
 

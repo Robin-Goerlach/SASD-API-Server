@@ -310,7 +310,7 @@ Für jeden erfolgreichen POST/PUT/PATCH/DELETE wird **im selben lokalen DB-Trans
 
 Minimalfelder: `event_id`, `occurred_at_utc`, `instance_id`, `request_id`, `client_id`, `resource_name`, `method`, `record_key`, `outcome`. Keine kompletten Record-Bodies und keine API-Secrets. Schlägt das Schreiben des Auditereignisses fehl, muss die zugehörige Datensatzänderung zurückgerollt werden, statt einen nicht protokollierten Erfolg zu melden. **Keine** Behauptung einer manipulationssicheren, revisionszertifizierten Auditplattform.
 
-Abgewiesene Auth-/Policy-Versuche führen **keine** Datentransaktion aus; sie werden als datensparsame technische Sicherheitsereignisse über den geschützten Logger mit Request-ID erfasst. Fehlende Dateischreibrechte müssen als Betriebsfehler erkannt und dokumentiert werden.
+Abgewiesene Auth-/Policy-/Schreibversuche führen **keine erfolgreich committete Fachdaten-Transaktion** aus. Sie werden mit Request-ID als **gesondert geschützte, bereinigte Sicherheits-/Ablehnungsereignisse** erfasst, nicht als fiktive erfolgreiche Auditzeilen. Dauerhaftigkeit, Ausfallverhalten und Aufbewahrungsfrist dieser Ablehnungsereignisse müssen vor der V1-F19-Abnahme ausdrücklich beschlossen werden; ein entfernter LogSink ist kein Ersatz. **Erfolgreiche** Schreibvorgänge und ihr verpflichtender Auditdatensatz müssen weiterhin im selben lokalen DB-Commit liegen; Auditfehler rollen die Fachänderung zurück. Fehlende Dateischreibrechte müssen als Betriebsfehler erkannt und dokumentiert werden. Siehe [SEC-INT-001](service-boundaries-and-integrations.de.md).
 
 ### 7.2 Health und Readiness
 

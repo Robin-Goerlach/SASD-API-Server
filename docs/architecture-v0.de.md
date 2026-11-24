@@ -406,6 +406,8 @@ Bei Treffer: neutraler **403**. Eine ausdrücklich verpflichtende aktivierte, ab
 
 Für vollständige Länderzuordnungen sind **lizenzierte lokale indizierte** Geo-IP-/Präfixdaten vorzusehen, keine externe Abfrage oder große lineare Suche je PHP-Request. Betroffene Länder/Leistungen benötigen Betreiber-/Rechtsprüfung; IP-Standort ist nicht beweissicher.
 
+**Eingangsregel für beide Richtungen (24.11.2026):** Dieselbe Komponente übernimmt **Allowlist (Standard sperren)**, **Denylist (Standard erlauben)** sowie kombinierte Regeln. Feste Priorität **jede explizite Sperre > Freigabe > konfigurierte Standardaktion**. Im Firmenmodus: unbekannte IP **403**, leere/fehlende erforderliche Allowlist **503 (Fail-Closed)**. Firmen-/VPN-Ausgänge unter IPv4 und IPv6 vor Updates testen; Rücknahme über geschützte Verwaltung **außerhalb der API**. Keine Admin-Hintertür. Auch IP-Freigaben benötigen anschließend API-Key/Token und Ressourcenberechtigung. Tests **AT-GEO-13–18**.
+
 **Dies ist eine V0-G0-/V0-M1-Entwurfsergänzung, noch keine Freigabe einer weiteren V0-F-MUSS-Anforderung.** [Konzept](ip-geoblocking.de.md) · [ADR-0019](adr/0019-ip-geoblocking.de.md) · [AT-GEO-01 bis AT-GEO-12](ip-geoblocking.de.md#7-abnahmetests).
 
 ## 16. Review, Änderungen, Definition of Done

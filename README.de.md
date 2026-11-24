@@ -625,6 +625,8 @@ Die fünf V1-SOLL-Funktionen dürfen nur nach dokumentierter Entscheidung versch
 
 [Ausführliche Roadmap (Deutsch)](ROADMAP.de.md) · [Entwicklungsplan V0](docs/entwicklungsplan-v0.md)
 
+**Kritische Dokumentationsprüfung vom 24.11.2026:** [Prüfbericht (Deutsch)](docs/documentation-review-2026-11-24.de.md) · [English](docs/documentation-review-2026-11-24.md). Enthält abgeglichene und noch offene Gesprächsthemen, V0-/V1-Umfang und Entscheidungen; **keine** bereits durchgeführte Software-Sicherheitsabnahme.
+
 ## Dokumentationsbibliothek
 
 | Dokumentart | V0 | V1 |

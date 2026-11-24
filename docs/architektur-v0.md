@@ -1,6 +1,8 @@
-# SASD-API-Server – Softwarearchitektur V0
+> **Compatibility mirror / bisheriger Dateipfad:** Diese Datei spiegelt die kanonische [Fassung](architecture-v0.de.md). Neue Bearbeitungen bitte im kanonischen Sprachpaar vornehmen und alte Pfade synchronisieren.
 
-> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](architecture-v0.md) · [Deutsch (kanonisch)](architecture-v0.de.md)  
+> **Sprache:** [English (Standard)](architecture-v0.md) | **Deutsch**
+
+# SASD-API-Server – Softwarearchitektur V0
 
 > **Status:** Architekturentwurf, noch keine Implementierung oder Abnahme. **Version:** 0.1 · **Stand:** 01.11.2026 · **Ziel:** V0.1.0  
 > Grundlage: [Lastenheft V0](./lastenheft-v0.md) · [Pflichtenheft V0](./pflichtenheft-v0.md) · [Referenzkatalog](./referenzprodukte-funktionskatalog.md)  
@@ -380,26 +382,44 @@ Diese Einträge sind Entscheidungen **zur Freigabe**, keine bereits abgezeichnet
 
 | V0-Funktion | Architekturentscheidung/Abschnitt | Technischer Nachweis |
 |---|---|---|
-| V0-F01 | ``4–7 Router/Registry | T-V0-01/05 |
-| V0-F02 | ``5–6, 8 GET | T-V0-01 |
-| V0-F03 | ``5/8 POST | T-V0-02 |
-| V0-F04 | ``5–6 PUT/PATCH | T-V0-03 |
-| V0-F05 | ``5/8 DELETE | T-V0-04 |
-| V0-F06 | `7 Konfigurations-Allowlist | T-V0-05 |
-| V0-F07 | `6 Filter | T-V0-06 |
-| V0-F08 | `6 Sortierung/Paging | T-V0-07 |
-| V0-F09 | `6 Fehler/JSON | T-V0-09 |
-| V0-F10 | ``2–3 Isolation | T-V0-11 |
-| V0-F11 | `9 API-Key | T-V0-08 |
-| V0-F12 | ``6–9 Validierung/SQL | T-V0-06/09 |
-| V0-F13 | ``3/9 TLS/CORS | T-V0-10 |
-| V0-F14 | `10 Health | T-V0-10 |
-| V0-F15 | `10 Logging | T-V0-10 |
-| V0-F16 | ``3/10/14 Dokumentation | T-V0-12 |
-| V0-F17 | `11 Tests/Fitness | T-V0-12 |
+| V0-F01 | 4–7 Router/Registry | T-V0-01/05 |
+| V0-F02 | 5–6, 8 GET | T-V0-01 |
+| V0-F03 | 5/8 POST | T-V0-02 |
+| V0-F04 | 5–6 PUT/PATCH | T-V0-03 |
+| V0-F05 | 5/8 DELETE | T-V0-04 |
+| V0-F06 | 7 Konfigurations-Allowlist | T-V0-05 |
+| V0-F07 | 6 Filter | T-V0-06 |
+| V0-F08 | 6 Sortierung/Paging | T-V0-07 |
+| V0-F09 | 6 Fehler/JSON | T-V0-09 |
+| V0-F10 | 2–3 Isolation | T-V0-11 |
+| V0-F11 | 9 API-Key | T-V0-08 |
+| V0-F12 | 6–9 Validierung/SQL | T-V0-06/09 |
+| V0-F13 | 3/9 TLS/CORS | T-V0-10 |
+| V0-F14 | 10 Health | T-V0-10 |
+| V0-F15 | 10 Logging | T-V0-10 |
+| V0-F16 | 3/10/14 Dokumentation | T-V0-12 |
+| V0-F17 | 11 Tests/Fitness | T-V0-12 |
+
+### Vorgesehene Eingangserweiterung SEC-GEO-001 (vor der Implementierung)
+
+Eine optionale neue Sicherheitsstufe `TrustedClientIpResolver → IpAccessPolicy` wird **nach verifizierter TLS-/Proxyermittlung und vor API-Key-Authentifizierung** in die gemeinsame HTTP-Pipeline eingebunden. Erste Regelquelle ist eine private, versionierte **IPv4-/IPv6-CIDR-Datei**; spätere DB-Provider dürfen die **Anwendungsdatenbank** nicht zur Voraussetzung der frühen Sperrentscheidung machen.
+
+Bei Treffer: neutraler **403**. Eine ausdrücklich verpflichtende aktivierte, aber defekte/fehlende/veraltete Regeldatei führt zu **Fail-Closed mit 503**. Bei fehlendem Treffer gelten weiterhin alle Authentifizierungs- und Ressourcenrechte. Der Query-Fallback, andere API-Versionen und ein späterer Auth-Service dürfen die Eingangsprüfung nicht umgehen. Die Client-IP wird nur aus einer **verifizierten** Peer-/Proxykette bestimmt.
+
+Für vollständige Länderzuordnungen sind **lizenzierte lokale indizierte** Geo-IP-/Präfixdaten vorzusehen, keine externe Abfrage oder große lineare Suche je PHP-Request. Betroffene Länder/Leistungen benötigen Betreiber-/Rechtsprüfung; IP-Standort ist nicht beweissicher.
+
+**Eingangsregel für beide Richtungen (24.11.2026):** Dieselbe Komponente übernimmt **Allowlist (Standard sperren)**, **Denylist (Standard erlauben)** sowie kombinierte Regeln. Feste Priorität **jede explizite Sperre > Freigabe > konfigurierte Standardaktion**. Im Firmenmodus: unbekannte IP **403**, leere/fehlende erforderliche Allowlist **503 (Fail-Closed)**. Firmen-/VPN-Ausgänge unter IPv4 und IPv6 vor Updates testen; Rücknahme über geschützte Verwaltung **außerhalb der API**. Keine Admin-Hintertür. Auch IP-Freigaben benötigen anschließend API-Key/Token und Ressourcenberechtigung. Tests **AT-GEO-13–18**.
+
+**Dies ist eine V0-G0-/V0-M1-Entwurfsergänzung, noch keine Freigabe einer weiteren V0-F-MUSS-Anforderung.** [Konzept](ip-geoblocking.de.md) · [ADR-0019](adr/0019-ip-geoblocking.de.md) · [AT-GEO-01 bis AT-GEO-12](ip-geoblocking.de.md#7-abnahmetests).
 
 ## 16. Review, Änderungen, Definition of Done
 
 Änderungen an HTTP-Verträgen, Ressourcen-/Feldfreigaben, Key-Handling, Repository-Ports, SQL-Bau, TLS-/Config-Grenzen oder Fehlerformat sind **architekturrelevant** und benötigen Review plus Contract-/Security-Tests. Fachliche Änderungen werden zuerst im Lastenheft, danach im Pflichtenheft und in dieser Architektur nachgeführt.
 
 **Definition of Done (spätere Implementierung):** alle 17 V0-MUSS-Anforderungen und AT-V0-01 bis AT-V0-10 bestanden; Daten/Secrets getrennt; Shared-Hosting-Installation getestet; alle Sicherheits-Negativtests nachgewiesen. Bis dahin bleibt dies ein Architekturentwurf.
+
+## 17. Trennung von zukünftigem Auth Service und LogSink (SEC-INT-001)
+
+**V0 bleibt ein eigenständig betreibbarer Datendienst.** Sein lokaler `ApiKeyAuthenticator` kann einen schmalen Verifier-Port verwenden, ohne externe Anmeldung, SSO, Token-Introspection oder LogSink vorauszusetzen. **Ressourcen-/Methoden-/Feldrechte entscheidet stets der API Server**, nicht ein Auth Service. Lokal und privat protokollieren; zentrale LogSink-Weitergabe erst nach Sender-/Leserabsicherung, Datenminimierung und sicherem Ausfallverhalten. Ein nicht erreichbarer LogSink darf normale berechtigte CRUD-Operationen nicht verhindern. Das spätere atomare V1-Schreib-Audit ist davon getrennt und verpflichtend.
+
+Jeder öffentlich erreichbare Dienst benötigt seine eigene IP-/Netzzugangskontrolle; Firmen-IP oder gültiges Token erlauben keine beliebigen SQL-Felder. **Keine stillschweigende neue V0-MUSS-Funktion.** [SEC-INT-001](service-boundaries-and-integrations.de.md) · [ADR-0020 (Vorschlag)](adr/0020-auth-api-logging-service-boundaries.de.md).

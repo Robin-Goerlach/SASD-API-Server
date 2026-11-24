@@ -55,7 +55,11 @@ Priorities are **qualitative judgments**, not mathematically calculated likeliho
 | R-025 | All | **P1** | Documentation is mistaken for running/accepted functionality. | Honest status, real implementation and acceptance records, changelog evidence. | Open |
 | R-026 | All | **P2** | Unplanned additions increase scope and attack surface. | Issue explaining use case, priority, exclusions, tests and ADR when appropriate. | Open |
 
-### R-027 — Proposed country/IP restriction ingress risk (SEC-GEO-001)
+### R-027 — Proposed country/IP restriction ingress risk
+
+**Corporate allowlist extension:** `defaultAction=deny` may block administrators when office/VPN public egress IPs change; an empty/missing required allowlist must fail closed instead of allowing everyone. Preserve out-of-band host/file rollback; test IPv4/IPv6, overlapping allow/deny rules (deny wins), and all alternate route paths. Proposed tests **AT-GEO-13–18**.
+
+ (SEC-GEO-001)
 
 **Phase:** V0-G0 / prospective V0-M1; **Priority: P1**, escalating to **P0 production blocker** when the operator or applicable legal requirement mandates active geo-IP blocking. **Status: Open**.
 

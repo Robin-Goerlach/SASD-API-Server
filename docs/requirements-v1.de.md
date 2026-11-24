@@ -257,7 +257,7 @@ Der SASD API Server ist eine **konfigurierbare REST/JSON-Datendienst-Plattform**
 
 **Erwartete Leistung und Abgrenzung:** Technische Logs enthalten mindestens Request-ID, Zeitpunkt in UTC, Instanz, Ressource, Operation, Status, Fehlerklasse und technische Clientkennung, soweit datenschutzrechtlich zulässig. **Für schreibende Aktionen** werden nachvollziehbare Auditereignisse erzeugt (wer, wann, was, welches logische Objekt, Ergebnis); vollständige personenbezogene Inhalte, Tokens oder Passwörter werden nicht pauschal geloggt. Logrotation, Aufbewahrung und Zugriffsschutz werden dokumentiert. Ein vollwertiger revisionssicherer Audit-Tresor wird nicht behauptet.
 
-**Abnahmekriterium:** Eine erfolgreiche Änderung und eine verweigerte Änderung lassen sich anhand geschützter Ereignisse zuordnen, ohne Klartextschlüssel oder ganze Datensätze in Logs zu finden.
+**Abnahmekriterium (präzisiert):** Jede **erfolgreich committete** Änderung besitzt einen geschützten **transaktionalen Auditeintrag** mit Request-ID zur betroffenen Datenänderung. Schlägt das verpflichtende Audit fehl, wird die Datenänderung zurückgerollt. Jeder **abgewiesene/verweigerte** Schreibversuch wird stattdessen einem gesondert geschützten, bereinigten **Sicherheits-Ablehnungsereignis** zugeordnet; es gibt dafür keinen fiktiven erfolgreichen Fachtransaktions-Commit. In beiden Ereignistypen dürfen weder Klartextschlüssel/Tokens noch ganze Datensätze enthalten sein. Haltbarkeit und Aufbewahrung abgelehnter Ereignisse sind vor Produktivabnahme separat festzulegen. Siehe [SEC-INT-001](service-boundaries-and-integrations.de.md).
 
 **Herkunft / Inspiration:** DreamFactory §4.2: Audit Logging (ggf. kommerziell); DB2Rest §5.5: Observability.
 

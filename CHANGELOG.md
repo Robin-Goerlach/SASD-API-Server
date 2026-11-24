@@ -6,6 +6,17 @@ All notable project changes will be recorded here. The project intends to follow
 
 ## [Unreleased]
 
+### Documentation and architecture consistency review — 2026-11-24
+
+- Reviewed the project conversation against the bilingual V0/V1 requirements, technical specifications, architecture, risk/test/deployment documents and roadmap; recorded findings in [the English review](docs/documentation-review-2026-11-24.md) and [German review](docs/documentation-review-2026-11-24.de.md).
+- Added **SEC-INT-001**, the bilingual [Auth/API/LogSink integration contract](docs/service-boundaries-and-integrations.md), and **[ADR-0020 (proposed)](docs/adr/0020-auth-api-logging-service-boundaries.md)**. Preserved independent V0 operation and local V1 technical keys/RBAC; a separate Auth Service and unprotected LogSink are **not** mandatory runtime dependencies.
+- Clarified **V1-F19**: a successful business write and required audit are one local database transaction; denied attempts are separate protected security events whose exact durability remains to be approved.
+- Added proposed **AT-INT-01–12** tests and risks **R-028/R-029** for unsafe external identity/logging dependencies; updated specifications, architectures, roadmap, testing, operations and acceptance.
+- Repaired malformed Markdown in requirement traceability tables, fixed some broken geo-IP review notes, and **synchronized 15 legacy German/English document filenames** to their current canonical language versions.
+- **Status:** design and documentation changes only. SEC-INT-001 and SEC-GEO-001 remain proposed; V0/V1 release scopes and test-pass status are unchanged.
+
+
+
 ### Proposed security design — 2026-11-23
 
 - **2026-11-24 refinement:** expanded SEC-GEO-001 / proposed ADR-0019 to support **default-deny company/VPN IP allowlists**, default-allow denylists and combined policies with explicit-deny precedence. Added proposed tests **AT-GEO-13–18**, corporate IP-change/lockout recovery, and IPv4/IPv6 cases; English/German plans and architecture updated. Still a proposed design, not running code.

@@ -1,6 +1,8 @@
-# SASD API Server – Teststrategie und Qualitätssicherung
+> **Compatibility mirror / bisheriger Dateipfad:** Diese Datei spiegelt die kanonische [Fassung](test-strategy.de.md). Neue Bearbeitungen bitte im kanonischen Sprachpaar vornehmen und alte Pfade synchronisieren.
 
-> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](test-strategy.md) · [Deutsch (kanonisch)](test-strategy.de.md)  
+> **Sprache:** [English (Standard)](test-strategy.md) | **Deutsch**
+
+# SASD API Server – Teststrategie und Qualitätssicherung
 
 > **Status:** Testkonzept, keine Testausführung behauptet · **Stand:** 01.11.2026  
 > Bezug: [Lastenheft V0](lastenheft-v0.md), [Pflichtenheft V0](pflichtenheft-v0.md), [Lastenheft V1](lastenheft-v1.md), [Pflichtenheft V1](pflichtenheft-v1.md)  
@@ -124,6 +126,16 @@ Es werden keine unbelegten festen Millisekunden-SLOs erfunden. Vor jedem Release
 **Noch kein aktiver Workflow wird hiermit behauptet.** Bei der Implementierung ist eine GitHub-Actions-Pipeline für PHP-Lint, Unit, statische Prüfungen, MariaDB-Integration und Contract-/Security-Tests einzurichten. CI darf niemals auf Produktivdaten zugreifen oder reale Secrets ins Log schreiben. Hostingabhängige manuelle Tests bleiben ein **zusätzliches** Release-Gate. V1 ergänzt SQLite-Integration und gemeinsame DB-Contract-Suite.
 
 Die Pipeline nutzt datensparsame Testausgaben; ein fehlgeschlagener Test gibt seinen Testfall, nicht den API-Key, aus. Jede Build-/Testversion wird im späteren Abnahmeprotokoll nachgewiesen.
+
+### Vorgeschlagene zusätzliche Geo-IP-/CIDR-Tests: SEC-GEO-001
+
+[SEC-GEO-001](ip-geoblocking.de.md) enthält **zwölf zusätzliche vorgeschlagene Fälle** `AT-GEO-01`–`AT-GEO-12`: IPv4/IPv6, CIDR-Grenzen, gemappte Adressen, Spoofing von Forwarded-Headern, Proxy-Vertrauen, Fail-Closed bei fehlenden/defekten/alten Listen, atomare Updates, Instanzisolation, sanierte Logs und begrenzte Lookupkosten. Sie gehören **noch nicht** zu den bisherigen zehn V0-Abnahmeszenarien, solange die Scope-Freigabe in V0-G0 aussteht. Geo-IP-Ergebnisse beweisen keine rechtliche Sanktionskonformität.
+
+**Firmen-Allowlist-Ergänzung:** **AT-GEO-13 bis AT-GEO-18** prüfen ausdrücklich freigegebenen Firmenzugang unter IPv4/IPv6, **403** für alle übrigen IPs, explizite Sperre vor Freigabe, **503 (Fail-Closed)** bei ungültiger/leerer erforderlicher Allowlist, verifizierte VPN-/Proxykette und sicheres Update mit Rücknahme außerhalb der API. Bisherige V0-F-/AT-V0-Zählungen bleiben bis zum Scope-Beschluss unverändert. [Details](ip-geoblocking.de.md#71-zusätzliche-abnahmetests-für-firmen-freigabelisten).
+
+### Vorgeschlagene dienstübergreifende Integrationstests: SEC-INT-001
+
+Die **zwölf vorgeschlagenen AT-INT-01–AT-INT-12** umfassen unabhängigen V0-Betrieb ohne Auth/LogSink, Ressourcenrechte trotz gültigem API-Key, spätere Token-/Ausfallprüfung, LogSink-Ausfall/Härtung, **atomaren V1-Schreib-Audit**, getrennte geschützte Ablehnungsereignisse, Datensparsamkeit, IP-Eingangsschutz und Instanzisolation. **Nur die tatsächlich freigegebenen Integrationen erhalten entsprechende Release-Gates.** Keine zusätzliche V0-MUSS-Funktion oder bereits vorhandenes SSO wird behauptet. [Gesamte Testmatrix](service-boundaries-and-integrations.de.md#8-vorgeschlagene-integrationstests).
 
 ## 10. Exit-Kriterien
 

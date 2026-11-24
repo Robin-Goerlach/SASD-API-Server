@@ -637,3 +637,9 @@ These are **proposed** decisions, not accepted individual ADR files. Acceptance 
 Do not opportunistically implement all researched reference features. Security, authentication, authorization, configuration, SQL dialect and audit changes need a written architecture/ADR review and verified tests.
 
 **Status: detailed proposed V1 architecture. No implemented V1 code, completed test, or release approval is claimed.**
+
+## 19. Auth and LogSink service boundaries (SEC-INT-001)
+
+The **data API owns RBAC and all resource/field/relation/row authorization** even when an external Auth Service is eventually added. V1 MUST scope continues to support **local technical keys** and independent per-instance deployment; external SSO/token endpoints are **not** mandatory. A future signed-token verifier can be local with strict issuer/audience/expiry/signature/key-cache checks; opaque introspection requires a documented fail-closed remote dependency. Never accept a token as blanket permission.
+
+Log categories are deliberately distinct: **local protected technical logs**, **correlated denied-request security events** (retention decision pending), and **mandatory committed-write audit in the same local business DB transaction**. A remote **hardened** LogSink may receive minimal best-effort copies only; its downtime cannot block normal authorized CRUD or substitute for the audit commit. IP allow/deny policies are per service ingress. [SEC-INT-001](service-boundaries-and-integrations.md) · [ADR-0020 (proposed)](adr/0020-auth-api-logging-service-boundaries.md).

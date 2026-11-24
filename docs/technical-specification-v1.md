@@ -460,33 +460,33 @@ Active config, key store and logs **must** be outside document root and verified
 
 | Requirement | Implementation section | Test |
 |---|---|---|
-| V1-F01 | `3 versioned HTTP contract | T-V1-01 |
-| V1-F02 | `4 registry and aliases | T-V1-02 |
-| V1-F03 | ``3/5 CRUD | T-V1-03 |
-| V1-F04 | ``3/5 type conversion and validation | T-V1-03 |
-| V1-F05 | `3.4 typed query expressions | T-V1-04 |
-| V1-F06 | `3.4 projection, sorting and paging | T-V1-04 |
-| V1-F07 | `3.5 bounded relationships | T-V1-05 |
-| V1-F08 | `4.3 read-only views | T-V1-02/06 |
-| V1-F09 | `8.1 named queries (**SHOULD**) | T-V1-15 optional |
-| V1-F10 | `5 two adapters | T-V1-03/07 |
-| V1-F11 | ``4/10 independent installs | T-V1-07 |
-| V1-F12 | `6 key lifecycle | T-V1-08 |
-| V1-F13 | `6 RBAC | T-V1-05/08 |
-| V1-F14 | `6.4 row visibility (**SHOULD**) | T-V1-16 optional |
-| V1-F15 | ``5/7 consistent write/transaction | T-V1-09 |
-| V1-F16 | `8.2 optimistic locking (**SHOULD**) | T-V1-16 optional |
-| V1-F17 | ``3/6 rate/query limits | T-V1-10 |
-| V1-F18 | `6.5 TLS/CORS/defaults | T-V1-10 |
-| V1-F19 | `7 audit and sanitized logs | T-V1-09 |
-| V1-F20 | `7.2 health/readiness | T-V1-11 |
-| V1-F21 | `9 OpenAPI | T-V1-01 |
-| V1-F22 | `8.3 extensions (**SHOULD**) | T-V1-16 optional |
-| V1-F23 | ``4/10 versioned config | T-V1-12 |
-| V1-F24 | `10 installation/backup/restore | T-V1-12 |
-| V1-F25 | `9.2 curl/Java/.NET | T-V1-13 |
-| V1-F26 | `11 tests/gates | T-V1-14 |
-| V1-F27 | ``7/8 metrics (**SHOULD**) | T-V1-16 optional |
+| V1-F01 | 3 versioned HTTP contract | T-V1-01 |
+| V1-F02 | 4 registry and aliases | T-V1-02 |
+| V1-F03 | 3/5 CRUD | T-V1-03 |
+| V1-F04 | 3/5 type conversion and validation | T-V1-03 |
+| V1-F05 | 3.4 typed query expressions | T-V1-04 |
+| V1-F06 | 3.4 projection, sorting and paging | T-V1-04 |
+| V1-F07 | 3.5 bounded relationships | T-V1-05 |
+| V1-F08 | 4.3 read-only views | T-V1-02/06 |
+| V1-F09 | 8.1 named queries (**SHOULD**) | T-V1-15 optional |
+| V1-F10 | 5 two adapters | T-V1-03/07 |
+| V1-F11 | 4/10 independent installs | T-V1-07 |
+| V1-F12 | 6 key lifecycle | T-V1-08 |
+| V1-F13 | 6 RBAC | T-V1-05/08 |
+| V1-F14 | 6.4 row visibility (**SHOULD**) | T-V1-16 optional |
+| V1-F15 | 5/7 consistent write/transaction | T-V1-09 |
+| V1-F16 | 8.2 optimistic locking (**SHOULD**) | T-V1-16 optional |
+| V1-F17 | 3/6 rate/query limits | T-V1-10 |
+| V1-F18 | 6.5 TLS/CORS/defaults | T-V1-10 |
+| V1-F19 | 7 audit and sanitized logs | T-V1-09 |
+| V1-F20 | 7.2 health/readiness | T-V1-11 |
+| V1-F21 | 9 OpenAPI | T-V1-01 |
+| V1-F22 | 8.3 extensions (**SHOULD**) | T-V1-16 optional |
+| V1-F23 | 4/10 versioned config | T-V1-12 |
+| V1-F24 | 10 installation/backup/restore | T-V1-12 |
+| V1-F25 | 9.2 curl/Java/.NET | T-V1-13 |
+| V1-F26 | 11 tests/gates | T-V1-14 |
+| V1-F27 | 7/8 metrics (**SHOULD**) | T-V1-16 optional |
 
 ## 13. Implementation slices
 

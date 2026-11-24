@@ -1,6 +1,8 @@
-# SASD-API-Server — Requirements Specification V0
+> **Legacy English filename:** This compatibility copy mirrors [the English default document](requirements-v0.md); edit the canonical file and resynchronize aliases.
 
-> **Language:** **English (legacy file path)** · [English (default)](requirements-v0.md) · [Deutsch](requirements-v0.de.md)  
+> **Language:** **English (default)** | [Deutsch](requirements-v0.de.md)
+
+# SASD-API-Server — Requirements Specification V0
 
 > **Status:** Draft for functional review · **Document version:** 0.1 · **Created:** 2026-11-01  
 > **Repository:** [Robin-Goerlach/SASD-API-Server](https://github.com/Robin-Goerlach/SASD-API-Server)  
@@ -335,4 +337,29 @@ The **precise endpoint syntax** below is provisional and must be finalized in th
 
 ---
 
+## 13. Proposed additional security requirement — SEC-GEO-001
+
+**SEC-GEO-001 (proposed, not yet incorporated into the 17 numbered V0-F MUST requirements):** Before authentication and business-resource processing, an instance must be able to **deny requests originating from operator-configured IPv4/IPv6 CIDR ranges**, including ranges assigned to countries/territories under a separately approved restriction policy. A protected file outside document root is the recommended initial rule source; a database-backed provider may be added later.
+
+The policy must verify the client's real network address through an explicitly trusted proxy chain, reject forged forwarded headers, support both address families, and apply rules consistently to all protected paths. A valid blocked match returns **403**. If an explicitly mandatory enforced policy is missing, invalid or too old, access must **fail closed** (controlled **503**) rather than silently allowing traffic. Unblocked IPs still require ordinary authentication and resource permissions.
+
+Country-to-IP mapping requires a **reliable, licensed and refreshed** dataset. Geo-IP may identify a VPN/proxy exit rather than the user; it is **not complete sanctions compliance**. Operator/legal review determines which jurisdictions, services, countries or territories to restrict. IP-related personal-data handling and log retention must be reviewed.
+
+**Proposed acceptance:** `AT-GEO-01`–`AT-GEO-12`, covering IPv4/IPv6 boundaries, header spoofing, proxy bypass, invalid/stale rules, atomic updates, instance isolation, response confidentiality and performance with real country-level datasets.
+
+**Extended company-only requirement (2026-11-24):** In addition to a geographic/network denylist, the same IP policy must offer an **allowlist mode** (`defaultAction=deny`): only specifically configured corporate/VPN IPv4/IPv6 CIDR networks proceed to normal authentication and authorization. The policy may also combine allow/deny rules with **explicit deny > explicit allow > defaultAction**. Unknown IPs → 403 in allowlist mode; unexpectedly missing/empty required allowlist → 503 fail-closed. No hardcoded admin bypass; out-of-band rollback required. New proposed tests: **AT-GEO-13–AT-GEO-18**. This remains a proposed V0-G0 scope refinement and does not change the existing 17 V0-F total. [Full design](ip-geoblocking.md).
+
+**Scope control:** This addendum is recorded for **V0-G0 architecture review and possible V0-M1 integration**. The existing V0-F01–F17 and AT-V0-01–10 identifiers/counts remain unchanged until a formal decision includes SEC-GEO-001 in the release baseline. [Complete specification](ip-geoblocking.md) · [ADR-0019 (proposed)](adr/0019-ip-geoblocking.md).
+
+---
+
 **Document status:** Detailed requirements **draft**. It does not claim completed implementation, successful test acceptance, or formal approval by the project owner.
+
+## 14. Proposed service-boundary and logging requirement — SEC-INT-001
+
+**Status: architecture boundary to consider during V0-G0; not a new mandatory V0-F number.** The initial SASD API Server shall remain **independently deployable** with its local installation-specific API key, authorization policy, private logs and database, **without requiring a networked Auth Service, LogSink or background worker** for a CRUD request. Authentication answers *who*, while the API itself must decide *which resource, method and field* the trusted technical client may use. Consider a narrow local credential-verification interface during design, without introducing OAuth/JWT/SSO into V0.
+
+An already existing, experimental **LogSink** is **not an approved security-log dependency**: its documented HTTP API currently allows unauthenticated readers and writers and stores raw bodies. A future integration can send **sanitized, minimized events** only after LogSink hardening; outages must not block ordinary authorized CRUD. Do not confuse these logs with the future V1 **same-transaction business write audit**.
+
+**Design evidence candidates:** AT-INT-01/02/06/10/12; none is added to AT-V0-01–10 until a release-scope decision. [Full bilingual contract](service-boundaries-and-integrations.md) · [ADR-0020 (proposed)](adr/0020-auth-api-logging-service-boundaries.md).
+

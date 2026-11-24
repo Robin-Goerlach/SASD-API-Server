@@ -345,6 +345,8 @@ Die Zuordnung von Ländern zu IP-Netzen verlangt **geprüfte, lizenzkonforme und
 
 **Geplante Nachweise:** `AT-GEO-01` bis `AT-GEO-12` mit IPv4/IPv6, Proxy-Spoofing, ungültigen/alten Listen, atomaren Updates, isolierten Instanzen, vertraulicher Antwortgestaltung und echten Hosting-Messungen.
 
+**Ergänzung Firmenzugriff (24.11.2026):** Dieselbe IP-Regel muss zusätzlich eine **Allowlist** ermöglichen (`defaultAction=deny`): Nur ausdrücklich freigegebene Firmen-/VPN-Netze für IPv4 und IPv6 gelangen zur normalen Anmeldung und Rechteprüfung. Kombinierte Regeln haben die feste Priorität **explizite Sperre vor Freigabe vor Standardaktion**. Unbekannte IPs → 403 im Allowlist-Modus, fehlende/leere erforderliche Allowlists → 503 (Fail-Closed). Kein hart codierter Admin-Bypass, Rücknahme außerhalb der API. Weitere geplante Tests: **AT-GEO-13 bis AT-GEO-18**. Die bisherigen 17 V0-F-MUSS-Anforderungen bleiben bis zum Freigabebeschluss unverändert. [Gesamtentwurf](ip-geoblocking.de.md).
+
 **Scope-Status:** Erst für **V0-G0** prüfen und gegebenenfalls **V0-M1** integrieren. Die vorhandenen Kennungen/Zählungen V0-F01–F17 und AT-V0-01–10 bleiben bis zum bewussten Aufnahmebeschluss unverändert. [Ausführliches Konzept](ip-geoblocking.de.md) · [ADR-0019 (Vorschlag)](adr/0019-ip-geoblocking.de.md).
 
 ---

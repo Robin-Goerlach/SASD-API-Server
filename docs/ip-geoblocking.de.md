@@ -225,6 +225,19 @@ Neue Testkennungen **AT-GEO-01 bis AT-GEO-12**; sie sind noch **nicht** Bestandt
 
 Bei einem späteren Auth Service gelten gleichwertige Eingangstests. Eine blockierte Anfrage darf nicht über andere API-Pfade oder ein fehlendes Plugin an geschützte Daten gelangen.
 
+### 7.1 Zusätzliche Abnahmetests für Firmen-Freigabelisten
+
+Die Firmenfreigabe ergänzt die vorgeschlagenen Fälle um **AT-GEO-13 bis AT-GEO-18**. Die bisherigen `AT-GEO-01` bis `AT-GEO-12` behalten ihre Kennungen.
+
+| Test | Nachweis |
+|---|---|
+| AT-GEO-13 | Freigegebenes Firmen-IPv4-/IPv6-Netz mit `defaultAction=deny` gelangt zur **normalen** API-Key-/Token-/Rollenprüfung, nicht ohne Anmeldung an Daten |
+| AT-GEO-14 | Jede nicht freigegebene IPv4-/IPv6-Adresse erhält **403** vor Authentifizierung, SQL, OpenAPI und alternativen Routen |
+| AT-GEO-15 | Ein Netz mit **Allow- und Deny-Treffer** wird **gesperrt**, unabhängig von Präfixlängen; kein Mapped-IPv4-Bypass |
+| AT-GEO-16 | Fehlende, unlesbare, ungültige oder unerwartet leere **erforderliche Firmen-Allowlist** führt kontrolliert zu **503**, nie zu Allow-all |
+| AT-GEO-17 | Firmen-VPN-/Proxy-Austritte (IPv4/IPv6), wechselnde öffentliche IPs und gefälschte Forwarded-Header umgehen den Vertrauensmechanismus nicht |
+| AT-GEO-18 | Update vor Aktivierung gegen genehmigte Admin-Ausgangsadressen prüfen; fehlerhafte Regeln ohne Hintertür **außerhalb der API** auf letzten gültigen Snapshot zurückstellen |
+
 ## 8. Risiken und offene Entscheidungen
 
 | Risiko | Folge | Maßnahme |

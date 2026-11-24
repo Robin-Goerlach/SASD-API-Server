@@ -1,6 +1,8 @@
-# SASD API Server – Betrieb, Deployment, Backup und Recovery
+> **Compatibility mirror / bisheriger Dateipfad:** Diese Datei spiegelt die kanonische [Fassung](deployment-operations.de.md). Neue Bearbeitungen bitte im kanonischen Sprachpaar vornehmen und alte Pfade synchronisieren.
 
-> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](deployment-operations.md) · [Deutsch (kanonisch)](deployment-operations.de.md)  
+> **Sprache:** [English (Standard)](deployment-operations.md) | **Deutsch**
+
+# SASD API Server – Betrieb, Deployment, Backup und Recovery
 
 > **Status:** Entwurfs-Runbook für V0/V1, keine produktive Installation nachgewiesen · **Stand:** 01.11.2026  
 > Bezüge: [Architektur V0](architektur-v0.md), [Pflichtenheft V0](pflichtenheft-v0.md), [Architektur V1](architektur-v1.md), [Sicherheitsregeln](../SECURITY.md), [Releaseprozess](release-und-abnahme.md)
@@ -138,6 +140,12 @@ Vor jeder Änderung werden Code-Commit/Tag, Configschema-Version, DB-Schema und 
 ### 8.1 Vorgehen bei einem Sicherheitsvorfall
 
 Zuerst **Schaden begrenzen**: gefährdete Instanz sperren oder sicher isolieren, kompromittierte Keys deaktivieren/rotieren, private Files schützen. Relevante, datensparsame Beweise sichern; keine privaten Inhalte in öffentliche GitHub-Issues stellen. Anschließend Ursache und Auswirkungen anhand Request-IDs, Betreiber-Logs und Backupzustand untersuchen. Betroffene Daten/Personen und rechtliche Meldungen müssen vom jeweiligen Betreiber anhand seines konkreten Falls geprüft werden. Erst nach Negativtest und Freigabe erneut öffnen.
+
+### Vorgeschlagene Betriebsgrenzen für externe Dienste (SEC-INT-001)
+
+**V0** prüft technische API-Keys lokal und schreibt geschützte Instanzlogs; kein separater Auth Service oder LogSink muss erreichbar sein. **V1** behält lokale technische Identitäten/Rollen und atomaren Schreib-Audit. Ein später **gehärteter LogSink** darf nur bereinigte, begrenzte Ereignisse mit getrennten Sender-/Leserrechten empfangen; die Übermittlung bleibt optional **best effort** mit geschütztem, begrenztem lokalem Fallback, ohne vorausgesetzten Dauerworker. Ein LogSink-Ausfall blockiert normales berechtigtes CRUD **nicht**. Ein Audit-Fehler **blockiert hingegen** den betreffenden V1-Daten-Commit und rollt ihn zurück.
+
+Zentrale Anmeldung benötigt später ausdrücklich überprüfte Tokenvertrauensgrenzen, Issuer/Audience/Ablauf, Schlüsselrotation, Cache/Timeout und Widerruf. Für lokal prüfbare signierte und opaque Tokens gelten unterschiedliche Ausfallregeln. Jeder öffentlich erreichbare Dienst bekommt eigenen IP-Eingangsschutz. [SEC-INT-001](service-boundaries-and-integrations.de.md) · [ADR-0020](adr/0020-auth-api-logging-service-boundaries.de.md).
 
 ## 9. Betriebs-Checklisten
 

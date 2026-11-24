@@ -352,3 +352,12 @@ Country-to-IP mapping requires a **reliable, licensed and refreshed** dataset. G
 ---
 
 **Document status:** Detailed requirements **draft**. It does not claim completed implementation, successful test acceptance, or formal approval by the project owner.
+
+## 14. Proposed service-boundary and logging requirement — SEC-INT-001
+
+**Status: architecture boundary to consider during V0-G0; not a new mandatory V0-F number.** The initial SASD API Server shall remain **independently deployable** with its local installation-specific API key, authorization policy, private logs and database, **without requiring a networked Auth Service, LogSink or background worker** for a CRUD request. Authentication answers *who*, while the API itself must decide *which resource, method and field* the trusted technical client may use. Consider a narrow local credential-verification interface during design, without introducing OAuth/JWT/SSO into V0.
+
+An already existing, experimental **LogSink** is **not an approved security-log dependency**: its documented HTTP API currently allows unauthenticated readers and writers and stores raw bodies. A future integration can send **sanitized, minimized events** only after LogSink hardening; outages must not block ordinary authorized CRUD. Do not confuse these logs with the future V1 **same-transaction business write audit**.
+
+**Design evidence candidates:** AT-INT-01/02/06/10/12; none is added to AT-V0-01–10 until a release-scope decision. [Full bilingual contract](service-boundaries-and-integrations.md) · [ADR-0020 (proposed)](adr/0020-auth-api-logging-service-boundaries.md).
+

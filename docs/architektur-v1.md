@@ -1,6 +1,8 @@
-# SASD-API-Server – Softwarearchitektur V1
+> **Compatibility mirror / bisheriger Dateipfad:** Diese Datei spiegelt die kanonische [Fassung](architecture-v1.de.md). Neue Bearbeitungen bitte im kanonischen Sprachpaar vornehmen und alte Pfade synchronisieren.
 
-> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](architecture-v1.md) · [Deutsch (kanonisch)](architecture-v1.de.md)  
+> **Sprache:** [English (Standard)](architecture-v1.md) | **Deutsch**
+
+# SASD-API-Server – Softwarearchitektur V1
 
 > **Status:** Architekturentwurf für ein späteres V1.0, nicht implementiert oder abgenommen.  
 > **Dokumentversion:** 0.1 · **Stand:** 01.11.2026  
@@ -541,33 +543,33 @@ ADRs brauchen vor Verbindlichkeit ihren eigenen Datensatz: Kontext, Wahl, Altern
 
 | Lastenheft | Architektur | Technische Testreferenz |
 |---|---|---|
-| V1-F01 | `5 versionierter API-Vertrag | T-V1-01 |
-| V1-F02 | `7 Ressourcen-/Feldalias | T-V1-02 |
-| V1-F03 | ``5/8 CRUD | T-V1-03 |
-| V1-F04 | ``5/8 Typ-Validierung | T-V1-03 |
-| V1-F05 | `7 QueryPlan-Filter | T-V1-04 |
-| V1-F06 | ``5/7 Sort/Page/Projection | T-V1-04 |
-| V1-F07 | `7 eine Relationstiefe | T-V1-05 |
-| V1-F08 | `7 read-only Views | T-V1-06 |
-| V1-F09 | `13 Named Query (SOLL) | T-V1-15 optional |
-| V1-F10 | `8 beide DB-Adapter | T-V1-03/07 |
-| V1-F11 | ``2–3 Instanzisolation | T-V1-07 |
-| V1-F12 | `9 Key-Lebenszyklus | T-V1-08 |
-| V1-F13 | `9 Rollenpolicy | T-V1-08 |
-| V1-F14 | `13 Record-Visibility (SOLL) | T-V1-16 optional |
-| V1-F15 | ``6/8/10 Transaktion/Fehler | T-V1-09 |
-| V1-F16 | `13 Optimistic Lock (SOLL) | T-V1-16 optional |
-| V1-F17 | ``6/9 Rate/Query-Limits | T-V1-10 |
-| V1-F18 | ``3/9 TLS/CORS/Defaults | T-V1-10 |
-| V1-F19 | `10 Write-Audit/Logs | T-V1-09 |
-| V1-F20 | `10 Health/Readiness | T-V1-11 |
-| V1-F21 | `11 OpenAPI | T-V1-01 |
-| V1-F22 | `13 Extension (SOLL) | T-V1-16 optional |
-| V1-F23 | `12 Config-Versionierung | T-V1-12 |
-| V1-F24 | ``3/12 Deployment/Restore | T-V1-12 |
-| V1-F25 | `11 curl/Java/C# | T-V1-13 |
-| V1-F26 | `14 Testgates | T-V1-14 |
-| V1-F27 | ``10/13 Metriken (SOLL) | T-V1-16 optional |
+| V1-F01 | 5 versionierter API-Vertrag | T-V1-01 |
+| V1-F02 | 7 Ressourcen-/Feldalias | T-V1-02 |
+| V1-F03 | 5/8 CRUD | T-V1-03 |
+| V1-F04 | 5/8 Typ-Validierung | T-V1-03 |
+| V1-F05 | 7 QueryPlan-Filter | T-V1-04 |
+| V1-F06 | 5/7 Sort/Page/Projection | T-V1-04 |
+| V1-F07 | 7 eine Relationstiefe | T-V1-05 |
+| V1-F08 | 7 read-only Views | T-V1-06 |
+| V1-F09 | 13 Named Query (SOLL) | T-V1-15 optional |
+| V1-F10 | 8 beide DB-Adapter | T-V1-03/07 |
+| V1-F11 | 2–3 Instanzisolation | T-V1-07 |
+| V1-F12 | 9 Key-Lebenszyklus | T-V1-08 |
+| V1-F13 | 9 Rollenpolicy | T-V1-08 |
+| V1-F14 | 13 Record-Visibility (SOLL) | T-V1-16 optional |
+| V1-F15 | 6/8/10 Transaktion/Fehler | T-V1-09 |
+| V1-F16 | 13 Optimistic Lock (SOLL) | T-V1-16 optional |
+| V1-F17 | 6/9 Rate/Query-Limits | T-V1-10 |
+| V1-F18 | 3/9 TLS/CORS/Defaults | T-V1-10 |
+| V1-F19 | 10 Write-Audit/Logs | T-V1-09 |
+| V1-F20 | 10 Health/Readiness | T-V1-11 |
+| V1-F21 | 11 OpenAPI | T-V1-01 |
+| V1-F22 | 13 Extension (SOLL) | T-V1-16 optional |
+| V1-F23 | 12 Config-Versionierung | T-V1-12 |
+| V1-F24 | 3/12 Deployment/Restore | T-V1-12 |
+| V1-F25 | 11 curl/Java/C# | T-V1-13 |
+| V1-F26 | 14 Testgates | T-V1-14 |
+| V1-F27 | 10/13 Metriken (SOLL) | T-V1-16 optional |
 
 ## 18. Entwicklungsreihenfolge, Review und Definition of Done
 
@@ -586,3 +588,9 @@ ADRs brauchen vor Verbindlichkeit ihren eigenen Datensatz: Kontext, Wahl, Altern
 **Keine ungeplante Implementierung aller recherchierten Vorbildfunktionen.** Architekturänderungen an Auth, Policies, Konfigurationsschema, QueryPlan, SQL-Dialekten, Audit-Transaktionen oder API-Vertrag werden als ADR oder dokumentierte Reviewentscheidung festgehalten und mit Tests abgesichert.
 
 **Dokumentstatus:** Ausführlicher Architekturentwurf für die zukünftige V1; noch keine Implementierung, kein Testnachweis und keine formelle Abnahme.
+
+## 19. Dienstgrenzen für Auth Service und LogSink (SEC-INT-001)
+
+**Alle Rollen-, Ressourcen-, Feld-, Relations- und optionalen Datensatzrechte bleiben beim API Server**, auch wenn später ein zentraler Auth Service eingebunden wird. Die V1-MUSS-Anforderungen enthalten weiterhin **lokale technische Client-Keys** und unabhängige Instanzen; externe SSO-/Token-Endpunkte sind **nicht verpflichtend**. Ein späterer signierter Token-Verifier kann Signatur/Issuer/Audience/Ablauf/Schlüsselcache lokal prüfen; Opaque-Introspection benötigt bewusstes Fail-Closed-Ausfallverhalten. Gültige Tokens sind keine globale Datenberechtigung.
+
+Drei Logarten werden getrennt: **geschützte technische Logs**, **korrelierte Sicherheitsereignisse bei Abweisungen** (Haltbarkeit noch zu entscheiden) und das **verpflichtende atomare Schreib-Audit in derselben lokalen Fachdatenbanktransaktion**. Ein später **gehärteter** LogSink erhält allenfalls minimierte, best-effort übermittelte Kopien; sein Ausfall darf normale berechtigte CRUD-Operationen nicht blockieren und ist kein Ersatz für den Commit. IP-Allow-/Denyregeln gelten je Dienst-Eingang. [SEC-INT-001](service-boundaries-and-integrations.de.md) · [ADR-0020 (Vorschlag)](adr/0020-auth-api-logging-service-boundaries.de.md).

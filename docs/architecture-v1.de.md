@@ -586,3 +586,9 @@ ADRs brauchen vor Verbindlichkeit ihren eigenen Datensatz: Kontext, Wahl, Altern
 **Keine ungeplante Implementierung aller recherchierten Vorbildfunktionen.** Architekturänderungen an Auth, Policies, Konfigurationsschema, QueryPlan, SQL-Dialekten, Audit-Transaktionen oder API-Vertrag werden als ADR oder dokumentierte Reviewentscheidung festgehalten und mit Tests abgesichert.
 
 **Dokumentstatus:** Ausführlicher Architekturentwurf für die zukünftige V1; noch keine Implementierung, kein Testnachweis und keine formelle Abnahme.
+
+## 19. Dienstgrenzen für Auth Service und LogSink (SEC-INT-001)
+
+**Alle Rollen-, Ressourcen-, Feld-, Relations- und optionalen Datensatzrechte bleiben beim API Server**, auch wenn später ein zentraler Auth Service eingebunden wird. Die V1-MUSS-Anforderungen enthalten weiterhin **lokale technische Client-Keys** und unabhängige Instanzen; externe SSO-/Token-Endpunkte sind **nicht verpflichtend**. Ein späterer signierter Token-Verifier kann Signatur/Issuer/Audience/Ablauf/Schlüsselcache lokal prüfen; Opaque-Introspection benötigt bewusstes Fail-Closed-Ausfallverhalten. Gültige Tokens sind keine globale Datenberechtigung.
+
+Drei Logarten werden getrennt: **geschützte technische Logs**, **korrelierte Sicherheitsereignisse bei Abweisungen** (Haltbarkeit noch zu entscheiden) und das **verpflichtende atomare Schreib-Audit in derselben lokalen Fachdatenbanktransaktion**. Ein später **gehärteter** LogSink erhält allenfalls minimierte, best-effort übermittelte Kopien; sein Ausfall darf normale berechtigte CRUD-Operationen nicht blockieren und ist kein Ersatz für den Commit. IP-Allow-/Denyregeln gelten je Dienst-Eingang. [SEC-INT-001](service-boundaries-and-integrations.de.md) · [ADR-0020 (Vorschlag)](adr/0020-auth-api-logging-service-boundaries.de.md).

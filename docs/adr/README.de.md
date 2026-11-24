@@ -63,6 +63,8 @@ Die Nummern reservieren noch **keine Dateien**. Bei tatsächlichen Reviewentsche
 
 - [ADR-0021: Austauschbare Datenbankadapter](0021-pluggable-database-adapters.de.md) · [English](0021-pluggable-database-adapters.md) — **Vorgeschlagen, nicht angenommen**. MariaDB in V0, SQLite später in V1; weitere geprüfte SQL-Backends nur nach gesonderter Freigabe.
 
+- [ADR-0022: Vertrauenswürdiger PHP-Plugin-Lebenszyklus](0022-trusted-php-plugin-lifecycle.de.md) · [English](0022-trusted-php-plugin-lifecycle.md) — **Vorgeschlagen, nicht angenommen**. Kleine explizite Registry implementiert; keine Plugin-Discovery, Downloads, direkten HTTP-Routen oder Sicherheitsausnahmen.
+
 ## 5. ADR-Prozess
 
 1. Eine Frage oder ein Risiko benennt einen langfristig bedeutsamen Architekturkonflikt.

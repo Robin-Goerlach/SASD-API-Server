@@ -11,11 +11,11 @@ SASD API Server is a project by **SASD — Scientific and Software Development**
 The initial release is intentionally small: **PHP 8.4, MariaDB/MySQL, single-record CRUD, simple queries, API-key authentication, and ordinary PHP shared hosting**. The future V1 extends this foundation with SQLite, more sophisticated queries, role-based access, audit logging, and OpenAPI documentation.
 
 > [!IMPORTANT]
-> **Project status — November 1, 2026: planning and architecture.** This repository currently contains requirements, technical specifications, architecture, development plans, and operating procedures. **There is no working V0 or V1 application, released installation package, confirmed passing CI pipeline, or production deployment yet.** All API paths, JSON and configuration examples, source structures, and diagrams below describe the **planned design**. They are **not currently executable endpoints or existing code**.
+> **Project status — November 24, 2026: first PHP 8.4 bootstrap implemented and locally tested.** The repository now includes a **minimal health endpoint**, a strictly configured trusted plugin manager and private technical logging under [`implementations/php/`](implementations/php/README.md). **There is still no CRUD API, API-key or TLS enforcement, accepted V0/V1 release, proven CI pipeline or production deployment.** All resource/data API examples and larger source structures below remain **planned behavior**, not implemented endpoints.
 >
 > Do **not** consider this a production-ready API server based solely on its documentation. Implementation, tests, real shared-hosting verification, security review, and release approval are still required.
 
-[**Roadmap**](ROADMAP.md) · [**Documentation index**](docs/README.md) · [**V0 requirements (English)**](docs/requirements-v0.md) · [**V1 requirements (English)**](docs/requirements-v1.md) · [**Contributing**](CONTRIBUTING.md)
+[**PHP implementation**](implementations/php/README.md) · [**Language/plugin structure**](docs/development-layout.md) · [**Roadmap**](ROADMAP.md) · [**Documentation index**](docs/README.md) · [**V0 requirements (English)**](docs/requirements-v0.md) · [**V1 requirements (English)**](docs/requirements-v1.md) · [**Contributing**](CONTRIBUTING.md)
 
 ---
 

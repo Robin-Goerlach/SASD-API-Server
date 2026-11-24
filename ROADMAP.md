@@ -1,7 +1,7 @@
 # SASD API Server – Roadmap
 
 > **Language:** **English (default)** | [Deutsch](ROADMAP.de.md)  
-> **Updated:** November 1, 2026 · **Status:** planning; no implemented or accepted milestones are claimed.  
+> **Updated:** November 24, 2026 · **Status:** first PHP bootstrap slice verified locally; no complete or accepted milestone.  
 > **Requirements:** [V0 (English)](docs/requirements-v0.md) · [V1 (English)](docs/requirements-v1.md)  
 > **Technical designs (English default):** [V0](docs/technical-specification-v0.md) · [V1](docs/technical-specification-v1.md) · [Architecture V0](docs/architecture-v0.md) · [Architecture V1](docs/architecture-v1.md)  
 > **Implementation:** [V0 development plan](docs/development-plan-v0.md) · [Test strategy](docs/test-strategy.md) · [Release and acceptance](docs/release-acceptance.md)
@@ -33,7 +33,7 @@ A written roadmap is not evidence of implementation.
 | **Accepted** | Mandatory requirements and gates passed | Signed-off acceptance record and release |
 | **Deferred** | Deliberately moved out of the release | Documented scope decision |
 
-**Current position (November 1, 2026):** the design/documentation foundation exists. **No working V0 or V1 implementation, completed hosting check or accepted software release** is claimed. Estimated delivery dates, percentages and hours are intentionally not invented.
+**Current position (November 24, 2026):** bilingual design documents and a first PHP health/bootstrap/plugin-registry slice exist. **No working complete V0/V1 CRUD API, completed hosting check or accepted software release** is claimed. See [development layout](docs/development-layout.md). Estimated delivery dates, percentages and hours are intentionally not invented.
 
 ## 3. Overall development sequence
 
@@ -246,8 +246,8 @@ Detailed tracking: [Risk register](docs/risk-register.md) and [Architecture deci
 
 Progress belongs in actual issues, pull requests, commits and verifiable test records. Avoid invented completion percentages, dates, security results or feature availability. The roadmap should change when milestones are achieved or formally reprioritized. Significant design decisions require an ADR; changes to MUST requirements need an intentional specification update.
 
-**Next planned step:** **V0-G0 — verify hosting, security and configuration boundaries**, then start V0-M0 (a small repository/bootstrap skeleton).
+**Next release gate:** verify **V0-G0 hosting, TLS and private paths**. The small PHP bootstrap skeleton is now present, but V0-M0/M1 still need review and protected CRUD/TLS/API-key integration; the next functional plugin work is the controlled logging extension followed by identity verification.
 
 ---
 
-**No V0 or V1 implementation, passing test suite, or approved release is claimed by this roadmap.**
+**No complete V0/V1 implementation or approved release is claimed by this roadmap.** The 43-assertion PHP bootstrap test is **not** release acceptance.

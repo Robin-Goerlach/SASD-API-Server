@@ -1,8 +1,8 @@
 # SASD API Server – Documentation
 
 > **Language:** **English (default)** | [Deutsch](README.de.md)  
-> **Updated:** November 1, 2026 · **Status:** documentation and architectural design; no running or accepted V0/V1 implementation is claimed.  
-> [Repository README](../README.md) · [Roadmap](../ROADMAP.md) · [Changelog](../CHANGELOG.md)
+> **Updated:** November 24, 2026 · **Status:** first PHP health/bootstrap test slice exists; no accepted V0/V1 server.  
+> [Repository README](../README.md) · [Roadmap](../ROADMAP.md) · [Changelog](../CHANGELOG.md) · [Implementation layout](development-layout.md) · [PHP code](../implementations/php/README.md)
 
 ## 1. How to read this documentation
 
@@ -26,7 +26,7 @@ flowchart LR
     T --> O["Operations and recovery"]
 ~~~
 
-**V0** is the small initial PHP/MariaDB release, not yet implemented. **V1** is the later expansion including SQLite, technical-client RBAC, authorized OpenAPI, controlled queries/relations and write audit. Detailed design documentation **does not mean either release already exists**.
+**V0** is the small initial PHP/MariaDB release, not yet completed (only a locally tested PHP bootstrap/health slice exists). **V1** is the later expansion including SQLite, technical-client RBAC, authorized OpenAPI, controlled queries/relations and write audit. Detailed design documentation **does not mean either release already exists**.
 
 ## 2. Language convention
 
@@ -135,4 +135,4 @@ The cross-cutting requirement is **proposed**, not yet formally merged into the 
 - Never report a feature as implemented, CI as passing or a provider deployment as safe merely because documentation describes it.
 - Legacy filenames can remain until a deliberate link-migration strategy makes removal safe.
 
-**Document status:** English/German navigation and design references; no software implementation or release acceptance claimed.
+**Document status:** English/German navigation and design references plus one experimental PHP bootstrap; **no complete server or release acceptance claimed**.

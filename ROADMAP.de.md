@@ -2,7 +2,7 @@
 
 # SASD API Server – Roadmap
 
-> **Stand:** 01.11.2026 · **Status:** Planung, keine bereits implementierten Meilensteine  
+> **Stand:** 24.11.2026 · **Status:** erstes lokal geprüftes PHP-Grundgerüst, kein vollständig abgenommener Meilenstein  
 > **Verbindliche fachliche Grundlage:** [Lastenheft V0](docs/lastenheft-v0.md), [Lastenheft V1](docs/lastenheft-v1.md)  
 > **Technische Konkretisierung:** [Pflichtenheft V0](docs/pflichtenheft-v0.md), [Architektur V0](docs/architektur-v0.md), [Pflichtenheft V1](docs/pflichtenheft-v1.md), [Architektur V1](docs/architektur-v1.md)  
 > **Arbeitsanleitung:** [Entwicklungsplan V0](docs/entwicklungsplan-v0.md) · [Teststrategie](docs/teststrategie.md) · [Releaseprozess](docs/release-und-abnahme.md)
@@ -34,7 +34,7 @@ Eine Roadmap ist eine Planung, keine Behauptung bereits abgeschlossener Arbeit. 
 | **Abgenommen** | alle MUSS-Gates erfüllt und dokumentiert | Abnahmeprotokoll/Release |
 | **Verschoben** | bewusst nicht Teil des Release | dokumentierte Entscheidung mit neuem Ziel |
 
-**Aktueller Stand (01.11.2026):** Grunddokumentation vorhanden; **keine durchgeführte V0- oder V1-Implementierung/Abnahme** wird behauptet. Das Repository enthält ein LICENSE; Softwarefunktionalität wird nicht allein aus den Dokumenten abgeleitet. Termine und Stundenbudgets werden erst mit belastbarer Planung ergänzt.
+**Aktueller Stand (24.11.2026):** Grunddokumentation und erstes PHP-Health-/Bootstrap-/Plugin-Registry-Grundgerüst vorhanden; **keine vollständige V0-/V1-CRUD-Implementierung oder Abnahme**. Siehe [Entwicklungsstruktur](docs/development-layout.de.md). Das Repository enthält ein LICENSE; Softwarefunktionalität wird nicht allein aus den Dokumenten abgeleitet. Termine und Stundenbudgets werden erst mit belastbarer Planung ergänzt.
 
 ## 3. Gesamtübersicht
 
@@ -241,7 +241,7 @@ Vollständige Einzelverfolgung: [Risikoregister](docs/risikoregister.md) sowie [
 
 Für jeden Meilenstein gehört der aktuelle Status in GitHub-Issues/Milestones, nicht durch frei erfundene Prozentzahlen in diese Roadmap. Die Tabelle wird bei tatsächlich vollzogenen Gates aktualisiert. Entscheidungen mit längerfristiger Wirkung erhalten ein ADR; neue fachliche Anforderungen erfordern eine bewusste Änderung am Lastenheft. Kein technisches Dokument behauptet eine Abnahme ohne Testprotokoll.
 
-**Nächster konkreter Schritt:** **V0-G0** – verifizierte, sichere Zielhosting-Grenzen und minimales Konfigurations-/API-Vertragsreview. Erst danach Repository-Slice M0 und Implementierung.
+**Nächstes Release-Gate:** **V0-G0** – tatsächliche Hoster-/TLS-/Privatpfad-Prüfung. Das kleine PHP-Grundgerüst existiert bereits, die Meilensteine M0/M1 sind aber noch nicht abgenommen; funktional folgt ein kontrolliertes Logging-Plugin und danach die Identitätsprüfung.
 
 ---
 **Hinweis:** Alle in dieser Roadmap genannten Versionen und Tests sind Ziele, soweit nicht anhand von GitHub-Tags, Testprotokollen oder eindeutig freigegebenen Entscheidungen etwas anderes nachgewiesen ist.

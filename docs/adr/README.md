@@ -62,6 +62,8 @@ The IDs indicate *candidates*, not existing accepted ADR files.
 
 - [ADR-0021: Pluggable database adapters](0021-pluggable-database-adapters.md) · [Deutsch](0021-pluggable-database-adapters.de.md) — **Proposed, not accepted**. One V0 MariaDB adapter, later V1 SQLite; additional trusted SQL backends require explicit independent acceptance.
 
+- [ADR-0022: Trusted PHP plugin lifecycle](0022-trusted-php-plugin-lifecycle.md) · [Deutsch](0022-trusted-php-plugin-lifecycle.de.md) — **Proposed, not accepted**. First small in-process plugin manager exists; no automatic discovery, plugin downloads, public routes or release-gate bypass.
+
 ## 5. ADR workflow
 
 1. Identify a specific architectural problem or long-term trade-off.

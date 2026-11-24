@@ -2,7 +2,7 @@
 
 > **Language:** **English (default)** | [Deutsch](AGENTS.de.md)  
 > **Scope:** Entire `Robin-Goerlach/SASD-API-Server` repository. More specific nested AGENTS.md files may add instructions but must not weaken security constraints.  
-> **Updated:** November 1, 2026 · **Status:** working guidelines, **not** evidence of implemented software or accepted releases.
+> **Updated:** November 24, 2026 · **Status:** working guidelines; a minimal PHP bootstrap exists, **not** an accepted server/release.
 
 ## 1. Project goals and priorities
 
@@ -210,7 +210,7 @@ Use [CONTRIBUTING.md](CONTRIBUTING.md) and the repository's issue/PR templates. 
 
 An implementation slice is **done** only when agreed scope, architecture, positive/negative tests, confidentiality and documentation agree. Unverified provider/security/recovery gates must remain **open**.
 
-**First planned work:** **V0-G0** — verify actual shared-hosting/private-file/TLS constraints — followed by **V0-M0** (minimal project skeleton). **Build and accept V0 safely before expanding to V1.**
+**Current work:** A minimal PHP bootstrap, trusted plugin registry and local smoke tests exist (see [development layout](docs/development-layout.md) and [proposed ADR-0022](docs/adr/0022-trusted-php-plugin-lifecycle.md)), but **V0-G0 hosting/TLS/private-path validation remains open**. Do not mark V0-M0/M1 or a release accepted from these unit checks alone. Continue safe V0 slices before V1.
 
 ---
 

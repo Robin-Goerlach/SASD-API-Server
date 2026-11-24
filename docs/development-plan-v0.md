@@ -1,7 +1,7 @@
 # SASD API Server – V0.1.0 Development Plan
 
 > **Language:** **English (default)** | [Deutsch](development-plan-v0.de.md)  
-> **Status:** planned work, no coding/testing success claimed · **Updated:** November 1, 2026.  
+> **Status:** planned V0 gates; first local PHP bootstrap/health tests exist but no milestone accepted · **Updated:** November 24, 2026.  
 > Based on [V0 requirements](requirements-v0.md), [V0 technical specification](technical-specification-v0.md), [V0 architecture](architecture-v0.md), and [Roadmap](../ROADMAP.md).  
 > Verification: [Test strategy](test-strategy.md) · [Release and acceptance](release-acceptance.md).
 
@@ -151,4 +151,4 @@ Represent each slice as a small issue/PR package with goals, requirement IDs, **
 
 Progress belongs to real issues, commits, tests and acceptance reports; the roadmap contains planning and gates, not invented completion percentages.
 
-**Current status:** a development plan, not implemented or tested slices.
+**Current status:** first PHP bootstrap/trusted-plugin/health tests implemented in a small preliminary slice ([details](development-layout.md)); complete V0-G0 hosting security, CRUD and all V0 acceptance gates remain open. No entire milestone or release is accepted.

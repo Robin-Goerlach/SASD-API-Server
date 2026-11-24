@@ -1,8 +1,8 @@
 # SASD API Server – Dokumentationsübersicht
 
 > **Sprache:** [English (Standard)](README.md) | **Deutsch**  
-> **Stand:** 01.11.2026 · **Status:** Dokumentation und Architekturplanung; noch keine implementierte oder abgenommene V0/V1.  
-> [Repository-README](../README.de.md) · [Roadmap](../ROADMAP.de.md) · [Änderungsprotokoll](../CHANGELOG.de.md)
+> **Stand:** 24.11.2026 · **Status:** erstes lokales PHP-Bootstrap-/Health-Grundgerüst vorhanden; keine abgenommene V0/V1.  
+> [Repository-README](../README.de.md) · [Roadmap](../ROADMAP.de.md) · [Änderungsprotokoll](../CHANGELOG.de.md) · [Entwicklungsstruktur](development-layout.de.md) · [PHP-Code](../implementations/php/README.de.md)
 
 ## 1. Aufbau und Lesereihenfolge
 
@@ -26,7 +26,7 @@ flowchart LR
     T --> B["Betrieb und Recovery"]
 ~~~
 
-**V0** ist der geplante kleine PHP/MariaDB-Start. **V1** ist der spätere Ausbau mit SQLite, technischen Clientrollen, OpenAPI, kontrollierten Abfragen/Relationen und Audit. **Ein umfangreiches Dokument ist noch kein implementiertes Produkt.**
+**V0** ist der geplante kleine PHP/MariaDB-Start; bisher existiert nur ein lokal getestetes PHP-Bootstrap-/Health-Grundgerüst. **V1** ist der spätere Ausbau mit SQLite, technischen Clientrollen, OpenAPI, kontrollierten Abfragen/Relationen und Audit. **Ein umfangreiches Dokument ist noch kein implementiertes Produkt.**
 
 ## 2. Sprach- und Dateikonvention
 
@@ -135,4 +135,4 @@ Die zusätzliche Anforderung ist **vorgeschlagen** und noch nicht in die bestehe
 - Keine Funktion, Pipeline oder Hostingkonfiguration allein wegen eines Dokuments als fertig beziehungsweise sicher bezeichnen.
 - Alte Links so lange bestehen lassen, bis ein bewusster Migrationsschritt ihre Entfernung ohne Schaden ermöglicht.
 
-**Status:** Zweisprachige Dokumentationsnavigation; keine Implementierung und keine Softwareabnahme behauptet.
+**Status:** Zweisprachige Dokumentationsnavigation und erstes PHP-Grundgerüst; **keine vollständige Serverimplementierung oder Softwareabnahme**.

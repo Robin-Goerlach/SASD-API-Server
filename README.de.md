@@ -11,13 +11,13 @@ SASD API Server ist ein Projekt von **SASD – Scientific and Software Developme
 Die erste Version bleibt bewusst klein: **PHP 8.4, MariaDB/MySQL, Einzel-CRUD, einfache Abfragen, API-Schlüssel und normales PHP-Shared-Hosting**. Die spätere V1 ergänzt SQLite, erweiterte Filter, Rollen, Audit und OpenAPI.
 
 > [!IMPORTANT]
-> **Projektstatus – 01.11.2026: Planung und Architektur.**
+> **Projektstatus – 24.11.2026: erstes PHP-8.4-Bootstrap-Grundgerüst implementiert und lokal getestet.**
 >
-> Dieses Repository enthält derzeit Lasten- und Pflichtenhefte, Architekturdokumente, Roadmap, Entwicklungspläne und Betriebsrichtlinien. **Es existiert noch kein implementierter, abgenommener V0- oder V1-API-Server, kein freigegebenes Installationspaket und keine nachgewiesene erfolgreiche CI- oder Produktivinstallation.** Alle Endpunkte, JSON-/Konfigurationsbeispiele, Dateibäume und Diagramme beschreiben **geplantes Verhalten**, nicht bereits ausführbaren Code.
+> Neben den Lasten-/Pflichtenheften und Architekturunterlagen existiert jetzt ein kleines PHP-Grundgerüst mit **Health-Endpunkt**, explizitem Plugin-Manager und geschütztem technischem Logging unter [`implementations/php/`](implementations/php/README.de.md). **CRUD, API-Key-/TLS-Prüfung, eine vollständig implementierte oder abgenommene V0/V1, eine nachgewiesene CI-Pipeline und eine Produktivfreigabe fehlen weiterhin.** Die größeren Daten-API-Beispiele und Plan-Dateibäume beschreiben überwiegend **geplantes Verhalten**.
 >
 > Die bloße Existenz der Dokumentation ist **keine Produktivfreigabe**. Vor einem Einsatz sind Implementierung, Tests, echte Hostingprüfung, Sicherheitsreview und formale Abnahme erforderlich.
 
-**Einstieg:** [Roadmap Deutsch](ROADMAP.de.md) · [Dokumentationsindex Deutsch](docs/README.de.md) · [Lastenheft V0](docs/requirements-v0.de.md) · [Lastenheft V1](docs/requirements-v1.de.md) · [Mitwirken](CONTRIBUTING.de.md)
+**Einstieg:** [PHP-Implementierung](implementations/php/README.de.md) · [Sprachen-/Plugin-Struktur](docs/development-layout.de.md) · [Roadmap Deutsch](ROADMAP.de.md) · [Dokumentationsindex Deutsch](docs/README.de.md) · [Lastenheft V0](docs/requirements-v0.de.md) · [Lastenheft V1](docs/requirements-v1.de.md) · [Mitwirken](CONTRIBUTING.de.md)
 
 ---
 

@@ -2,7 +2,7 @@
 
 > **Sprache:** [English (Standard)](AGENTS.md) | **Deutsch**  
 > **Gültigkeit:** gesamtes Repository `Robin-Goerlach/SASD-API-Server`. Weitere Anweisungen in Unterverzeichnissen können ergänzen, dürfen Sicherheitsregeln nicht abschwächen.  
-> **Stand:** 01.11.2026 · **Status:** Entwicklungsrichtlinien; kein Nachweis eines bereits implementierten oder abgenommenen Softwarestands.
+> **Stand:** 24.11.2026 · **Status:** Entwicklungsrichtlinien; minimales PHP-Grundgerüst vorhanden, **kein abgenommener Server**.
 
 ## 1. Projektziel und Prioritäten
 
@@ -161,7 +161,7 @@ Kleine Commits/PRs mit aussagekräftigen Nachrichten verwenden, z. B. `feat(v0):
 
 Ein Slice ist erst fertig, wenn Umfang, Architektur, positive und negative Tests, Geheimnisschutz und Dokumentation zusammenpassen. Ein fehlender Host-/Restore-Test bleibt offen. Kein Tag, kein Audit und kein „alle Tests grün“ ohne Beleg.
 
-**Nächster geplanter Schritt:** **V0-G0** – reale Hosting-/Sicherheitsgrenzen prüfen, dann V0-M0 für das Projektgerüst. **Zuerst V0, danach V1.**
+**Aktueller Arbeitsstand:** Minimaler PHP-Bootstrap, geprüfte Plugin-Registry und lokale Smoke-Tests existieren (siehe [Entwicklungsstruktur](docs/development-layout.de.md) und [ADR-0022](docs/adr/0022-trusted-php-plugin-lifecycle.de.md)); das **V0-G0-Hosting-/TLS-/Privatpfad-Gate bleibt offen**. Die Unit-Tests sind keine Abnahme von V0-M0/M1 oder einer Produktivversion. Zuerst V0 sicher fertigstellen, danach V1.
 
 ---
 Diese Regeln berechtigen Agenten nicht dazu, ungefragt produktive Systeme zu ändern oder Schutzvorgaben zu umgehen.

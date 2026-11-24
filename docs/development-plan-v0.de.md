@@ -2,7 +2,7 @@
 
 # SASD API Server – Entwicklungsplan V0.1.0
 
-> **Status:** geplanter Ablauf, kein Code-/Testerfolg behauptet · **Stand:** 01.11.2026  
+> **Status:** geplante V0-Gates; erstes lokales PHP-Bootstrap-/Health-Grundgerüst getestet, keine Meilensteinabnahme · **Stand:** 24.11.2026  
 > Grundlage: [Lastenheft V0](lastenheft-v0.md) · [Pflichtenheft V0](pflichtenheft-v0.md) · [Architektur V0](architektur-v0.md) · [Roadmap](../ROADMAP.md)  
 > Testvorgehen: [Teststrategie](teststrategie.md) · [Abnahme](release-und-abnahme.md)
 
@@ -156,4 +156,4 @@ V1-Funktionen wie SQLite, Rollen, OpenAPI oder Joins **nicht** vorwegnehmen. Die
 
 Jeder Slice wird als Issue oder PR-Paket mit Ziel, Anforderungscodes, **Nicht-Zielen**, Checkliste, Tests und Dokumentationsänderung formuliert. PR-Review fragt: **(a)** werden Ressourcen nur konfiguriert freigegeben? **(b)** gibt es neue Angriffswege? **(c)** ist die Domain-/HTTP-/SQL-Trennung intakt? **(d)** ist der Code lesbar und kommentiert? **(e)** ist der Schritt reproduzierbar? Entwicklungsreihenfolge und Fortschritt stehen in Issues bzw. PRs; die Roadmap bleibt auf Ziele und Gates beschränkt.
 
-**Aktueller Status:** Dieser Plan ist dokumentiert. Es wird weder ein fertiger Slice noch ein bestandener Test behauptet.
+**Aktueller Status:** Erstes PHP-Bootstrap-/Plugin-/Health-Grundgerüst lokal getestet ([Details](development-layout.de.md)); V0-G0-Hosting-Sicherheit, CRUD und sämtliche V0-Abnahmen sind weiterhin offen. Kein vollständiger Meilenstein oder Release ist freigegeben.

@@ -215,3 +215,12 @@ An implementation slice is **done** only when agreed scope, architecture, positi
 ---
 
 **Agent safety boundary:** This file provides development guidelines, **not authorization** for unsolicited production changes, public releases or bypassing protective controls.
+
+## 12. Documentation synchronization and service integration safety (review 2026-11-24)
+
+**Language and compatibility:** English canonical documents and their German `.de.md` companions must remain consistent in requirements, test IDs, security semantics, status and decision history. When editing a canonical document, update its language counterpart and any maintained **legacy filename copy** (e.g. `docs/pflichtenheft-v0.md` or `docs/requirements-v0.en.md`) in the same task. Prefer canonical links in new documents. Validate Markdown headings, table-cell fences, link destinations and counting of numbered MUST/SHOULD requirements before reporting completion. See [documentation review](docs/documentation-review-2026-11-24.md).
+
+**Cross-service boundaries:** The V0 API **must remain independent** of external Auth Service and LogSink; V1 maintains local technical client keys and resource-level RBAC. An external signed/opaque-token identity protocol is **future approved scope**, not permission to introduce network calls into V0 key checks. All data authorization remains with the API. The current [LogSink](https://github.com/Robin-Goerlach/LogSink) is documented as **unauthenticated and raw-body storing**; do not transmit security/personally sensitive events until hardening and explicit tests. Do not treat remote logs as V1 mandatory audit. Successful V1 writes and local required audit must be atomic; denied attempts require separate protected security events. See [SEC-INT-001](docs/service-boundaries-and-integrations.md) and [proposed ADR-0020](docs/adr/0020-auth-api-logging-service-boundaries.md).
+
+**IP admission:** [SEC-GEO-001](docs/ip-geoblocking.md) is still a **proposed scope extension**. Do not silently mark it implemented or add it to the numbered V0-F acceptance count. If approved, support both corporate-only allowlist and geo/network denylist; deny-over-allow precedence, verified IPv4/IPv6 proxy identity, required-policy fail-closed and out-of-band rollback are mandatory design invariants.
+

@@ -380,23 +380,23 @@ Diese Einträge sind Entscheidungen **zur Freigabe**, keine bereits abgezeichnet
 
 | V0-Funktion | Architekturentscheidung/Abschnitt | Technischer Nachweis |
 |---|---|---|
-| V0-F01 | ``4–7 Router/Registry | T-V0-01/05 |
-| V0-F02 | ``5–6, 8 GET | T-V0-01 |
-| V0-F03 | ``5/8 POST | T-V0-02 |
-| V0-F04 | ``5–6 PUT/PATCH | T-V0-03 |
-| V0-F05 | ``5/8 DELETE | T-V0-04 |
-| V0-F06 | `7 Konfigurations-Allowlist | T-V0-05 |
-| V0-F07 | `6 Filter | T-V0-06 |
-| V0-F08 | `6 Sortierung/Paging | T-V0-07 |
-| V0-F09 | `6 Fehler/JSON | T-V0-09 |
-| V0-F10 | ``2–3 Isolation | T-V0-11 |
-| V0-F11 | `9 API-Key | T-V0-08 |
-| V0-F12 | ``6–9 Validierung/SQL | T-V0-06/09 |
-| V0-F13 | ``3/9 TLS/CORS | T-V0-10 |
-| V0-F14 | `10 Health | T-V0-10 |
-| V0-F15 | `10 Logging | T-V0-10 |
-| V0-F16 | ``3/10/14 Dokumentation | T-V0-12 |
-| V0-F17 | `11 Tests/Fitness | T-V0-12 |
+| V0-F01 | 4–7 Router/Registry | T-V0-01/05 |
+| V0-F02 | 5–6, 8 GET | T-V0-01 |
+| V0-F03 | 5/8 POST | T-V0-02 |
+| V0-F04 | 5–6 PUT/PATCH | T-V0-03 |
+| V0-F05 | 5/8 DELETE | T-V0-04 |
+| V0-F06 | 7 Konfigurations-Allowlist | T-V0-05 |
+| V0-F07 | 6 Filter | T-V0-06 |
+| V0-F08 | 6 Sortierung/Paging | T-V0-07 |
+| V0-F09 | 6 Fehler/JSON | T-V0-09 |
+| V0-F10 | 2–3 Isolation | T-V0-11 |
+| V0-F11 | 9 API-Key | T-V0-08 |
+| V0-F12 | 6–9 Validierung/SQL | T-V0-06/09 |
+| V0-F13 | 3/9 TLS/CORS | T-V0-10 |
+| V0-F14 | 10 Health | T-V0-10 |
+| V0-F15 | 10 Logging | T-V0-10 |
+| V0-F16 | 3/10/14 Dokumentation | T-V0-12 |
+| V0-F17 | 11 Tests/Fitness | T-V0-12 |
 
 ### Vorgesehene Eingangserweiterung SEC-GEO-001 (vor der Implementierung)
 

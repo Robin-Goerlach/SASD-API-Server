@@ -129,6 +129,8 @@ Die Pipeline nutzt datensparsame Testausgaben; ein fehlgeschlagener Test gibt se
 
 [SEC-GEO-001](ip-geoblocking.de.md) enthält **zwölf zusätzliche vorgeschlagene Fälle** `AT-GEO-01`–`AT-GEO-12`: IPv4/IPv6, CIDR-Grenzen, gemappte Adressen, Spoofing von Forwarded-Headern, Proxy-Vertrauen, Fail-Closed bei fehlenden/defekten/alten Listen, atomare Updates, Instanzisolation, sanierte Logs und begrenzte Lookupkosten. Sie gehören **noch nicht** zu den bisherigen zehn V0-Abnahmeszenarien, solange die Scope-Freigabe in V0-G0 aussteht. Geo-IP-Ergebnisse beweisen keine rechtliche Sanktionskonformität.
 
+**Firmen-Allowlist-Ergänzung:** **AT-GEO-13 bis AT-GEO-18** prüfen ausdrücklich freigegebenen Firmenzugang unter IPv4/IPv6, **403** für alle übrigen IPs, explizite Sperre vor Freigabe, **503 (Fail-Closed)** bei ungültiger/leerer erforderlicher Allowlist, verifizierte VPN-/Proxykette und sicheres Update mit Rücknahme außerhalb der API. Bisherige V0-F-/AT-V0-Zählungen bleiben bis zum Scope-Beschluss unverändert. [Details](ip-geoblocking.de.md#71-zusätzliche-abnahmetests-für-firmen-freigabelisten).
+
 ## 10. Exit-Kriterien
 
 **V0:** alle V0-F01–F17 und AT-V0-01–10 bestanden, SQL- und API-Security geprüft, zweite Instanz isoliert, Installation und Restore-Test nachgewiesen. **V1:** V0-Basis weiterhin gültig plus alle 22 verpflichtenden V1-Funktionen und AT-V1-01–16, MariaDB-/SQLite-Vertrag grün, Audit-Rollback/Rate-Fail-Closed, OpenAPI und Migration nachgewiesen. **SOLL** nur bei ausdrücklicher Freigabe.

@@ -14,6 +14,8 @@ V1 ist die **kontrollierte Erweiterung** einer vollständig abgenommenen V0, nic
 
 **Umfang:** Das V1-Lastenheft enthält **22 MUSS- und fünf SOLL-Funktionen**. Die SOLL-Bausteine (benannte Leseabfragen, datensatzbezogene Sichtgrenzen, optimistische Konflikterkennung, Erweiterungsmechanismen, Betriebsmetriken) sind als **optionale, separat freizugebende Erweiterungen** entworfen. Der Entwurf übernimmt nicht alle 157 recherchierten Produktfunktionen von PHP-CRUD-API, DreamFactory und DB2Rest.
 
+**Spätere Datenbank-Erweiterbarkeit:** Die [vorgeschlagene ADR-0020](adr/0020-pluggable-database-adapters.de.md) beschreibt den vertrauenswürdigen Registrierungs- und Adaptervertrag einschließlich SQL-Dialekt-/Fähigkeitsprüfung. PostgreSQL, Oracle, IBM Db2 und Firebird sind nur spätere Kandidaten, keine neuen V1-MUSS-Anforderungen; V1 bleibt bei MariaDB und SQLite.
+
 **Erhaltung der V0-Eigenschaften:** PHP 8.4, Shared-Hosting-Tauglichkeit, Root-`index.php` mit Query-Fallback, private Secrets außerhalb des Document Root, keine obligatorischen Hintergrundprozesse/Redis/Docker, deny-by-default und klare Schichten. Wo ein V1-Contract bewusst anders wird, wird er unter `/api/v1/` eingeführt; V0-Clients dürfen keine stillschweigend inkompatiblen Antworten bekommen.
 
 ### 1.1 Qualitäts- und Architekturziele

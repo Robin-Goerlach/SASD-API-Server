@@ -1,6 +1,8 @@
-# SASD-API-Server — Requirements Specification V1
+> **Legacy English filename:** This compatibility copy mirrors [the English default document](requirements-v1.md); edit the canonical file and resynchronize aliases.
 
-> **Language:** **English (legacy file path)** · [English (default)](requirements-v1.md) · [Deutsch](requirements-v1.de.md)  
+> **Language:** **English (default)** | [Deutsch](requirements-v1.de.md)
+
+# SASD-API-Server — Requirements Specification V1
 
 > **Status:** Draft for the future 1.0 product release · **Document version:** 0.1 · **Created:** 2026-11-01  
 > **Repository:** [Robin-Goerlach/SASD-API-Server](https://github.com/Robin-Goerlach/SASD-API-Server)  
@@ -257,7 +259,7 @@ The SASD API Server is a **configurable REST/JSON data-service platform** that m
 
 **Required functionality and scope:** Technical logs contain at least UTC timestamp, request ID, instance, resource, operation, status, error category, and technical client identifier where legally appropriate. **Write operations** additionally produce audit events indicating who, when, what operation, which logical record, and the outcome. Complete personal data, bearer tokens, passwords, and full request bodies are not logged by default. Log rotation, retention, and access protection are documented. This does not claim to be a tamper-proof enterprise audit vault.
 
-**Acceptance criterion:** Successful and denied writes can be matched to protected audit events without finding plaintext keys or full records in the logs.
+**Acceptance criterion (clarified):** Every **successfully committed** write has a protected **transactional audit record** linked by request ID to the business mutation; if its mandatory audit insert fails, the business write rolls back. Every **denied/rejected** write attempt can be correlated with a separately protected, sanitized **security-denial event** (no successful business mutation or fictitious commit). Neither event type contains plaintext keys, bearer tokens or full records. The operator must still resolve the separate security-event durability/retention policy before production acceptance. See [SEC-INT-001](service-boundaries-and-integrations.md).
 
 **Origin / inspiration:** DreamFactory §4.2: audit logging (may be commercial); DB2Rest §5.5: observability.
 
@@ -505,3 +507,12 @@ An installation reports database failure through its protected readiness check. 
 ---
 
 **Document status:** Thorough functional requirements **draft**. It does not claim that the functionality has already been implemented, tested, accepted, or formally approved.
+
+## 13. Cross-service identity, authorization and logging boundaries — SEC-INT-001
+
+**Clarification, not a 28th V1-F requirement:** **V1-F12/F13 remain local technical-client key management and API resource/field/method RBAC**. The future option of a **separate SASD Auth Service** for human accounts/SSO does not become a mandatory dependency of V1. Authentication must not centralize away SQL/data authorization; external identities (if ever implemented) need explicit instance-level role mapping and documented token/outage behavior.
+
+**V1-F19 distinction:** transactionally committed business writes require **same-local-DB-transaction audit**; denied attempts require **separate protected correlated security events** with an explicitly reviewed durability/retention policy. An external experimental LogSink is **not** either a substitute for atomic audit or an authorized production sink before it has producer/reader authentication and sanitized event contracts. No mandatory remote Auth/LogSink call on normal CRUD.
+
+**Decisions not yet accepted:** [SEC-INT-001](service-boundaries-and-integrations.md), [ADR-0020](adr/0020-auth-api-logging-service-boundaries.md) and proposed `AT-INT-01`–`AT-INT-12`. The 22 MUST + 5 SHOULD totals and 16 acceptance scenarios remain unchanged until a formal change.
+

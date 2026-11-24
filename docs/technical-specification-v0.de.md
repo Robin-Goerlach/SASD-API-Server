@@ -412,3 +412,12 @@ Bei `mode=enforce` und Treffer: neutraler **403** mit `access_restricted`. Bei e
 ---
 
 **Status: technischer Entwurf, nicht implementiert, nicht getestet, nicht formal freigegeben.**
+
+## 15. Vorgesehene modulare Authentifizierung und Logging-Grenze – SEC-INT-001
+
+`ApiKeyAuthenticator` bleibt die konkrete V0-Prüfung. Eine schmale spätere `CredentialVerifier`-Schnittstelle kann HTTP-Controller vom Zugangsdatenformat entkoppeln, **ohne** V0 von zentralem Auth Service, JWT oder Benutzer-Sessions abhängig zu machen. Auch ein verifizierter Client unterliegt weiterhin **lokalen** Ressourcen-, Methoden- und Feldberechtigungen; unbekannte Rollen dürfen keine Tabellen freischalten.
+
+`SanitizedLogger` protokolliert in V0 lokal und geschützt. Ein späterer Publisher an einen **gehärteten** LogSink ist optional: langsame/nicht verfügbare LogSink-HTTP-Dienste dürfen normale berechtigte CRUD-Aufrufe nicht blockieren. Spool/Retry benötigen Begrenzungen und dürfen keinen dauerhaften PHP-Worker voraussetzen. Keine Passwörter, Tokens, Authorization-Header, SQL-Werte, ganzen Bodies oder Personendatensätze weitergeben. Das verpflichtende transaktionale Schreib-Audit aus V1 bleibt **getrennt** von Remote-Logs.
+
+**Prüfung:** `SEC-INT-001`, `AT-INT-01`/02/06/10; keine stillschweigende neue Nummer innerhalb der 17 V0-F-Anforderungen. [Spezifikation](service-boundaries-and-integrations.de.md) · [ADR-0020 (Vorschlag)](adr/0020-auth-api-logging-service-boundaries.de.md).
+

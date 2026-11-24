@@ -63,6 +63,14 @@ Priorities are **qualitative judgments**, not mathematically calculated likeliho
 
 Risks include spoofed client IP headers, IPv6/mapped-address bypass, wrongly classified VPN/proxy exits, stale or huge geo datasets, partial rule updates, excessive IP retention and overly broad assumptions about EU sanctions. Countermeasure: validated private file-first CIDR policy, verifiable proxy trust, atomic rules and fail-closed for required enforcement; legal/policy review plus [AT-GEO-01–12](ip-geoblocking.md#7-acceptance-and-regression-tests) and tested hosting resource bounds. [SEC-GEO-001](ip-geoblocking.md) · [ADR-0019](adr/0019-ip-geoblocking.md). **No country list or functionality has been approved/implemented.**
 
+### R-028 — Uncontrolled authentication coupling and token trust (SEC-INT-001)
+
+**Phase:** V0 boundary / future Auth integration. **Priority P1**, production P0 if remote authentication can fail open. **Status: Open.** Risk: valid token or company IP incorrectly grants all resource/field rights; an unavailable Auth Service blocks every V0 request or causes token checks to be skipped; key/JWKS cache is overtrusted. Mitigation: **V0 local verifier only**, V1 local technical keys/RBAC; future external token acceptance requires issuer/audience/expiry/algorithm/signature/role mapping and explicit signed-versus-opaque outage rules, all negatively tested. [SEC-INT-001](service-boundaries-and-integrations.md) · [ADR-0020 (proposed)](adr/0020-auth-api-logging-service-boundaries.md).
+
+### R-029 — Unsafe remote logging / audit conflation (SEC-INT-001)
+
+**Phase:** V0/V1 + optional integration. **Priority P1**, **P0 for production** if raw unauthenticated LogSink is used for sensitive security data or a required audit is remote-only. **Status: Open.** Risk: current experimental LogSink accepts unauthenticated writers/readers and stores raw request bodies; leaked passwords/tokens, malicious log writes, unprotected reads, remote outages or inconsistent business/audit commits. Mitigation: protect producer/reader operations and minimize schema/retention **before use**; remote delivery nonblocking and bounded. **V1 mandatory successful-write audit commits with the business mutation in the same local DB transaction**; rejected attempts are protected security events with expressly decided durability. Test [AT-INT-06–10](service-boundaries-and-integrations.md#8-proposed-verification-matrix-not-currently-in-release-acceptance).
+
 ## 3. Blocking decisions before V0
 
 **V0-G0 must answer:**

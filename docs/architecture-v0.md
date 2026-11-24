@@ -501,3 +501,9 @@ For large country datasets, use a **licensed local indexed GeoIP/prefix lookup**
 Any change to the HTTP contract, resource allowlist, key model, repository interface, SQL building, transport/config boundaries or error format is an **architecture-relevant change** requiring review and appropriate contract/security tests. Change mandatory functional requirements in the requirements specification **before** changing their technical meaning here.
 
 **Architecture V0 Definition of Done (future implementation):** all 17 V0 mandatory requirements and AT-V0-01–10 verified; private file/TLS boundaries proven; real shared-host deployment and recovery tested; security negatives passed. Until then, this document remains a **planned architecture**, not a working implementation.
+
+## 17. Separation of future Auth and LogSink integrations (SEC-INT-001)
+
+**V0 is an independently operable data API.** Its local `ApiKeyAuthenticator` can implement a minimal verifier boundary but must not require remote authentication, SSO, introspection or LogSink. The API maintains authoritative **resource/method/field authorization**, separate from authenticating a technical client. Log locally and privately; central LogSink is optional **only after** sender/reader authentication, minimized event schema and availability safeguards. An unusable LogSink must not stop normal authorized CRUD. Future V1 same-database audit is separate and mandatory for successful writes.
+
+Per-service IP ingress/allowlist rules are independent; neither company IP approval nor a future valid token authorizes an arbitrary SQL field. **No new V0-MUST functionality is silently added.** [SEC-INT-001](service-boundaries-and-integrations.md) · [Proposed ADR-0020](adr/0020-auth-api-logging-service-boundaries.md).

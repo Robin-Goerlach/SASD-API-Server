@@ -466,23 +466,23 @@ No fabricated schedule or cost estimate is implied. V1 architecture becomes the 
 
 | V0 requirement | Architecture | Verification |
 |---|---|---|
-| V0-F01 | ``4–7 Router/Registry | T-V0-01/05 |
-| V0-F02 | ``5–6, 8 GET | T-V0-01 |
-| V0-F03 | ``5/8 POST | T-V0-02 |
-| V0-F04 | ``5–6 PUT/PATCH | T-V0-03 |
-| V0-F05 | ``5/8 DELETE | T-V0-04 |
-| V0-F06 | `7 Config allowlist | T-V0-05 |
-| V0-F07 | `6 Equality filters | T-V0-06 |
-| V0-F08 | `6 Sorting/paging | T-V0-07 |
-| V0-F09 | `6 ErrorMapper and responses | T-V0-09 |
-| V0-F10 | ``2–3 instance isolation | T-V0-11 |
-| V0-F11 | `9 API key | T-V0-08 |
-| V0-F12 | ``6–9 validation/SQL | T-V0-06/09 |
-| V0-F13 | ``3/9 HTTPS/CORS | T-V0-10 |
-| V0-F14 | `10 Health | T-V0-10 |
-| V0-F15 | `10 sanitized logging | T-V0-10 |
-| V0-F16 | ``3/10/14 documentation | T-V0-12 |
-| V0-F17 | `11 tests and fitness | T-V0-12 |
+| V0-F01 | 4–7 Router/Registry | T-V0-01/05 |
+| V0-F02 | 5–6, 8 GET | T-V0-01 |
+| V0-F03 | 5/8 POST | T-V0-02 |
+| V0-F04 | 5–6 PUT/PATCH | T-V0-03 |
+| V0-F05 | 5/8 DELETE | T-V0-04 |
+| V0-F06 | 7 Config allowlist | T-V0-05 |
+| V0-F07 | 6 Equality filters | T-V0-06 |
+| V0-F08 | 6 Sorting/paging | T-V0-07 |
+| V0-F09 | 6 ErrorMapper and responses | T-V0-09 |
+| V0-F10 | 2–3 instance isolation | T-V0-11 |
+| V0-F11 | 9 API key | T-V0-08 |
+| V0-F12 | 6–9 validation/SQL | T-V0-06/09 |
+| V0-F13 | 3/9 HTTPS/CORS | T-V0-10 |
+| V0-F14 | 10 Health | T-V0-10 |
+| V0-F15 | 10 sanitized logging | T-V0-10 |
+| V0-F16 | 3/10/14 documentation | T-V0-12 |
+| V0-F17 | 11 tests and fitness | T-V0-12 |
 
 ### Proposed ingress extension: SEC-GEO-001 (before implementation)
 

@@ -408,6 +408,10 @@ V1 ergänzt Feldaliase, Views, Relationen und Rollen sowie eine versionierte Mig
 
 ### Vorgeschlagene frühe IP-/Geo-IP-Zugriffssperre
 
+**Auch ausschließlich Firmen-IP-Adressen können zugelassen werden:** `defaultAction=deny` bedeutet, dass nur ausdrücklich freigegebene Firmen-/VPN-Netze unter IPv4 und IPv6 zur Anmeldung gelangen; **alle übrigen IPs werden gesperrt**. Kombinierte Regeln beachten **Sperre vor Freigabe**. Fehlende/leere erforderliche Allowlists wirken Fail-Closed. IP-Freigabe ersetzt niemals Authentifizierung. Weiterhin **nur Entwurf**, keine implementierte Sicherheitsfunktion. [Details](docs/ip-geoblocking.de.md).
+
+
+
 Die neue Sicherheitsanforderung **[SEC-GEO-001](docs/ip-geoblocking.de.md)** ([English](docs/ip-geoblocking.md)) wird in V0-G0 geprüft. Geplant sind eine **IPv4-/IPv6-CIDR-Sperre an der HTTP-Eingangsstelle**, eine geschützte lokale Regeldatei, verifizierte Client-IP-/Proxy-Herkunft und **Fail-Closed** bei fehlender verpflichtender Sperrliste. Eine Datenbanktabelle könnte später denselben Providervertrag ergänzen. **Es sind noch keine realen Länder/IP-Netze freigegeben, keine Sperre implementiert und keine rechtliche Prüfung abgeschlossen.** Siehe [ADR-0019](docs/adr/0019-ip-geoblocking.de.md).
 
 ## Sicherheitsmodell

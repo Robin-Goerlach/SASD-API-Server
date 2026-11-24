@@ -110,6 +110,10 @@ The cross-cutting requirement is **proposed**, not yet formally merged into the 
 - [SEC-INT-001 — Service Boundaries and Integration Contracts](service-boundaries-and-integrations.md) · [Deutsch](service-boundaries-and-integrations.de.md) — comprehensive planned contracts for an independent V0 API Server, local V1 technical-key/RBAC enforcement, later central authentication, existing experimental LogSink hardening, three kinds of logs, failure behavior and twelve proposed integration tests.
 - [ADR-0020 — Service separation (proposed)](adr/0020-auth-api-logging-service-boundaries.md) · [Deutsch](adr/0020-auth-api-logging-service-boundaries.de.md) — separation decision still **not accepted**; does not add an Auth server or LogSink dependency to V0/V1 MUST scope.
 
+## 6.3 Conversation and documentation consistency review (2026-11-24)
+
+- [Critical conversation-to-repository review](documentation-review-2026-11-24.md) · [Deutsch](documentation-review-2026-11-24.de.md) — prioritized coverage matrix for the discussed Auth/API/LogSink split, Geo-IP/allowlist rules, V1 audit semantics, legacy filename drift, test and hosting gates; identifies what was updated and what still needs formal approval.
+
 ## 7. Recommended development reading order
 
 1. Read the [Roadmap](../ROADMAP.md): the first priority is **V0-G0** (security/hosting review), then **V0-M0** (small repository skeleton).

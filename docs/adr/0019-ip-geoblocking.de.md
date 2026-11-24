@@ -1,4 +1,4 @@
-# ADR-0019: Frühzeitige IP-/CIDR-Sperren und länderbezogene Zugriffsrichtlinien
+# ADR-0019: Konfigurierbare IP-Zugangskontrolle (Allowlist, Denylist und Geo-IP)
 
 > **Sprache:** [English (Standard)](0019-ip-geoblocking.md) | **Deutsch**  
 > **Status:** **Vorgeschlagen – nicht angenommen** · **Vorschlag vom:** 23.11.2026  
@@ -41,6 +41,26 @@ IP-Adressen lassen sich durch unkontrollierte Proxy-Header vortäuschen. IPv6 un
 Wenn eine vertrauenswürdige WAF/Firewall bereits am Netzwerkrand sperren kann, soll sie zusätzlich genutzt werden. Auth Service und LogSink bleiben für die frühe Entscheidung **optional**. Ein eigenständiger Auth Service benötigt eine eigene Eingangskontrolle.
 
 Es kann die Betriebszustände `disabled`, `monitor` und `enforce` geben; **nur enforce** erfüllt eine verpflichtende Sperranforderung. **Diese ADR legt keine konkreten Embargoländer oder produktiven Netze fest.**
+
+### Erweiterte Anforderung: ausschließlich freigegebene Firmen-IP-Adressen (24.11.2026)
+
+Dieselbe Eingangskontrolle soll **Unternehmens-Allowlist** und **Länder-/Netz-Denylist** unterstützen. Dafür werden eine ausdrücklich konfigurierte **`defaultAction`** und zwei getrennte, validierte Regelquellen vorgeschlagen:
+
+| Betrieb | Standard | Erforderliche Datei | Wirkung |
+|---|---|---|---|
+| Denylist | `allow` | `blocked-networks.tsv` | Treffer sperren, andere weiter zur Authentifizierung |
+| Allowlist | **`deny`** | `allowed-networks.tsv`, nicht leer | Nur freigegebene Firmen-/VPN-IP weiter zur Authentifizierung |
+| Kombiniert | `allow` oder `deny` | Konfigurierte Allow-/Deny-Dateien | **Explizite Sperre vor expliziter Freigabe vor Standardaktion** |
+
+**Priorität:** Eine kleinere Allow-CIDR darf eine überlappende Deny-CIDR nicht automatisch aufheben. Teilnetze eines erlaubten Firmennetzes können ausdrücklich gesperrt bleiben. Ohne Regel und `defaultAction=deny` wird abgewiesen. Eine freigegebene IP ersetzt **niemals** API-Key/Token, Rollen oder Ressourcenrechte.
+
+Bei `defaultAction=deny` ist eine unerwartet leere/fehlende Allowliste ein **Konfigurationsfehler (503, fail closed)**, keine Erlaubnis für alle. Vor Aktivierung Firmen-/VPN-Austrittsnetze für **IPv4 und IPv6** prüfen und eine **separat gesicherte Host-/Datei-Rollbackmöglichkeit** vorsehen. Keine „Admin-IP“-Hintertür oder HTTP-Bypass. Regeldateien bleiben außerhalb des Webroots und werden atomar aktualisiert.
+
+Pro Installation können verschiedene Regeln gelten. API, Auth, Query-Routing-Fallback, OpenAPI und geschützte Admin-Endpunkte dürfen die Filterung nicht umgehen. IP-Adressen können bei Unternehmen dynamisch oder durch NAT geteilt sein: Das ist **Netzzugangskontrolle**, keine Nutzeridentität.
+
+**Neue Testfälle:** `AT-GEO-13` bis `AT-GEO-18`: Firmen-Allow, nicht freigegebene IP blockiert, Konfliktpriorität, ungültige/leere Allowlist führt zu Fail-Closed, IPv4-/IPv6-/VPN-/Proxy-Verhalten und sicheres Rollback. Die bisherigen `AT-GEO-01` bis `AT-GEO-12` bleiben gültig.
+
+**Status:** Nur eine vorgeschlagene Erweiterung. Die ADR ist weiterhin **nicht angenommen**; die Aufnahme in die bisher 17 nummerierten V0-F-MUSS-Anforderungen erfordert eine bewusste Freigabe.
 
 ## Konsequenzen
 

@@ -84,6 +84,10 @@ An **accepted V0 baseline must remain valid**. In addition:
 - [ ] Each of the five **SHOULD** capabilities (`V1-F09/F14/F16/F22/F27`) is identified as implemented/tested or **explicitly deferred**.
 - [ ] No unsafe HTTP DDL or arbitrary client SQL interface introduced.
 
+### Cross-service security acceptance note (SEC-INT-001)
+
+**V0 release:** verify that protected CRUD works **without** an external Auth Service or LogSink and keeps local key/resource authorization. **V1 release:** verify that successful writes and required audit persist atomically, that denied attempts are correlatable through protected, sanitized **security events**, and that the event store's minimum durability/retention requirements are explicitly recorded. An existing **unhardened LogSink** must not be wired to sensitive production events. A future Auth/LogSink integration has its own approval/test gate: producer/reader authorization, token/role trust, endpoint/TLS protections, bounded failure behavior, IP ingress and safe data minimization. No extra V0/V1 MUST requirement is silently added. [SEC-INT-001](service-boundaries-and-integrations.md).
+
 ## 6. From release candidate to accepted release
 
 1. **Freeze scope:** identify commit, documentation revisions, included features, exclusions and configuration schema.

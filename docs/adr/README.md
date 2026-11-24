@@ -60,6 +60,8 @@ The IDs indicate *candidates*, not existing accepted ADR files.
 
 - [ADR-0020: Keep Authentication, API Authorization and Logging Separate](0020-auth-api-logging-service-boundaries.md) · [Deutsch](0020-auth-api-logging-service-boundaries.de.md) — **Proposed, not accepted**. Maintain independent V0/V1 APIs, local data authorization, optional future Auth and hardened LogSink integration, and mandatory same-transaction V1 audit. [SEC-INT-001](../service-boundaries-and-integrations.md).
 
+- [ADR-0021: Pluggable database adapters](0021-pluggable-database-adapters.md) · [Deutsch](0021-pluggable-database-adapters.de.md) — **Proposed, not accepted**. One V0 MariaDB adapter, later V1 SQLite; additional trusted SQL backends require explicit independent acceptance.
+
 ## 5. ADR workflow
 
 1. Identify a specific architectural problem or long-term trade-off.

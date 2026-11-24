@@ -187,7 +187,8 @@ Eine SOLL-Funktion wird nur bei eigener Entscheidung zum verbindlichen Releaseum
 
 Die [Referenzstudie](docs/referenzprodukte-funktionskatalog.md) nennt deutlich mehr Funktionen als V0/V1 benötigen. Themen für **eigene künftige Entscheidungen**, nicht Teil dieser Roadmap als feste Releases:
 
-- PostgreSQL und weitere Datenadapter; ggf. ein separates JSON-Datei-Backend mit geklärter Atomarität/Locking.
+- PostgreSQL und Oracle als erste spätere geprüfte SQL-Adapterkandidaten; IBM Db2 und Firebird als weitere Optionen. SQL-Dialekt, Fähigkeiten, Kompatibilität und Sicherheit sind je Adapter zu testen; **keine V0-/V1-Zusage**. Siehe [vorgeschlagene ADR-0021](docs/adr/0021-pluggable-database-adapters.de.md).
+- Ein JSON-Datei-Backend oder Remote-REST-Adapter erfordert eigene Konsistenz-/Sicherheitsentscheidungen; keine gewöhnlichen SQL-Adapter.
 - Fachlich spezifische API-Services, wenn einfache CRUD-Freigaben nicht ausreichen.
 - Benutzeridentitäten und OAuth/OIDC, wenn öffentliche Endnutzer-Clients erforderlich werden.
 - Mandantenfähigkeit, datenbankübergreifende Queries und komplexere Transaktionen.

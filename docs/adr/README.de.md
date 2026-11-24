@@ -61,6 +61,8 @@ Die Nummern reservieren noch **keine Dateien**. Bei tatsächlichen Reviewentsche
 
 - [ADR-0020: Anmeldung, Datenberechtigungen und Logging trennen](0020-auth-api-logging-service-boundaries.de.md) · [English](0020-auth-api-logging-service-boundaries.md) — **Vorgeschlagen, nicht angenommen**. V0/V1 eigenständig, lokale Fachautorisierung, später optionaler Auth Service und gehärteter LogSink, verpflichtendes V1-Audit im selben DB-Commit. [SEC-INT-001](../service-boundaries-and-integrations.de.md).
 
+- [ADR-0021: Austauschbare Datenbankadapter](0021-pluggable-database-adapters.de.md) · [English](0021-pluggable-database-adapters.md) — **Vorgeschlagen, nicht angenommen**. MariaDB in V0, SQLite später in V1; weitere geprüfte SQL-Backends nur nach gesonderter Freigabe.
+
 ## 5. ADR-Prozess
 
 1. Eine Frage oder ein Risiko benennt einen langfristig bedeutsamen Architekturkonflikt.

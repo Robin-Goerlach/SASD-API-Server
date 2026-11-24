@@ -12,6 +12,8 @@
 
 V1 ist die **kontrollierte Erweiterung** einer vollständig abgenommenen V0, nicht der Neubau eines großen Application Servers. Die Architektur verfolgt drei Ziele: (1) stabile, versionierte Daten-APIs für unterschiedliche SASD-Anwendungen, (2) zwei tatsächlich austauschbare Datenbankadapter mit gemeinsamem Vertrag und (3) sichere Mehrclient-Nutzung durch technische Identitäten und Rollen. Hinzu kommen kontrollierte Filter/Beziehungen, lesende Views, OpenAPI, Betriebssicherheit und Audit.
 
+**Spätere Datenbank-Erweiterbarkeit:** Die [vorgeschlagene ADR-0021](adr/0021-pluggable-database-adapters.de.md) beschreibt vertrauenswürdige Adapterregistrierung und geprüfte Fähigkeiten. PostgreSQL, Oracle, Db2 und Firebird sind spätere Kandidaten, keine V0-/V1-Pflichten.
+
 **Umfang:** Das V1-Lastenheft enthält **22 MUSS- und fünf SOLL-Funktionen**. Die SOLL-Bausteine (benannte Leseabfragen, datensatzbezogene Sichtgrenzen, optimistische Konflikterkennung, Erweiterungsmechanismen, Betriebsmetriken) sind als **optionale, separat freizugebende Erweiterungen** entworfen. Der Entwurf übernimmt nicht alle 157 recherchierten Produktfunktionen von PHP-CRUD-API, DreamFactory und DB2Rest.
 
 **Erhaltung der V0-Eigenschaften:** PHP 8.4, Shared-Hosting-Tauglichkeit, Root-`index.php` mit Query-Fallback, private Secrets außerhalb des Document Root, keine obligatorischen Hintergrundprozesse/Redis/Docker, deny-by-default und klare Schichten. Wo ein V1-Contract bewusst anders wird, wird er unter `/api/v1/` eingeführt; V0-Clients dürfen keine stillschweigend inkompatiblen Antworten bekommen.

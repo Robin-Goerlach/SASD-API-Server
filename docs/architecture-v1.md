@@ -16,6 +16,8 @@ The architecture emphasizes three objectives:
 2. **Two genuinely interchangeable storage adapters**, MariaDB/MySQL and SQLite, implementing the same required external contract.
 3. **Secure multi-client technical access** with multiple keys, role-based policies, controlled queries, bounded relations and auditable writes.
 
+Long-term storage extensibility is described by [proposed ADR-0021](adr/0021-pluggable-database-adapters.md). PostgreSQL, Oracle, Db2 and Firebird remain post-V1 candidates, not V0/V1 obligations.
+
 The V1 requirements contain **22 MUST and five SHOULD** functions. Named read-only queries, record-level visibility, optimistic locking, controlled extensions and operational metrics are **optional independently approved modules**. No commitment is made to reproduce all 157 researched reference-product capabilities.
 
 Preserve V0's PHP 8.4/shared-hosting deployment, root `index.php` and query-routing fallback, private secrets outside document root, default-deny, and layered design without mandatory persistent workers, Redis or Docker.

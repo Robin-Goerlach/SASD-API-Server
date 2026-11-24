@@ -165,3 +165,12 @@ Ein Slice ist erst fertig, wenn Umfang, Architektur, positive und negative Tests
 
 ---
 Diese Regeln berechtigen Agenten nicht dazu, ungefragt produktive Systeme zu ändern oder Schutzvorgaben zu umgehen.
+
+## 12. Dokumentationssynchronisierung und sichere Dienstintegration (Review 24.11.2026)
+
+**Sprachen und Kompatibilität:** Kanonische englische Dokumente und ihre deutschen `.de.md`-Fassungen müssen Anforderungen, Test-IDs, Sicherheitsregeln, Status und Entscheidungen gleichwertig enthalten. Bei Änderungen auch die andere Sprache und die gepflegten **alten Dateipfad-Kopien** (z. B. `docs/pflichtenheft-v0.md` oder `docs/requirements-v0.en.md`) synchronisieren. Neue Links bevorzugt auf kanonische Dateien richten. Überschriften, Tabellen-Markdown, relative Links und MUSS-/SOLL-Zählungen vor Abschluss prüfen. Siehe [Dokumentationsprüfung](docs/documentation-review-2026-11-24.de.md).
+
+**Dienstgrenzen:** Der V0-API-Server bleibt **ohne** externen Auth Service und LogSink lauffähig; V1 behält technische Keys und Ressourcen-RBAC lokal. JWT/OIDC/Opaque-Token-Integration bleibt eine **zukünftige gesondert freigegebene** Aufgabe, kein Anlass für Remote-Abfragen beim V0-Key. Fachberechtigungen bleiben beim API Server. Der aktuelle [LogSink](https://github.com/Robin-Goerlach/LogSink) dokumentiert **ungeschützte HTTP-Leser/Schreiber und Raw-Body-Speicherung**: keine sensiblen Ereignisse vor Härtung/Abnahme senden. Remote-Logs ersetzen niemals verpflichtendes V1-Audit. Erfolgreiche Fachänderung und Audit müssen atomar sein, abgelehnte Versuche getrennte geschützte Sicherheitsevents erhalten. Siehe [SEC-INT-001](docs/service-boundaries-and-integrations.de.md), [ADR-0020 (Vorschlag)](docs/adr/0020-auth-api-logging-service-boundaries.de.md).
+
+**IP-Zugangsregeln:** [SEC-GEO-001](docs/ip-geoblocking.de.md) ist weiterhin ein **vorgeschlagener Umfang**. Keine Implementierung oder neue nummerierte V0-F-MUSS-Anforderung behaupten. Bei Freigabe sowohl Firmen-Allowlist als auch Länder-/Netz-Denylist unterstützen; Sperre vor Freigabe, verifizierte IPv4-/IPv6-Proxykette, Fail-Closed bei verpflichtender Liste und Rollback außerhalb der API beachten.
+

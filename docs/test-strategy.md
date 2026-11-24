@@ -140,6 +140,10 @@ CI should use synthetic data, test secrets, minimal artifacts and no production 
 
 **Company allowlist extension:** **AT-GEO-13–AT-GEO-18** verify corporate-only IPv4/IPv6 access, **403** for all unlisted IPs, explicit deny overriding any allow match, **503 fail-closed** on a required empty/missing allowlist, VPN/proxy trust, safe update and out-of-band rollback. Existing V0-F and AT-V0 totals stay unchanged until scope approval. [Detailed matrix](ip-geoblocking.md#71-additional-acceptance-cases-for-company-allowlists).
 
+### Proposed cross-service integration tests: SEC-INT-001
+
+The **twelve proposed AT-INT-01–AT-INT-12** checks cover independent V0 operation without Auth/LogSink, authorization after API key verification, future signed/opaque token trust and outage handling, LogSink downtime/hardening, **atomic V1 write audit**, separately protected denied-write events, redaction, IP ingress and two-instance isolation. **Only the subset relevant to an explicitly approved integration becomes a release gate.** No added mandatory V0 feature or future SSO is claimed. [Complete integration test matrix](service-boundaries-and-integrations.md#8-proposed-verification-matrix-not-currently-in-release-acceptance).
+
 ## 10. Exit criteria
 
 **V0:** V0-F01–F17, AT-V0-01–10, SQL/API negative tests, isolated second instance, shared-host deployment and tested restore.  

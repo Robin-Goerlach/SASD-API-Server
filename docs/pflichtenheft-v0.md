@@ -1,6 +1,8 @@
-# SASD-API-Server – Pflichtenheft V0
+> **Compatibility mirror / bisheriger Dateipfad:** Diese Datei spiegelt die kanonische [Fassung](technical-specification-v0.de.md). Neue Bearbeitungen bitte im kanonischen Sprachpaar vornehmen und alte Pfade synchronisieren.
 
-> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](technical-specification-v0.md) · [Deutsch (kanonisch)](technical-specification-v0.de.md)  
+> **Sprache:** [English (Standard)](technical-specification-v0.md) | **Deutsch**
+
+# SASD-API-Server – Pflichtenheft V0
 
 > **Status:** Technischer Entwurf, vor Implementierung zu prüfen · **Dokumentversion:** 0.1 · **Stand:** 01.11.2026  
 > **Architektur:** [Softwarearchitektur V0](./architektur-v0.md) (Architekturentwurf)  
@@ -395,4 +397,29 @@ Die Meilensteine sind eine **sachliche Reihenfolge**, keine Termin- oder Arbeits
 
 Dieses Dokument wird zusammen mit dem V0-Lastenheft versioniert. Änderungen am öffentlich sichtbaren HTTP-Vertrag sind mit Contract-Tests und nachvollziehbarer Entscheidung zu dokumentieren; eine Änderung der fachlichen MUSS-Anforderung erfordert eine Aktualisierung des Lastenhefts. Geplante V1-Features werden nicht rückwirkend zur V0-Abnahmebedingung.
 
+## 14. Vorgeschlagene frühe IP-/CIDR-Zugriffssperre (SEC-GEO-001)
+
+**Status:** Entwurf einer zusätzlichen Sicherheitsanforderung; noch kein Bestandteil der bisherigen nummerierten 17 V0-F-MUSS-Anforderungen.
+
+Der HTTP-Einstieg erhält bei Freigabe einen `TrustedClientIpResolver` und eine `IpAccessPolicy` **vor API-Key-Prüfung, Ressourcen-Routing und SQL**. Client-IP nur anhand einer verifizierten Proxykette; keine unkontrollierten `X-Forwarded-For`-/Provider-Header. IPv4, IPv6, Mapped IPv6 und ungültige Adressen behandeln.
+
+**V0-Quelle:** betreiberseitig gepflegte private `blocked-networks.tsv` außerhalb des Document Root (CIDR, Ländercode/Regelkennung) und getrennte Richtlinienkonfiguration. Nur vollständig validierte, **atomar aktivierte** Snapshots einschließlich Quelle, Version und Ablaufdatum verwenden. Keine Abhängigkeit von fachlicher MariaDB oder externer Geo-IP-Abfrage je Request. Eine DB-Regeltabelle kann später denselben Providervertrag nutzen; ganze Länder benötigen gegebenenfalls **indizierte lokale** Geo-IP-Daten statt linearer Textsuche.
+
+Bei `mode=enforce` und Treffer: neutraler **403** mit `access_restricted`. Bei erforderlichem, aber defektem/fehlendem/abgelaufenem Regelstand: **Fail-Closed mit 503**. Ohne Treffer gelten weiterhin API-Key und Ressourcenrechte. Health/Auth-/Fallback-Routen müssen über eine einheitliche Eingangsregel erfasst werden. Nur bereinigte lokale Ereignisse, LogSink später optional.
+
+**Allowlist-Ergänzung (24.11.2026):** `defaultAction=allow` (Denylist) beziehungsweise `defaultAction=deny` (**Firmen-Allowlist**) und private Quellen `allowed-networks.tsv` / `blocked-networks.tsv` vorsehen. Priorität **jede explizite Sperre > Freigabe > Standardaktion**, ohne heimliche Übersteuerung durch spezifischeres Allow-Präfix. Nicht eingetragene IPs erhalten im Firmenmodus **403**, eine fehlende/leere erforderliche Allowlist **503 (Fail-Closed)**. Firmen-/VPN-Ausgangsnetze unter IPv4/IPv6 prüfen und Verwaltung/Rollback **außerhalb der API** ermöglichen. Netzzulassung ersetzt **keine Authentifizierung**. Geplante Zusatzfälle **AT-GEO-13–AT-GEO-18**. [Details](ip-geoblocking.de.md).
+
+**Tests:** `AT-GEO-01` bis `AT-GEO-12`. **V0-G0** soll den Scope freigeben; eine Implementierung könnte in **V0-M1** erfolgen. Die bisherige Anforderungs-/Abnahmezählung wird nicht stillschweigend verändert. [Gesamtkonzept](ip-geoblocking.de.md) · [ADR-0019](adr/0019-ip-geoblocking.de.md).
+
+---
+
 **Status: technischer Entwurf, nicht implementiert, nicht getestet, nicht formal freigegeben.**
+
+## 15. Vorgesehene modulare Authentifizierung und Logging-Grenze – SEC-INT-001
+
+`ApiKeyAuthenticator` bleibt die konkrete V0-Prüfung. Eine schmale spätere `CredentialVerifier`-Schnittstelle kann HTTP-Controller vom Zugangsdatenformat entkoppeln, **ohne** V0 von zentralem Auth Service, JWT oder Benutzer-Sessions abhängig zu machen. Auch ein verifizierter Client unterliegt weiterhin **lokalen** Ressourcen-, Methoden- und Feldberechtigungen; unbekannte Rollen dürfen keine Tabellen freischalten.
+
+`SanitizedLogger` protokolliert in V0 lokal und geschützt. Ein späterer Publisher an einen **gehärteten** LogSink ist optional: langsame/nicht verfügbare LogSink-HTTP-Dienste dürfen normale berechtigte CRUD-Aufrufe nicht blockieren. Spool/Retry benötigen Begrenzungen und dürfen keinen dauerhaften PHP-Worker voraussetzen. Keine Passwörter, Tokens, Authorization-Header, SQL-Werte, ganzen Bodies oder Personendatensätze weitergeben. Das verpflichtende transaktionale Schreib-Audit aus V1 bleibt **getrennt** von Remote-Logs.
+
+**Prüfung:** `SEC-INT-001`, `AT-INT-01`/02/06/10; keine stillschweigende neue Nummer innerhalb der 17 V0-F-Anforderungen. [Spezifikation](service-boundaries-and-integrations.de.md) · [ADR-0020 (Vorschlag)](adr/0020-auth-api-logging-service-boundaries.de.md).
+

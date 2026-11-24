@@ -257,7 +257,7 @@ The SASD API Server is a **configurable REST/JSON data-service platform** that m
 
 **Required functionality and scope:** Technical logs contain at least UTC timestamp, request ID, instance, resource, operation, status, error category, and technical client identifier where legally appropriate. **Write operations** additionally produce audit events indicating who, when, what operation, which logical record, and the outcome. Complete personal data, bearer tokens, passwords, and full request bodies are not logged by default. Log rotation, retention, and access protection are documented. This does not claim to be a tamper-proof enterprise audit vault.
 
-**Acceptance criterion:** Successful and denied writes can be matched to protected audit events without finding plaintext keys or full records in the logs.
+**Acceptance criterion (clarified):** Every **successfully committed** write has a protected **transactional audit record** linked by request ID to the business mutation; if its mandatory audit insert fails, the business write rolls back. Every **denied/rejected** write attempt can be correlated with a separately protected, sanitized **security-denial event** (no successful business mutation or fictitious commit). Neither event type contains plaintext keys, bearer tokens or full records. The operator must still resolve the separate security-event durability/retention policy before production acceptance. See [SEC-INT-001](service-boundaries-and-integrations.md).
 
 **Origin / inspiration:** DreamFactory §4.2: audit logging (may be commercial); DB2Rest §5.5: observability.
 

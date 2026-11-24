@@ -492,6 +492,8 @@ Blocked matches return neutral **403**. An explicitly mandatory enforced but mis
 
 For large country datasets, use a **licensed local indexed GeoIP/prefix lookup** and offline policy generation rather than repeated remote calls or huge per-request linear scans. Country restrictions require operator/legal approval; a client IP is not guaranteed proof of location.
 
+**Bidirectional admission policy (2026-11-24):** The same ingress component implements **allowlist (default deny)**, **denylist (default allow)** and combined rules, with **explicit deny > explicit allow > configured defaultAction**. In corporate-only mode unlisted IPs receive **403**; missing/empty required allowlist is an error **503 (fail closed)**. Approved company/VPN IPv4/IPv6 egress must be tested before an atomic update and recoverable using protected **out-of-band** rollback. No hidden admin bypass; even approved IPs still need API-key/token and resource authorization. Tests **AT-GEO-13–18**.
+
 **This is a proposed V0-G0/V0-M1 security addendum, not an already accepted change to the 17 V0-F baseline.** [Design](ip-geoblocking.md) · [ADR-0019](adr/0019-ip-geoblocking.md) · [Tests AT-GEO-01..12](ip-geoblocking.md#7-acceptance-and-regression-tests).
 
 ## 16. Change control and Definition of Done

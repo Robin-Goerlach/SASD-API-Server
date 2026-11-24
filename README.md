@@ -476,6 +476,10 @@ V1 adds public field aliases, configured views/relationships, roles, and schema-
 
 ### Proposed early IP/Geo-IP access restriction
 
+**Network admission now also supports corporate-only access:** an instance may set `defaultAction=deny` and allow only explicitly approved company/VPN IPv4 and IPv6 ranges. It may also combine an allowlist with explicit denies; **deny takes precedence**. Missing/empty mandatory allowlists fail closed; matching the allowlist never replaces authentication. This is still a **proposed** V0 security requirement, not implemented. [Full bilingual design](docs/ip-geoblocking.md).
+
+
+
 The additional security requirement **[SEC-GEO-001](docs/ip-geoblocking.md)** ([Deutsch](docs/ip-geoblocking.de.md)) is under V0-G0 scope review. It proposes an **IPv4/IPv6 CIDR-based ingress block** using a protected local rule snapshot, verified client IP/proxy trust, and controlled fail-closed behavior when an enforced policy is unavailable. A DB-backed rule provider may be added later. **No countries or real network blocks are configured, implemented or legally approved yet.** See [ADR-0019](docs/adr/0019-ip-geoblocking.md).
 
 ## Security model

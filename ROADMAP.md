@@ -186,7 +186,8 @@ Each SHOULD item becomes mandatory only if separately approved for a release. De
 
 The comparative feature catalog suggests many ideas, but **none is automatically included** in V0 or V1:
 
-- PostgreSQL, JSON-file persistence, remote REST adapters and additional databases after explicit consistency/security evaluation.
+- PostgreSQL and Oracle Database as first future relational adapter candidates; IBM Db2 and Firebird as additional candidates. All must use an approved, trusted deployment-time adapter contract and pass independent compatibility/security tests; they are **not V0/V1 commitments**. See [proposed ADR-0020](docs/adr/0020-pluggable-database-adapters.md).
+- JSON-file persistence and remote REST adapters only after separate consistency/security evaluation; these are distinct from SQL-dialect adapters.
 - Custom domain services for workflows that cannot be implemented safely as generic CRUD calls.
 - OIDC/OAuth and individual end-user identities if public clients genuinely require them.
 - Advanced tenancy, cross-database queries and more complex transactions.

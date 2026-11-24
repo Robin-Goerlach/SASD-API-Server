@@ -100,7 +100,7 @@ These are **detailed design documents** and do not claim that the classes, files
 
 
 
-- [SEC-GEO-001 — IP and country-based network restrictions](ip-geoblocking.md) · [Deutsch](ip-geoblocking.de.md) — proposed early V0 admission-control security requirement, including private CIDR file, trusted client-IP resolution, policy freshness, fail-closed behavior and 12 proposed tests.
+- [SEC-GEO-001 — IP and country-based network restrictions](ip-geoblocking.md) · [Deutsch](ip-geoblocking.de.md) — proposed early V0 admission-control security requirement, including private CIDR file, trusted client-IP resolution, policy freshness, fail-closed behavior and 18 proposed tests.
 - [ADR-0019 (proposed)](adr/0019-ip-geoblocking.md) · [Deutsch](adr/0019-ip-geoblocking.de.md) — file-first versus database/GeoIP/WAF trade-offs; **not yet an accepted architectural decision**.
 
 The cross-cutting requirement is **proposed**, not yet formally merged into the existing 17 V0-F requirement count or the ten AT-V0 acceptance cases. No embargo-country list has been selected or implemented.

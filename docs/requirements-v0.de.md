@@ -352,3 +352,12 @@ Die Zuordnung von Ländern zu IP-Netzen verlangt **geprüfte, lizenzkonforme und
 ---
 
 **Hinweis:** Diese Fassung ist als gründlicher **Entwurf** erstellt. Sie ist nicht als bereits implementiert, getestet oder durch den Auftraggeber formal freigegeben gekennzeichnet.
+
+## 14. Vorgeschlagene Dienstgrenzen und Logging – SEC-INT-001
+
+**Status: Architekturabgrenzung für V0-G0; noch keine zusätzliche nummerierte V0-F-MUSS-Anforderung.** Der SASD API Server muss in V0 **eigenständig** mit lokalem technischen API-Key, Ressourcenrechten, geschützten Logs und Datenbank betreibbar bleiben, **ohne** zwingenden entfernten Auth Service, LogSink oder Hintergrundworker für CRUD. Authentifizierung beantwortet *wer*, die lokale Daten-API entscheidet *welche Ressource, Methode und welches Feld*. Eine kleine lokale Schnittstelle zur Credential-Prüfung ist sinnvoll; OAuth/JWT/SSO gehört damit **nicht** automatisch in V0.
+
+Der vorhandene experimentelle **LogSink** ist derzeit **keine freigegebene Security-Log-Abhängigkeit**: Sein dokumentierter HTTP-Vertrag erlaubt noch ungeschützte Leser/Schreiber und speichert Rohdaten. Später dürfen nur nach Härtung **bereinigte, minimierte Ereignisse** übertragen werden; ein Ausfall darf normale berechtigte CRUD-Aufrufe nicht blockieren. Technische Logs sind außerdem **kein Ersatz** für das spätere verpflichtende transaktionale V1-Schreib-Audit.
+
+**Geplante Nachweise:** AT-INT-01/02/06/10/12. Sie ändern die zehn V0-Abnahmeszenarien erst nach Scope-Freigabe. [Spezifikation](service-boundaries-and-integrations.de.md) · [ADR-0020 (Vorschlag)](adr/0020-auth-api-logging-service-boundaries.de.md).
+

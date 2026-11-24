@@ -1,6 +1,8 @@
-# API Server Reference Products — Feature Catalog
+> **Legacy English filename:** This compatibility copy mirrors [the English default document](reference-products-feature-catalog.md); edit the canonical file and resynchronize aliases.
 
-> **Language:** **English (legacy file path)** · [English (default)](reference-products-feature-catalog.md) · [Deutsch](reference-products-feature-catalog.de.md)  
+> **Language:** **English (default)** | [Deutsch](reference-products-feature-catalog.de.md)
+
+# API Server Reference Products — Feature Catalog
 
 > **SASD-API-Server — technical reference study, as of November 1, 2026**
 >

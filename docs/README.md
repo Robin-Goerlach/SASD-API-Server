@@ -105,6 +105,11 @@ These are **detailed design documents** and do not claim that the classes, files
 
 The cross-cutting requirement is **proposed**, not yet formally merged into the existing 17 V0-F requirement count or the ten AT-V0 acceptance cases. No embargo-country list has been selected or implemented.
 
+## 6.2 Auth, API and logging service integration (proposed)
+
+- [SEC-INT-001 — Service Boundaries and Integration Contracts](service-boundaries-and-integrations.md) · [Deutsch](service-boundaries-and-integrations.de.md) — comprehensive planned contracts for an independent V0 API Server, local V1 technical-key/RBAC enforcement, later central authentication, existing experimental LogSink hardening, three kinds of logs, failure behavior and twelve proposed integration tests.
+- [ADR-0020 — Service separation (proposed)](adr/0020-auth-api-logging-service-boundaries.md) · [Deutsch](adr/0020-auth-api-logging-service-boundaries.de.md) — separation decision still **not accepted**; does not add an Auth server or LogSink dependency to V0/V1 MUST scope.
+
 ## 7. Recommended development reading order
 
 1. Read the [Roadmap](../ROADMAP.md): the first priority is **V0-G0** (security/hosting review), then **V0-M0** (small repository skeleton).

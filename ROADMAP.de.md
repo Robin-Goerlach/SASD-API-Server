@@ -141,6 +141,10 @@ flowchart LR
 
 ### Vorgeschlagene Ergänzung SEC-GEO-001 in V0-G0/V0-M1
 
+**Scope-Ergänzung (24.11.2026):** Die frühe Netzzugangskontrolle muss **Denylist mit Standard erlauben, Firmen-Allowlist mit Standard sperren und kombinierten Betrieb** ermöglichen. Es gilt **explizite Sperre vor Freigabe**. Firmen-VPN-Austritte unter IPv4/IPv6, ungültige/leere Allowlists (Fail-Closed) und Rollback außerhalb der API gehören zur V0-G0-/M1-Planung. Neue Tests **AT-GEO-13–18**; keine stillschweigende Änderung der bestehenden V0-F-/AT-V0-Anzahlen.
+
+
+
 Die länder-/IP-netzbezogene Sperrregel wird in **V0-G0** fachlich, rechtlich und technisch geprüft. Bei Freigabe wird in **V0-M1** eine frühe, dateibasierte CIDR-Kontrolle **vor Authentifizierung und SQL** eingeplant: IPv4/IPv6, verifizierte Proxykette, geprüfte Regeldatei außerhalb des Document Root, atomare Updates und Fail-Closed für erforderliche aktive Regeln. **Die Nummerierung der 17 vorhandenen V0-F-Anforderungen und zehn V0-Abnahmeszenarien bleibt bis zur formalen Scope-Änderung unverändert.** Siehe [SEC-GEO-001](docs/ip-geoblocking.de.md) und [ADR-0019](docs/adr/0019-ip-geoblocking.de.md).
 
 ## 5. V1.0 – Ausbau nach erfolgreicher V0-Abnahme

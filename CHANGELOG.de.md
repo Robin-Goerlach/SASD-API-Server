@@ -6,6 +6,17 @@ Wesentliche Projektänderungen werden hier dokumentiert. Der Aufbau orientiert s
 
 ## [Unreleased]
 
+### Dokumentations- und Architekturprüfung – 24.11.2026
+
+- Projektgespräch gegen zweisprachige V0-/V1-Lastenhefte, Pflichtenhefte, Architektur, Risiko-/Test-/Betriebsunterlagen und Roadmap geprüft; Ergebnisse im [deutschen Prüfbericht](docs/documentation-review-2026-11-24.de.md) und [English report](docs/documentation-review-2026-11-24.md) dokumentiert.
+- **SEC-INT-001** als zweisprachigen [Vertrag der Auth-/API-/Logging-Dienstgrenzen](docs/service-boundaries-and-integrations.de.md) sowie **[ADR-0020 (Vorschlag)](docs/adr/0020-auth-api-logging-service-boundaries.de.md)** ergänzt. V0 bleibt eigenständig, V1 behält technische Keys/Rollen lokal; ein externer Auth Service und der ungeschützte LogSink sind **keine** Pflichtabhängigkeiten.
+- **V1-F19 präzisiert:** Erfolgreiche Datenänderung und Pflicht-Audit gehören zur selben lokalen DB-Transaktion; abgewiesene Versuche liefern gesonderte geschützte Sicherheitsereignisse mit noch festzulegender Haltbarkeit.
+- Vorschläge **AT-INT-01–12** und Risiken **R-028/R-029** ergänzt; Lasten-/Pflichtenhefte, Architekturen, Roadmap, Tests, Betrieb und Abnahme verknüpft.
+- Fehlerhafte Traceability-Markdown-Tabellen und beschädigte Geo-IP-Notizen bereinigt sowie **15 alte deutsche/englische Dokumentpfade** mit aktuellen kanonischen Sprachfassungen synchronisiert.
+- **Status:** ausschließlich Planung/Dokumentation; SEC-INT-001 und SEC-GEO-001 weiterhin nicht abgenommen, V0-/V1-Pflichtumfang und Teststatus unverändert.
+
+
+
 ### Vorgeschlagene Sicherheitsarchitektur – 23.11.2026
 
 - **Ergänzung vom 24.11.2026:** SEC-GEO-001 / ADR-0019 um **Firmen-/VPN-Allowlist mit Standard sperren**, Denylist mit Standard erlauben und kombinierte Regeln mit Sperr-Priorität erweitert. Zusätzliche Testfälle **AT-GEO-13–18**, Schutz vor Admin-Aussperrung/Änderungen der Firmen-IP und IPv4/IPv6 berücksichtigt; deutsche/englische Unterlagen angepasst. Weiterhin nur ein Entwurf, keine implementierte Sperre.

@@ -532,3 +532,11 @@ The [V1 requirements](requirements-v1.md) define the functional scope. This docu
 External reference-project features are **not** automatically SASD requirements.
 
 **Document status: detailed technical proposal; no implemented V1 code, passed tests, or formal approval is claimed.**
+
+## 16. Cross-service identity and logging integration boundary (SEC-INT-001)
+
+**V1-F12/F13 remains a protected local technical-key + role policy system; a separate SASD Auth Service is not mandatory in V1.** Optional future external identity integration may use a `CredentialVerifier`/`VerifiedPrincipal` port, but must verify the token's trust and bind identity to an **instance-specific** data access policy. OAuth/OIDC/JWT and introspection are **later explicitly scoped** features, not currently supported routes.
+
+**V1-F19 uses two evidence paths:** each **successful** write and its required audit INSERT share the same local MariaDB/SQLite transaction; failure rolls back the mutation. **Denied attempts** are instead correlated to protected sanitized security events by request ID, with explicit retention/durability decision before release. An external unprotected LogSink does not satisfy either guarantee. Optional central event delivery is best-effort after LogSink authentication, separated reader/writer permissions, payload minimization, bounded retries and TLS. LogSink outages must not block normal authorized CRUD.
+
+**Proposed integration checks:** AT-INT-01–12, only for features actually approved. [Detailed SEC-INT-001](service-boundaries-and-integrations.md) · [Proposed ADR-0020](adr/0020-auth-api-logging-service-boundaries.md).

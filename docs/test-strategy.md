@@ -138,6 +138,8 @@ CI should use synthetic data, test secrets, minimal artifacts and no production 
 
 [SEC-GEO-001](ip-geoblocking.md) introduces **12 proposed geo/network access tests**, `AT-GEO-01`–`AT-GEO-12`: IPv4/IPv6, CIDR boundaries, mapped addresses, spoofed forwarded headers, real proxy trust, missing/corrupt/stale policy fail-closed, atomic updates, two-instance policy isolation, sanitized logging and bounded lookup cost for real country-level data. These cases are **not yet part of the established 10 V0 acceptance scenarios** until V0-G0 scope approval. Do not treat a city/country IP geolocation result as proof of legal sanctions compliance.
 
+**Company allowlist extension:** **AT-GEO-13–AT-GEO-18** verify corporate-only IPv4/IPv6 access, **403** for all unlisted IPs, explicit deny overriding any allow match, **503 fail-closed** on a required empty/missing allowlist, VPN/proxy trust, safe update and out-of-band rollback. Existing V0-F and AT-V0 totals stay unchanged until scope approval. [Detailed matrix](ip-geoblocking.md#71-additional-acceptance-cases-for-company-allowlists).
+
 ## 10. Exit criteria
 
 **V0:** V0-F01–F17, AT-V0-01–10, SQL/API negative tests, isolated second instance, shared-host deployment and tested restore.  

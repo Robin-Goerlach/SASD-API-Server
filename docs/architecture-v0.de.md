@@ -415,3 +415,9 @@ Für vollständige Länderzuordnungen sind **lizenzierte lokale indizierte** Geo
 Änderungen an HTTP-Verträgen, Ressourcen-/Feldfreigaben, Key-Handling, Repository-Ports, SQL-Bau, TLS-/Config-Grenzen oder Fehlerformat sind **architekturrelevant** und benötigen Review plus Contract-/Security-Tests. Fachliche Änderungen werden zuerst im Lastenheft, danach im Pflichtenheft und in dieser Architektur nachgeführt.
 
 **Definition of Done (spätere Implementierung):** alle 17 V0-MUSS-Anforderungen und AT-V0-01 bis AT-V0-10 bestanden; Daten/Secrets getrennt; Shared-Hosting-Installation getestet; alle Sicherheits-Negativtests nachgewiesen. Bis dahin bleibt dies ein Architekturentwurf.
+
+## 17. Trennung von zukünftigem Auth Service und LogSink (SEC-INT-001)
+
+**V0 bleibt ein eigenständig betreibbarer Datendienst.** Sein lokaler `ApiKeyAuthenticator` kann einen schmalen Verifier-Port verwenden, ohne externe Anmeldung, SSO, Token-Introspection oder LogSink vorauszusetzen. **Ressourcen-/Methoden-/Feldrechte entscheidet stets der API Server**, nicht ein Auth Service. Lokal und privat protokollieren; zentrale LogSink-Weitergabe erst nach Sender-/Leserabsicherung, Datenminimierung und sicherem Ausfallverhalten. Ein nicht erreichbarer LogSink darf normale berechtigte CRUD-Operationen nicht verhindern. Das spätere atomare V1-Schreib-Audit ist davon getrennt und verpflichtend.
+
+Jeder öffentlich erreichbare Dienst benötigt seine eigene IP-/Netzzugangskontrolle; Firmen-IP oder gültiges Token erlauben keine beliebigen SQL-Felder. **Keine stillschweigende neue V0-MUSS-Funktion.** [SEC-INT-001](service-boundaries-and-integrations.de.md) · [ADR-0020 (Vorschlag)](adr/0020-auth-api-logging-service-boundaries.de.md).

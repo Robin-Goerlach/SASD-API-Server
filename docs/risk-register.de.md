@@ -50,7 +50,11 @@ Dieses Register sammelt technische, sicherheitsrelevante und organisatorische Ri
 | R-025 | Alle | **P1** | Dokumentation wird mit implementiertem Verhalten verwechselt; Fehlfreigabe. | keine erfundenen Testergebnisse; Implementierungs-/Abnahmeprotokoll, CHANGELOG. | Offen |
 | R-026 | Alle | **P2** | Neue Features ohne Roadmap/ADR erhöhen Scope und Angriffsfläche. | Issue mit Begründung, Priorität, Nicht-Zielen und Tests. | Offen |
 
-### R-027 – Vorgeschlagenes Risiko der frühen Länder-/IP-Sperre (SEC-GEO-001)
+### R-027 – Vorgeschlagenes Risiko der frühen Länder-/IP-Sperre
+
+**Firmen-Allowlist-Erweiterung:** `defaultAction=deny` kann bei wechselnden Büro-/VPN-Ausgangs-IP-Adressen auch Administratoren aussperren. Leere/fehlende erforderliche Allowlists müssen Fail-Closed wirken, nicht alle erlauben. Sicheren Host-/Datei-Rollback außerhalb der API vorsehen und IPv4/IPv6, sich überschneidende Allow-/Denyregeln (Deny gewinnt) sowie Ausweichrouten testen. Weitere Fälle **AT-GEO-13–18**.
+
+ (SEC-GEO-001)
 
 **Phase:** V0-G0 / gegebenenfalls V0-M1; **Priorität P1**, als **P0-Produktionsblocker**, wenn rechtlich oder durch Betreiberpolitik eine aktive IP-Sperre vorgeschrieben ist. **Status: Offen**.
 

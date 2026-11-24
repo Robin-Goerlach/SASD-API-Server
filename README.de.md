@@ -163,6 +163,8 @@ Ein Wechsel des Datenbankadapters **migriert keine Bestandsdaten**. Datenüberna
 
 [Pflichtenheft V1](docs/pflichtenheft-v1.md) · [Architektur V1](docs/architektur-v1.md)
 
+**Dienstgrenzen (Entwurf):** Der API Server bleibt mit lokalen technischen API-Keys und eigenen Fachberechtigungen unabhängig. Ein späterer SASD Auth Service kann gemeinsame Benutzeridentitäten verwalten, entscheidet aber nicht über Tabellen-/Feldrechte. Der bestehende experimentelle [LogSink](https://github.com/Robin-Goerlach/LogSink) ist noch nicht sicher genug für produktive Sicherheitsereignisse. Zentrales technisches Logging erst **nach Härtung** optional; das verpflichtende V1-Schreib-Audit bleibt in derselben lokalen DB-Transaktion. [SEC-INT-001](docs/service-boundaries-and-integrations.de.md) · [ADR-0020 (Vorschlag)](docs/adr/0020-auth-api-logging-service-boundaries.de.md).
+
 ## Architektur und Entwurf
 
 ### Komponentenübersicht

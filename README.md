@@ -707,6 +707,8 @@ The current **next planned milestone** is **V0-G0: hosting/security architecture
 
 There is **no committed completion date**. Only changes evidenced by source code, tests, review and release decisions can be marked completed. For the full sequence, see [ROADMAP.md](ROADMAP.md) and [V0 development plan](docs/development-plan-v0.md).
 
+**Critical documentation review (2026-11-24):** [Review report (English)](docs/documentation-review-2026-11-24.md) · [Deutsch](docs/documentation-review-2026-11-24.de.md). The report identifies existing and missing conversation topics, V0/V1 scope boundaries and pending decisions; it is **not** an implementation/security audit.
+
 ## Documentation library
 
 The planning work intentionally keeps the user requirements, implementation specification, architecture, and test/release evidence separate.

@@ -348,7 +348,7 @@ Minimal fields: `event_id`, `occurred_at_utc`, `instance_id`, `request_id`, `cli
 
 If audit insertion fails, **rollback the underlying write** and do not return success. This design does **not** claim certified tamper-proof or regulation-grade audit storage.
 
-Denied authentication/policy attempts do not create business transactions; record only sanitized technical security events in protected logs. Unwritable log paths require controlled operational error behavior.
+Denied authentication/policy attempts do not create committed business transactions; correlate them to **separately protected sanitized security-denial events** by request ID, **not** to fictitious successful write-audit rows. Define the required local persistence, error behavior and retention of denial events before V1 release: a remote LogSink alone is insufficient. Successful writes and their **mandatory local audit rows** continue to share one database transaction; if that audit fails, roll back the write. Unwritable log paths require controlled operational error behavior. See [SEC-INT-001](service-boundaries-and-integrations.md).
 
 ### 7.2 Health and readiness
 

@@ -505,3 +505,12 @@ An installation reports database failure through its protected readiness check. 
 ---
 
 **Document status:** Thorough functional requirements **draft**. It does not claim that the functionality has already been implemented, tested, accepted, or formally approved.
+
+## 13. Cross-service identity, authorization and logging boundaries — SEC-INT-001
+
+**Clarification, not a 28th V1-F requirement:** **V1-F12/F13 remain local technical-client key management and API resource/field/method RBAC**. The future option of a **separate SASD Auth Service** for human accounts/SSO does not become a mandatory dependency of V1. Authentication must not centralize away SQL/data authorization; external identities (if ever implemented) need explicit instance-level role mapping and documented token/outage behavior.
+
+**V1-F19 distinction:** transactionally committed business writes require **same-local-DB-transaction audit**; denied attempts require **separate protected correlated security events** with an explicitly reviewed durability/retention policy. An external experimental LogSink is **not** either a substitute for atomic audit or an authorized production sink before it has producer/reader authentication and sanitized event contracts. No mandatory remote Auth/LogSink call on normal CRUD.
+
+**Decisions not yet accepted:** [SEC-INT-001](service-boundaries-and-integrations.md), [ADR-0020](adr/0020-auth-api-logging-service-boundaries.md) and proposed `AT-INT-01`–`AT-INT-12`. The 22 MUST + 5 SHOULD totals and 16 acceptance scenarios remain unchanged until a formal change.
+

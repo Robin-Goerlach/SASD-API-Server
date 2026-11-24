@@ -1,0 +1,8 @@
+# Configuration is always private and instance-specific.
+config/*.json
+!config/*.example.json
+*.local.json
+*.log
+*.jsonl
+vendor/
+coverage/

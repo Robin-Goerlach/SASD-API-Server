@@ -1,6 +1,8 @@
-# SASD API Server – Entwicklungsplan V0.1.0
+> **Compatibility mirror / bisheriger Dateipfad:** Diese Datei spiegelt die kanonische [Fassung](development-plan-v0.de.md). Neue Bearbeitungen bitte im kanonischen Sprachpaar vornehmen und alte Pfade synchronisieren.
 
-> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](development-plan-v0.md) · [Deutsch (kanonisch)](development-plan-v0.de.md)  
+> **Sprache:** [English (Standard)](development-plan-v0.md) | **Deutsch**
+
+# SASD API Server – Entwicklungsplan V0.1.0
 
 > **Status:** geplanter Ablauf, kein Code-/Testerfolg behauptet · **Stand:** 01.11.2026  
 > Grundlage: [Lastenheft V0](lastenheft-v0.md) · [Pflichtenheft V0](pflichtenheft-v0.md) · [Architektur V0](architektur-v0.md) · [Roadmap](../ROADMAP.md)  

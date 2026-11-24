@@ -1,4 +1,4 @@
-# SEC-GEO-001 – IP-Netz- und länderbezogene Zugriffssperren
+# SEC-GEO-001 – Konfigurierbare IP-Zugriffsrichtlinie (Allowlist, Denylist und Geo-IP)
 
 > **Sprache:** [English (Standard)](ip-geoblocking.md) | **Deutsch**  
 > **Status:** **Vorgeschlagene zusätzliche Sicherheitsanforderung für V0** und Architekturergänzung – noch nicht implementiert, getestet, rechtlich freigegeben oder produktiv eingesetzt.  
@@ -40,6 +40,27 @@ Der Betreiber legt ausdrücklich fest, **welche Netze/Gebiete und warum** gesper
 
 Ein Prüfmodus `monitor` kann Fehlzuordnungen sichtbar machen. Er blockiert aber **nicht** und erfüllt deshalb keine verpflichtende Sperrauflage.
 
+### 2.3 Freigabelisten: Zugriff ausschließlich aus Firmennetzen (Anforderungserweiterung)
+
+Die **gleiche Eingangsprüfung muss in beide Richtungen arbeiten können**. Eine interne Firmen-API darf ausschließlich über ausdrücklich freigegebene IP-Adressen beziehungsweise CIDR-Netze erreicht werden, etwa vom Büro, Unternehmensrechenzentrum oder **fest definierten VPN-Austritt**. **Alle anderen IP-Adressen werden vor der Anmeldung abgewiesen.** Das ist eine eigenständige Funktion, auch ohne Geo-IP-Länderdaten.
+
+| Betrieb | `defaultAction` | Verhalten | Beispiel |
+|---|---|---|---|
+| Denylist (Sperrliste) | `allow` | Explizit gesperrte Netze → 403; andere weiter zur Anmeldung | Bestimmte Länder oder IP-Ranges ausschließen |
+| Allowlist (Freigabeliste) | `deny` | **Nur ausdrücklich erlaubte Netze** weiter zur Anmeldung; sonst 403 | Nur Firma, VPN, Rechenzentrum |
+| Kombiniert | `allow` oder `deny` | **Explizite Sperre vor Freigabe**, dann konfigurierte Standardaktion | Firmenfreigabe plus gesperrte Teilnetze |
+| Deaktiviert | keine Auswertung | Keine IP-Eingangssperre; **normale Authentifizierung bleibt Pflicht** | Isolierte lokale Testumgebung |
+
+**Verbindlicher vorgeschlagener Entscheidungsablauf:** (1) Client-IP aus **verifizierter** Netzwerk-/Proxyquelle bestimmen; (2) erforderlichen Regelstand auf Gültigkeit prüfen; (3) **explizite Deny-CIDR** gewinnt immer und liefert **403**; (4) sonst lässt eine passende Allow-CIDR den Request zur normalen Anmeldung; (5) ohne Treffer gilt `defaultAction`. Eine kleinere freigegebene Netzmaske darf **niemals** stillschweigend eine ausdrückliche Sperrregel übersteuern. Echte Ausnahmen erfordern die bewusste Änderung und Freigabe der widersprechenden Regeldatei – keinen versteckten Override.
+
+**Sichere Firmenrichtlinie:** Bei `defaultAction=deny` darf eine fehlende, beschädigte oder unerwartet leere Allowlist **nicht** auf „alle erlauben“ zurückfallen. Fehlende erforderliche Regeln: **503, fail closed**. Ein absichtlicher Notfall-Lockdown für alle IPs benötigt einen eigenständigen, geprüften Betriebsbeschluss. Für den Normalbetrieb mindestens eine validierte Allow-CIDR verlangen.
+
+**Administratoren nicht aussperren:** Vor Aktivierung neue Regeln offline validieren, den eigenen Verwaltungs-/VPN-Austritt testweise prüfen, ein zweites Testfenster nutzen und den vorherigen gültigen Stand aufbewahren. Rücknahme muss über einen **außerhalb der API liegenden** sicheren Dateizugriff/Host-Administrationsweg möglich bleiben. Keine hart codierte „Admin-Ausnahme“, kein Query-Parameter-Bypass, keine Hintertür.
+
+**Grenzen:** Eine IP-Freigabe beweist nur das verwendete **Ausgangsnetz**, nicht die Identität des Mitarbeiters. Firmenzugänge können wechselnde öffentliche IPs, IPv6, Carrier-NAT, Mobilfunk oder VPN-/Cloud-Ausgänge benutzen. Für zuverlässige Firmenfreigaben sind stabile, dokumentierte IPv4- **und IPv6-VPN-Austrittsnetze** sinnvoll. **API-Key/Token und Ressourcen-/Rollenrechte gelten zusätzlich.**
+
+**Routen:** Geschützte REST-, Fallback-, Versions-, OpenAPI-, Readiness-, Auth- und Admin-Endpunkte dürfen keine unbeabsichtigte Umgehung ermöglichen. Ein ausdrücklich öffentlicher Basis-Health-Endpunkt oder separater Statushost erfordert eine dokumentierte, geprüfte Ausnahme.
+
 ## 3. Position in der Serverarchitektur
 
 ~~~mermaid
@@ -76,44 +97,59 @@ Eine verlässlich kontrollierte Firewall, ein Reverse Proxy oder eine WAF kann A
 
 ### 4.1 Richtlinien-Konfiguration
 
-Ausschließlich **illustrative Testkonfiguration**, keine echte Embargo-Länderliste:
+**Beispiel für eine reine Firmenfreigabe**, noch kein implementiertes JSON-Schema:
 
 ~~~json
 {
   "schemaVersion": 1,
   "ipAccess": {
     "mode": "enforce",
-    "source": "file",
-    "cidrFile": "PRIVATE_CONFIG_DIR/blocked-networks.tsv",
-    "required": true,
+    "source": "files",
+    "defaultAction": "deny",
+    "allowCidrsFile": "PRIVATE_CONFIG_DIR/allowed-networks.tsv",
+    "denyCidrsFile": "PRIVATE_CONFIG_DIR/blocked-networks.tsv",
+    "requireAtLeastOneAllowRule": true,
     "rejectWhenUnusable": true,
     "maxSnapshotAgeHours": 168
   }
 }
 ~~~
 
-`PRIVATE_CONFIG_DIR` steht für ein vom Betreiber bestimmtes **geschütztes Verzeichnis außerhalb des Document Root**, nicht für einen vorgegebenen Dateipfad. Der spätere ConfigLoader prüft Schema, Dateipfad, Rechte, Dateigröße, Versions- und Ablaufdaten.
+- **Nur Firmen-IP:** `defaultAction=deny` und erforderliche, nicht leere `allowCidrsFile`; `denyCidrsFile` ist optional, wenn nicht konfiguriert.
+- **Länder-/Netzsperre:** `defaultAction=allow` und erforderliche `denyCidrsFile`; `allowCidrsFile` ist optional, wenn nicht konfiguriert.
+- **Kombiniert:** beide Dateien und bewusst festgelegte Standardaktion. Jede explizite Sperre gewinnt gegenüber Freigaben.
+- **Deaktiviert:** `mode=disabled` ist nur eine bewusste Betreiberentscheidung; API-Authentifizierung bleibt weiterhin erforderlich.
+- **Strenge Validierung:** Jeder **eingetragene** Dateipfad muss existieren, lesbar, privat und gültig sein. Ein **nicht konfigurierter optionaler Pfad** bedeutet „keine Regel dieser Klasse“; eine **konfigurierte, aber fehlende** Datei ist ungültig. Unerwartet leere Firmen-Allowlists sind ungültig. `defaultAction` darf keinen stillen Default erhalten.
 
-**Das Beispiel ist ein Entwurf**, kein bereits lesbares SASD-Konfigurationsformat.
+`PRIVATE_CONFIG_DIR` muss **außerhalb des Document Root** liegen. HTTP-Clients können weder Dateipfade noch den Prüfmodus bestimmen. `maxSnapshotAgeHours` ist ein **konfigurierbarer Entwurfswert**; bei statischen Firmenregeln und wechselnden Geo-IP-Datensätzen können unterschiedliche Gültigkeitsintervalle nötig sein.
 
-### 4.2 Textdatei mit Netzen
+**Das JSON ist eine vorgeschlagene V0-G0-Konfiguration, keine vorhandene SASD-Implementierung.**
 
-Vorgeschlagen wird eine UTF-8-**TSV-Datei** (Tabulator-getrennt), je Zeile CIDR-Netz, ISO-3166-Länderkürzel und optional Regelkennung. Die Liste enthält **nur effektiv zu sperrende Netze**, die aus einem freigegebenen Regelbestand stammen.
+### 4.2 Textdateien für erlaubte und gesperrte Netze
+
+UTF-8/TSV, jeweils `CIDR<TAB>Regelkennung` mit optionalem drittem Feld für Quelle/Grund. **Der Dateiname bestimmt, ob die Einträge erlauben oder sperren.** Bei geografisch abgeleiteten Sperren kann das geprüfte Metadatum zusätzlich einen ISO-Ländercode enthalten.
+
+~~~text
+# allowed-networks.tsv — NUR SYNTHETISCHE TESTDATEN
+# policy-version: corp-test-001
+# format: cidr<TAB>rule_id<TAB>reason
+198.51.100.0/24	CORP-V4-TEST	office-egress
+2001:db8:100::/48	CORP-V6-TEST	vpn-egress
+~~~
 
 ~~~text
 # blocked-networks.tsv — NUR SYNTHETISCHE TESTDATEN
-# policy-version: test-001
-# generated-at: 2026-11-23T12:00:00Z
-# valid-until: 2026-11-30T12:00:00Z
-# source: synthetic-test-fixture
-# format: cidr<TAB>country_iso2<TAB>rule_id
-198.51.100.0/24	ZZ	TEST-V4-001
-2001:db8::/32	ZZ	TEST-V6-001
+# policy-version: corp-test-001
+# format: cidr<TAB>rule_id<TAB>reason
+198.51.100.128/25	BLOCK-OVERLAP-TEST	explicit-denial
+2001:db8:100::abcd/128	BLOCK-V6-TEST	explicit-denial
 ~~~
 
-**Wichtig:** `198.51.100.0/24` und `2001:db8::/32` sind reservierte Dokumentations-/Testnetze; `ZZ` ist **nur ein Testplatzhalter**. Sie repräsentieren **kein** reales Embargoland. Für manuell gesperrte einzelne Netze ohne Länderbezug ist eine separate nachvollziehbare Regelkategorie zu verwenden, statt fälschlich einen Ländercode zuzuordnen.
+**Beispiele:** `198.51.100.10` liegt in der Test-Allowlist und wird nicht gesperrt. `198.51.100.200` trifft **Allow- und Denylist** und wird **gesperrt**. `203.0.113.20` ist nicht eingetragen und wird durch `defaultAction=deny` **gesperrt**. Die genannten Netze sind reine **Dokumentationsbereiche**, keine echten Firmenadressen oder Embargonetzbereiche.
 
-Für den Produktivbetrieb wird ein **geprüfter, lizenzkonform nutzbarer, datierter IP-Länder-Datenbestand** mit einer **separat freigegebenen Länder-/Gebietspolitik** verknüpft. Keine unbekannten Listen aus dem Internet unkontrolliert importieren und keine externe Geo-IP-Webanfrage bei jeder Datenanforderung.
+Ein bisheriger Entwurf im Format `cidr<TAB>country<TAB>rule_id` darf bei einer Formatänderung **nicht kommentarlos als neues Spaltenschema eingelesen** werden. Erfordert wird eine bewusste und geprüfte Konvertierung. Ein späterer DB-Provider kann `action,cidr,rule_id,country,source` verwenden.
+
+Für echte geografische Sperren braucht es eine freigegebene, lizenzierte, datierte **IP-Länder-Zuordnung** und getrennte Länder-/Gebietspolitik. Ein Ländername ist kein CIDR-Netz; keine synchrone Geo-IP-Webanfrage bei jedem Request.
 
 ### 4.3 Länderliste und IP-Bereiche sind verschiedene Daten
 

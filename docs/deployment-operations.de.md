@@ -139,6 +139,12 @@ Vor jeder Änderung werden Code-Commit/Tag, Configschema-Version, DB-Schema und 
 
 Zuerst **Schaden begrenzen**: gefährdete Instanz sperren oder sicher isolieren, kompromittierte Keys deaktivieren/rotieren, private Files schützen. Relevante, datensparsame Beweise sichern; keine privaten Inhalte in öffentliche GitHub-Issues stellen. Anschließend Ursache und Auswirkungen anhand Request-IDs, Betreiber-Logs und Backupzustand untersuchen. Betroffene Daten/Personen und rechtliche Meldungen müssen vom jeweiligen Betreiber anhand seines konkreten Falls geprüft werden. Erst nach Negativtest und Freigabe erneut öffnen.
 
+### Vorgeschlagene Betriebsgrenzen für externe Dienste (SEC-INT-001)
+
+**V0** prüft technische API-Keys lokal und schreibt geschützte Instanzlogs; kein separater Auth Service oder LogSink muss erreichbar sein. **V1** behält lokale technische Identitäten/Rollen und atomaren Schreib-Audit. Ein später **gehärteter LogSink** darf nur bereinigte, begrenzte Ereignisse mit getrennten Sender-/Leserrechten empfangen; die Übermittlung bleibt optional **best effort** mit geschütztem, begrenztem lokalem Fallback, ohne vorausgesetzten Dauerworker. Ein LogSink-Ausfall blockiert normales berechtigtes CRUD **nicht**. Ein Audit-Fehler **blockiert hingegen** den betreffenden V1-Daten-Commit und rollt ihn zurück.
+
+Zentrale Anmeldung benötigt später ausdrücklich überprüfte Tokenvertrauensgrenzen, Issuer/Audience/Ablauf, Schlüsselrotation, Cache/Timeout und Widerruf. Für lokal prüfbare signierte und opaque Tokens gelten unterschiedliche Ausfallregeln. Jeder öffentlich erreichbare Dienst bekommt eigenen IP-Eingangsschutz. [SEC-INT-001](service-boundaries-and-integrations.de.md) · [ADR-0020](adr/0020-auth-api-logging-service-boundaries.de.md).
+
 ## 9. Betriebs-Checklisten
 
 **Installation:** PHP/PDO ok; DB-Rechte minimal; Config gültig; HTTPS; private Files unerreichbar; Key sicher; erlaubte CRUD-Ressourcen; Routing-Fallback; Backup; Logs.

@@ -131,6 +131,10 @@ Die Pipeline nutzt datensparsame Testausgaben; ein fehlgeschlagener Test gibt se
 
 **Firmen-Allowlist-Ergänzung:** **AT-GEO-13 bis AT-GEO-18** prüfen ausdrücklich freigegebenen Firmenzugang unter IPv4/IPv6, **403** für alle übrigen IPs, explizite Sperre vor Freigabe, **503 (Fail-Closed)** bei ungültiger/leerer erforderlicher Allowlist, verifizierte VPN-/Proxykette und sicheres Update mit Rücknahme außerhalb der API. Bisherige V0-F-/AT-V0-Zählungen bleiben bis zum Scope-Beschluss unverändert. [Details](ip-geoblocking.de.md#71-zusätzliche-abnahmetests-für-firmen-freigabelisten).
 
+### Vorgeschlagene dienstübergreifende Integrationstests: SEC-INT-001
+
+Die **zwölf vorgeschlagenen AT-INT-01–AT-INT-12** umfassen unabhängigen V0-Betrieb ohne Auth/LogSink, Ressourcenrechte trotz gültigem API-Key, spätere Token-/Ausfallprüfung, LogSink-Ausfall/Härtung, **atomaren V1-Schreib-Audit**, getrennte geschützte Ablehnungsereignisse, Datensparsamkeit, IP-Eingangsschutz und Instanzisolation. **Nur die tatsächlich freigegebenen Integrationen erhalten entsprechende Release-Gates.** Keine zusätzliche V0-MUSS-Funktion oder bereits vorhandenes SSO wird behauptet. [Gesamte Testmatrix](service-boundaries-and-integrations.de.md#8-vorgeschlagene-integrationstests).
+
 ## 10. Exit-Kriterien
 
 **V0:** alle V0-F01–F17 und AT-V0-01–10 bestanden, SQL- und API-Security geprüft, zweite Instanz isoliert, Installation und Restore-Test nachgewiesen. **V1:** V0-Basis weiterhin gültig plus alle 22 verpflichtenden V1-Funktionen und AT-V1-01–16, MariaDB-/SQLite-Vertrag grün, Audit-Rollback/Rate-Fail-Closed, OpenAPI und Migration nachgewiesen. **SOLL** nur bei ausdrücklicher Freigabe.

@@ -175,6 +175,14 @@ Die detaillierten V1-Anforderungen stehen in [Lastenheft](docs/lastenheft-v1.md)
 
 Eine SOLL-Funktion wird nur bei eigener Entscheidung zum verbindlichen Releaseumfang. Ihre Verschiebung ist im Releasebericht ausdrücklich anzugeben.
 
+### Dienstgrenzen und Integrations-Review – SEC-INT-001 (Vorschlag)
+
+**Für V0-G0:** Eigenständigen V0-Betrieb mit **lokalem technischem API-Key, lokalen Ressourcen-/Feldrechten und privatem Logging** bestätigen. Auth Service und LogSink sind **keine Pflichtdienste**. Eine schmale Verifier-Schnittstelle nur bei echtem Nutzen vorsehen; JWT/SSO noch nicht in V0 entwickeln. Eigenständige IP-Regeln an allen betroffenen Diensteingängen prüfen.
+
+**Für V1:** lokale technische Client-Keys/Rollen sowie **atomaren Fachschreib-Commit samt Auditereignis** beibehalten. **Abgelehnte Versuche** brauchen gesonderte geschützte Sicherheitsereignisse mit klarer Aufbewahrungs-/Fehlerregel. LogSink ist in seinem aktuellen Stand **ungeschützt** und vor zentraler Sicherheitsintegration zu härten. Ausfälle dürfen normales berechtigtes CRUD nicht blockieren. Zentrale Benutzeranmeldung/SSO ist ein späteres eigenes Projekt.
+
+**Entscheidung:** [SEC-INT-001](docs/service-boundaries-and-integrations.de.md) und [ADR-0020 (Vorschlag)](docs/adr/0020-auth-api-logging-service-boundaries.de.md). Keine automatische Änderung der V0-/V1-Pflichtumfänge. Testfamilie **AT-INT-01–12**.
+
 ## 6. Spätere Optionen – ohne Entwicklungszusage
 
 Die [Referenzstudie](docs/referenzprodukte-funktionskatalog.md) nennt deutlich mehr Funktionen als V0/V1 benötigen. Themen für **eigene künftige Entscheidungen**, nicht Teil dieser Roadmap als feste Releases:

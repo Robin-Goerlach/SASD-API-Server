@@ -226,6 +226,19 @@ Proposed IDs **AT-GEO-01–AT-GEO-12** (not yet part of the numbered V0 AT-V0-01
 
 Test the same ingress control on a separately deployed **Auth Service**, if the service becomes part of the SASD environment. Validate that blocked traffic never reaches sensitive authorization or data operations.
 
+### 7.1 Additional acceptance cases for company allowlists
+
+The new company-only functionality extends the proposed checks to **AT-GEO-13–AT-GEO-18**; the original `AT-GEO-01`–`AT-GEO-12` retain their identifiers.
+
+| Test | Evidence / expected behavior |
+|---|---|
+| AT-GEO-13 | A listed corporate IPv4 / IPv6 network with `defaultAction=deny` reaches the **normal** key/token and role checks (not unconditional data access) |
+| AT-GEO-14 | An unlisted IPv4/IPv6 address receives **403** before authentication, SQL, OpenAPI and alternate-route processing |
+| AT-GEO-15 | A CIDR matching **both** allow and deny is **denied** regardless of prefix specificity; no hidden exception via IPv6-mapped IPv4 |
+| AT-GEO-16 | Missing, unreadable, invalid or unexpectedly empty **required company allowlist** produces controlled **503**, never allow-all |
+| AT-GEO-17 | Corporate VPN/proxy IPv4/IPv6 exits, dynamic egress changes and forged forwarding headers cannot bypass the approved address-resolution policy |
+| AT-GEO-18 | Policy updates are validated against an operator's approved egress IPs before activation; a broken change can be reverted **out of band** using the previous good snapshot without a backdoor route |
+
 ## 8. Risks and decisions before coding
 
 | Risk | Consequence | Mitigation |

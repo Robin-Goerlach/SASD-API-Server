@@ -105,6 +105,11 @@ Diese Dokumente sind **detaillierte Entwürfe**. Die erwähnten PHP-Klassen, Rou
 
 Die zusätzliche Anforderung ist **vorgeschlagen** und noch nicht in die bestehende Zählung von 17 V0-F-Anforderungen beziehungsweise zehn AT-V0-Abnahmen übernommen. Es gibt keine produktiv aktivierte Ländersperrliste.
 
+## 6.2 Auth Service, API Server und Logging (Entwurf)
+
+- [SEC-INT-001 – Dienstgrenzen und Integrationsverträge](service-boundaries-and-integrations.de.md) · [English](service-boundaries-and-integrations.md) – ausführliche geplante Abgrenzung von unabhängigem V0-Datendienst, lokalen technischen V1-Keys/Rollen, späterer zentraler Anmeldung, Härtung des vorhandenen experimentellen LogSink, drei Logarten, Fehlerverhalten und zwölf vorgeschlagenen Integrationstests.
+- [ADR-0020 – Aufteilung der Dienste (Vorschlag)](adr/0020-auth-api-logging-service-boundaries.de.md) · [English](adr/0020-auth-api-logging-service-boundaries.md) – bisher **nicht angenommen**; kein zusätzlicher Auth-/LogSink-Zwang für den V0-/V1-MUSS-Umfang.
+
 ## 7. Wie wir mit der Implementierung beginnen
 
 1. [Roadmap](../ROADMAP.de.md) lesen: zuerst **V0-G0** (Hosting-/Security-Review), danach **V0-M0** (kleines Projektgerüst).

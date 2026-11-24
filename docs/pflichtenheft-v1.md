@@ -1,6 +1,8 @@
-# SASD-API-Server – Pflichtenheft V1
+> **Compatibility mirror / bisheriger Dateipfad:** Diese Datei spiegelt die kanonische [Fassung](technical-specification-v1.de.md). Neue Bearbeitungen bitte im kanonischen Sprachpaar vornehmen und alte Pfade synchronisieren.
 
-> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](technical-specification-v1.md) · [Deutsch (kanonisch)](technical-specification-v1.de.md)  
+> **Sprache:** [English (Standard)](technical-specification-v1.md) | **Deutsch**
+
+# SASD-API-Server – Pflichtenheft V1
 
 > **Status:** Technischer Entwurf für V1.0 · **Dokumentversion:** 0.1 · **Stand:** 01.11.2026  
 > **Grundlagen:** [Lastenheft V1](./lastenheft-v1.md) · [Pflichtenheft V0](./pflichtenheft-v0.md) · [Lastenheft V0](./lastenheft-v0.md)  
@@ -310,7 +312,7 @@ Für jeden erfolgreichen POST/PUT/PATCH/DELETE wird **im selben lokalen DB-Trans
 
 Minimalfelder: `event_id`, `occurred_at_utc`, `instance_id`, `request_id`, `client_id`, `resource_name`, `method`, `record_key`, `outcome`. Keine kompletten Record-Bodies und keine API-Secrets. Schlägt das Schreiben des Auditereignisses fehl, muss die zugehörige Datensatzänderung zurückgerollt werden, statt einen nicht protokollierten Erfolg zu melden. **Keine** Behauptung einer manipulationssicheren, revisionszertifizierten Auditplattform.
 
-Abgewiesene Auth-/Policy-Versuche führen **keine** Datentransaktion aus; sie werden als datensparsame technische Sicherheitsereignisse über den geschützten Logger mit Request-ID erfasst. Fehlende Dateischreibrechte müssen als Betriebsfehler erkannt und dokumentiert werden.
+Abgewiesene Auth-/Policy-/Schreibversuche führen **keine erfolgreich committete Fachdaten-Transaktion** aus. Sie werden mit Request-ID als **gesondert geschützte, bereinigte Sicherheits-/Ablehnungsereignisse** erfasst, nicht als fiktive erfolgreiche Auditzeilen. Dauerhaftigkeit, Ausfallverhalten und Aufbewahrungsfrist dieser Ablehnungsereignisse müssen vor der V1-F19-Abnahme ausdrücklich beschlossen werden; ein entfernter LogSink ist kein Ersatz. **Erfolgreiche** Schreibvorgänge und ihr verpflichtender Auditdatensatz müssen weiterhin im selben lokalen DB-Commit liegen; Auditfehler rollen die Fachänderung zurück. Fehlende Dateischreibrechte müssen als Betriebsfehler erkannt und dokumentiert werden. Siehe [SEC-INT-001](service-boundaries-and-integrations.de.md).
 
 ### 7.2 Health und Readiness
 
@@ -485,3 +487,11 @@ Die Schritte sind bewusst in kleine, nachvollziehbare Entwicklungsinkremente geg
 Das [Lastenheft V1](./lastenheft-v1.md) bleibt für den fachlichen Umfang maßgeblich; dieses Dokument konkretisiert die technische Lösung. Jede Abweichung von einer MUSS-Anforderung ist **vorher** fachlich zu genehmigen und im Lastenheft nachzuführen. Die gemeinsamen Contract-Tests, Security-Negativtests und Restore-Nachweise sind Bestandteil der Freigabe. Externe Referenzprojekte und deren Features sind keine verbindlichen SASD-Implementierungen.
 
 **Dokumentstatus: ausführlicher technischer Entwurf; kein bestehender V1-Code, keine durchgeführte Abnahme und keine bereits erteilte fachliche Freigabe.**
+
+## 16. Dienstübergreifende Anmeldung und Logging (SEC-INT-001)
+
+**V1-F12/F13 bleiben lokale technische Keys und Rollen des API Servers. Ein separater SASD Auth Service ist keine zwingende V1-Abhängigkeit.** Eine spätere externe Identität kann über eine `CredentialVerifier`-/`VerifiedPrincipal`-Grenze eingebunden werden, muss aber Vertrauen/Token prüfen und Identität auf **instanzspezifische** Ressourcenberechtigungen abbilden. OAuth/OIDC/JWT und Introspection sind erst nach gesonderter Freigabe Bestandteil einer Version.
+
+**V1-F19 hat zwei Nachweisarten:** Jede **erfolgreiche** Fachdatenänderung benötigt einen Audit-INSERT in **derselben lokalen MariaDB-/SQLite-Transaktion**; Fehler führen zum Rollback. **Abgewiesene** Versuche werden getrennt mit Request-ID als bereinigte Sicherheitsereignisse erfasst; ihre Aufbewahrung und Ausfallregeln sind vor V1-Abnahme festzulegen. Ein ungeschützter entfernter LogSink ersetzt keine der beiden Anforderungen. Eine spätere zentrale Eventweitergabe bleibt optional, bis LogSink mit HTTPS, Senderauthentifizierung, getrennten Lese-/Schreibrechten, minimiertem Schema und begrenzter Wiederholung gehärtet ist. LogSink-Ausfälle dürfen normale CRUD-Vorgänge nicht verhindern.
+
+**Vorgeschlagene Integrationstests:** AT-INT-01–12, nur für tatsächlich freigegebene Funktionen. [SEC-INT-001](service-boundaries-and-integrations.de.md) · [ADR-0020 (Vorschlag)](adr/0020-auth-api-logging-service-boundaries.de.md).

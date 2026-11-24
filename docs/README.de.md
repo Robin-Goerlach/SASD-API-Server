@@ -100,7 +100,7 @@ Diese Dokumente sind **detaillierte Entwürfe**. Die erwähnten PHP-Klassen, Rou
 
 
 
-- [SEC-GEO-001 – IP- und länderbezogene Netzsperren](ip-geoblocking.de.md) · [English](ip-geoblocking.md) – frühe V0-Eingangskontrolle mit privater CIDR-Datei, verifizierter Client-IP, Gültigkeit/Aktualisierung, Fail-Closed und zwölf geplanten Tests.
+- [SEC-GEO-001 – IP- und länderbezogene Netzsperren](ip-geoblocking.de.md) · [English](ip-geoblocking.md) – frühe V0-Eingangskontrolle mit privater CIDR-Datei, verifizierter Client-IP, Gültigkeit/Aktualisierung, Fail-Closed und 18 geplanten Tests.
 - [ADR-0019 (Vorschlag)](adr/0019-ip-geoblocking.de.md) · [English](adr/0019-ip-geoblocking.md) – Entscheidungsvorlage Datei vs. Tabelle, GeoIP-Daten und WAF, **noch nicht als Architekturentscheidung angenommen**.
 
 Die zusätzliche Anforderung ist **vorgeschlagen** und noch nicht in die bestehende Zählung von 17 V0-F-Anforderungen beziehungsweise zehn AT-V0-Abnahmen übernommen. Es gibt keine produktiv aktivierte Ländersperrliste.

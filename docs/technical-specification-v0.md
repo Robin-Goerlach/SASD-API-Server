@@ -401,23 +401,23 @@ Milestones describe a **logical dependency order**, not a claimed delivery sched
 
 | Requirement | Technical implementation | Tests |
 |---|---|---|
-| V0-F01 | ``3–5 resource registry and router | T-V0-01, 05 |
-| V0-F02 | `4 GET list/item | T-V0-01 |
-| V0-F03 | ``4/6 POST | T-V0-02 |
-| V0-F04 | `4.5 PUT/PATCH | T-V0-03 |
-| V0-F05 | ``4/6 DELETE | T-V0-04 |
-| V0-F06 | `5 resource/method allowlist | T-V0-05 |
-| V0-F07 | `4.4 bound equality filters | T-V0-06 |
-| V0-F08 | `4.4 sorting/paging | T-V0-07 |
-| V0-F09 | `4 status/JSON errors | T-V0-01–04/09 |
-| V0-F10 | ``2/5/7 separate instance config | T-V0-11 |
-| V0-F11 | `7.1 key authentication | T-V0-08 |
-| V0-F12 | ``4–7 validation/SQL safety | T-V0-06/09 |
-| V0-F13 | ``2/7 HTTPS/CORS | T-V0-10 |
-| V0-F14 | `8.1 health/diagnostics | T-V0-10 |
-| V0-F15 | `8.2–8.3 sanitized logging | T-V0-10 |
-| V0-F16 | ``2/4/5/10 installation examples | T-V0-12 |
-| V0-F17 | `9 automated tests and CI concepts | T-V0-12 |
+| V0-F01 | 3–5 resource registry and router | T-V0-01, 05 |
+| V0-F02 | 4 GET list/item | T-V0-01 |
+| V0-F03 | 4/6 POST | T-V0-02 |
+| V0-F04 | 4.5 PUT/PATCH | T-V0-03 |
+| V0-F05 | 4/6 DELETE | T-V0-04 |
+| V0-F06 | 5 resource/method allowlist | T-V0-05 |
+| V0-F07 | 4.4 bound equality filters | T-V0-06 |
+| V0-F08 | 4.4 sorting/paging | T-V0-07 |
+| V0-F09 | 4 status/JSON errors | T-V0-01–04/09 |
+| V0-F10 | 2/5/7 separate instance config | T-V0-11 |
+| V0-F11 | 7.1 key authentication | T-V0-08 |
+| V0-F12 | 4–7 validation/SQL safety | T-V0-06/09 |
+| V0-F13 | 2/7 HTTPS/CORS | T-V0-10 |
+| V0-F14 | 8.1 health/diagnostics | T-V0-10 |
+| V0-F15 | 8.2–8.3 sanitized logging | T-V0-10 |
+| V0-F16 | 2/4/5/10 installation examples | T-V0-12 |
+| V0-F17 | 9 automated tests and CI concepts | T-V0-12 |
 
 ## 12. Acceptance, open decisions and risks
 

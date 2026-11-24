@@ -1,4 +1,4 @@
-# ADR-0019: Early IP/CIDR and Country Policy Enforcement
+# ADR-0019: Configurable IP Admission Policy (Allowlist, Denylist and Geo-IP)
 
 > **Language:** **English (default)** | [Deutsch](0019-ip-geoblocking.de.md)  
 > **Status:** **Proposed — not accepted** · **Proposed:** 2026-11-23  
@@ -41,6 +41,26 @@ Keep GeoIP datasets and legal country/territory selections **separate**. For ful
 If a trusted WAF/edge can enforce this earlier, use it as an additional layer while retaining explicitly documented policy responsibility. Centralized Auth and LogSink must not be mandatory dependencies. An Auth Service deployed separately must apply its own ingress policy.
 
 The policy shall operate in `disabled`, `monitor` or `enforce` modes, but **only enforce meets a required access restriction**. No real country/network is selected by this ADR.
+
+### Additional requirement: allowlist-only company access (2026-11-24)
+
+The same ingress mechanism must support **company-only allowlists** as well as denial of specific countries/networks. Introduce an explicitly configured **`defaultAction`** and two independent, validated rule sources:
+
+| Policy | Default | Required file | Outcome |
+|---|---|---|---|
+| Denylist | `allow` | `blocked-networks.tsv` | Deny matching IPs; other IPs continue to authentication |
+| Allowlist | **`deny`** | `allowed-networks.tsv`, nonempty | Only explicitly permitted company/VPN addresses continue to authentication |
+| Combined | `allow` or `deny` | Configured allow/deny files | **Explicit deny > explicit allow > default action** |
+
+**Decision precedence is fixed; longest-prefix match must not silently override an explicit deny.** A denied subrange inside a permitted company network remains denied. An address outside all allow rules is denied if `defaultAction=deny`. A matched allow does **not** bypass authentication, token validity or resource/field permissions.
+
+When `defaultAction=deny`, an unexpectedly empty/missing allowlist is a **configuration error (503, fail closed)**, not a trigger to allow all. Planned policy changes must be previewed against real corporate/VPN IPv4/IPv6 egress addresses and rolled back through a **separate trusted administration channel**, not an API bypass route. Files reside outside document root and update atomically; a configured missing optional deny-file is invalid, while an unconfigured deny-file is simply omitted.
+
+Separate ingress restrictions may be configured per instance. Auth, API, route fallback, OpenAPI and admin operations must not bypass the effective policy by using another path or server. Corporate IP addresses can change and may be shared (NAT); this is **network admission control**, never user identity.
+
+**New proposed acceptance tests:** `AT-GEO-13` to `AT-GEO-18`: company-only allows, unknown-IP deny, allow/deny overlap precedence, missing/empty allowlist fail-closed, IPv4/IPv6/VPN/proxy behavior, and rollback/out-of-band recovery. This keeps all previous `AT-GEO-01`–`AT-GEO-12` cases intact.
+
+**Status:** Additional design requirement only. This ADR remains **Proposed**, and incorporation into the numbered 17 V0-F MUST requirements still needs formal project scope approval.
 
 ## Consequences
 

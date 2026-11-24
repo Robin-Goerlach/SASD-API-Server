@@ -505,3 +505,12 @@ Eine Instanz meldet einen Datenbankausfall über einen geschützten Readiness-Te
 ---
 
 **Dokumentstatus:** Gründlicher, fachlicher Anforderungs**entwurf**. Keine Behauptung einer bestehenden Implementierung, erfolgreichen Testabnahme oder bereits erfolgten Auftraggeberfreigabe.
+
+## 13. Dienstgrenzen für Identität, Berechtigungen und Logging – SEC-INT-001
+
+**Klarstellung, keine 28. V1-F-Anforderung:** **V1-F12/F13** bleiben technische Client-Keys und Rollenrechte **innerhalb** des API Servers. Ein später eigenständiger **SASD Auth Service** für Personenanmeldung/SSO ist **keine Pflichtabhängigkeit von V1**. Anmeldung darf die lokale SQL-/Fachautorisierung nicht ersetzen. Externe Identitäten benötigen später eine ausdrücklich konfigurierte instanzspezifische Rollenabbildung und geprüfte Token-/Ausfallregeln.
+
+**Unterscheidung bei V1-F19:** Erfolgreich bestätigte Fachschreibvorgänge benötigen **Audit innerhalb derselben lokalen DB-Transaktion**; abgewiesene Versuche benötigen **gesonderte geschützte, korrelierbare Sicherheitsereignisse** mit noch festzulegender Haltbarkeit/Aufbewahrung. Der vorhandene experimentelle LogSink ist weder Ersatz für den atomaren Commit noch ohne Sender-/Leserauthentifizierung und minimiertes Ereignisschema produktiv geeignet. Keine verpflichtende Remote-Auth-/LogSink-Anfrage je CRUD-Aufruf.
+
+**Noch offene Entscheidungen:** [SEC-INT-001](service-boundaries-and-integrations.de.md), [ADR-0020](adr/0020-auth-api-logging-service-boundaries.de.md), vorgeschlagene `AT-INT-01`–`AT-INT-12`. 22 MUSS + 5 SOLL und 16 Abnahmeszenarien bleiben bis zur formalen Änderung unverändert.
+

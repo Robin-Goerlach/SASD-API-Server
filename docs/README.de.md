@@ -96,6 +96,10 @@ Diese Dokumente sind **detaillierte Entwürfe**. Die erwähnten PHP-Klassen, Rou
 
 ## 6.1 Vorgeschlagene Geo-IP-/CIDR-Sicherheitsanforderung
 
+**Erweiterung (24.11.2026):** Derselbe geplante Filter beherrscht **reine Firmen-IP-Freigabelisten** (`defaultAction=deny`), Länder-/Netzsperren (`defaultAction=allow`) und kombinierte Regeln (**Deny vor Allow**). Vorgeschlagene Prüfungen jetzt **AT-GEO-01–18**. Eine erlaubte IP ersetzt weder API-Key/Token noch Rollenrechte; noch nicht implementiert.
+
+
+
 - [SEC-GEO-001 – IP- und länderbezogene Netzsperren](ip-geoblocking.de.md) · [English](ip-geoblocking.md) – frühe V0-Eingangskontrolle mit privater CIDR-Datei, verifizierter Client-IP, Gültigkeit/Aktualisierung, Fail-Closed und zwölf geplanten Tests.
 - [ADR-0019 (Vorschlag)](adr/0019-ip-geoblocking.de.md) · [English](adr/0019-ip-geoblocking.md) – Entscheidungsvorlage Datei vs. Tabelle, GeoIP-Daten und WAF, **noch nicht als Architekturentscheidung angenommen**.
 

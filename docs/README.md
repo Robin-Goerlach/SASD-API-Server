@@ -96,6 +96,10 @@ These are **detailed design documents** and do not claim that the classes, files
 
 ## 6.1 Proposed IP/CIDR and geographic restrictions
 
+**Extended scope (2026-11-24):** The same proposed policy supports **company-only IP allowlists** (`defaultAction=deny`), country/network denylists (`defaultAction=allow`) and combined rules with **explicit-deny precedence**. Proposed cases now include **AT-GEO-01–18**. Network matching never substitutes for API-key/token authentication; nothing is implemented yet.
+
+
+
 - [SEC-GEO-001 — IP and country-based network restrictions](ip-geoblocking.md) · [Deutsch](ip-geoblocking.de.md) — proposed early V0 admission-control security requirement, including private CIDR file, trusted client-IP resolution, policy freshness, fail-closed behavior and 12 proposed tests.
 - [ADR-0019 (proposed)](adr/0019-ip-geoblocking.md) · [Deutsch](adr/0019-ip-geoblocking.de.md) — file-first versus database/GeoIP/WAF trade-offs; **not yet an accepted architectural decision**.
 

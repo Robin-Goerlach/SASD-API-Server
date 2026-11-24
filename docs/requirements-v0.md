@@ -345,6 +345,8 @@ Country-to-IP mapping requires a **reliable, licensed and refreshed** dataset. G
 
 **Proposed acceptance:** `AT-GEO-01`–`AT-GEO-12`, covering IPv4/IPv6 boundaries, header spoofing, proxy bypass, invalid/stale rules, atomic updates, instance isolation, response confidentiality and performance with real country-level datasets.
 
+**Extended company-only requirement (2026-11-24):** In addition to a geographic/network denylist, the same IP policy must offer an **allowlist mode** (`defaultAction=deny`): only specifically configured corporate/VPN IPv4/IPv6 CIDR networks proceed to normal authentication and authorization. The policy may also combine allow/deny rules with **explicit deny > explicit allow > defaultAction**. Unknown IPs → 403 in allowlist mode; unexpectedly missing/empty required allowlist → 503 fail-closed. No hardcoded admin bypass; out-of-band rollback required. New proposed tests: **AT-GEO-13–AT-GEO-18**. This remains a proposed V0-G0 scope refinement and does not change the existing 17 V0-F total. [Full design](ip-geoblocking.md).
+
 **Scope control:** This addendum is recorded for **V0-G0 architecture review and possible V0-M1 integration**. The existing V0-F01–F17 and AT-V0-01–10 identifiers/counts remain unchanged until a formal decision includes SEC-GEO-001 in the release baseline. [Complete specification](ip-geoblocking.md) · [ADR-0019 (proposed)](adr/0019-ip-geoblocking.md).
 
 ---

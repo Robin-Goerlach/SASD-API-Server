@@ -1,6 +1,8 @@
-# SASD-API-Server – Lastenheft V1
+> **Compatibility mirror / bisheriger Dateipfad:** Diese Datei spiegelt die kanonische [Fassung](requirements-v1.de.md). Neue Bearbeitungen bitte im kanonischen Sprachpaar vornehmen und alte Pfade synchronisieren.
 
-> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](requirements-v1.md) · [Deutsch (kanonisch)](requirements-v1.de.md)  
+> **Sprache:** [English (Standard)](requirements-v1.md) | **Deutsch**
+
+# SASD-API-Server – Lastenheft V1
 
 > **Status:** Entwurf für die spätere Produktversion 1.0 · **Dokumentversion:** 0.1 · **Erstellt:** 01.11.2026  
 > **Repository:** [Robin-Goerlach/SASD-API-Server](https://github.com/Robin-Goerlach/SASD-API-Server)  
@@ -257,7 +259,7 @@ Der SASD API Server ist eine **konfigurierbare REST/JSON-Datendienst-Plattform**
 
 **Erwartete Leistung und Abgrenzung:** Technische Logs enthalten mindestens Request-ID, Zeitpunkt in UTC, Instanz, Ressource, Operation, Status, Fehlerklasse und technische Clientkennung, soweit datenschutzrechtlich zulässig. **Für schreibende Aktionen** werden nachvollziehbare Auditereignisse erzeugt (wer, wann, was, welches logische Objekt, Ergebnis); vollständige personenbezogene Inhalte, Tokens oder Passwörter werden nicht pauschal geloggt. Logrotation, Aufbewahrung und Zugriffsschutz werden dokumentiert. Ein vollwertiger revisionssicherer Audit-Tresor wird nicht behauptet.
 
-**Abnahmekriterium:** Eine erfolgreiche Änderung und eine verweigerte Änderung lassen sich anhand geschützter Ereignisse zuordnen, ohne Klartextschlüssel oder ganze Datensätze in Logs zu finden.
+**Abnahmekriterium (präzisiert):** Jede **erfolgreich committete** Änderung besitzt einen geschützten **transaktionalen Auditeintrag** mit Request-ID zur betroffenen Datenänderung. Schlägt das verpflichtende Audit fehl, wird die Datenänderung zurückgerollt. Jeder **abgewiesene/verweigerte** Schreibversuch wird stattdessen einem gesondert geschützten, bereinigten **Sicherheits-Ablehnungsereignis** zugeordnet; es gibt dafür keinen fiktiven erfolgreichen Fachtransaktions-Commit. In beiden Ereignistypen dürfen weder Klartextschlüssel/Tokens noch ganze Datensätze enthalten sein. Haltbarkeit und Aufbewahrung abgelehnter Ereignisse sind vor Produktivabnahme separat festzulegen. Siehe [SEC-INT-001](service-boundaries-and-integrations.de.md).
 
 **Herkunft / Inspiration:** DreamFactory §4.2: Audit Logging (ggf. kommerziell); DB2Rest §5.5: Observability.
 
@@ -505,3 +507,12 @@ Eine Instanz meldet einen Datenbankausfall über einen geschützten Readiness-Te
 ---
 
 **Dokumentstatus:** Gründlicher, fachlicher Anforderungs**entwurf**. Keine Behauptung einer bestehenden Implementierung, erfolgreichen Testabnahme oder bereits erfolgten Auftraggeberfreigabe.
+
+## 13. Dienstgrenzen für Identität, Berechtigungen und Logging – SEC-INT-001
+
+**Klarstellung, keine 28. V1-F-Anforderung:** **V1-F12/F13** bleiben technische Client-Keys und Rollenrechte **innerhalb** des API Servers. Ein später eigenständiger **SASD Auth Service** für Personenanmeldung/SSO ist **keine Pflichtabhängigkeit von V1**. Anmeldung darf die lokale SQL-/Fachautorisierung nicht ersetzen. Externe Identitäten benötigen später eine ausdrücklich konfigurierte instanzspezifische Rollenabbildung und geprüfte Token-/Ausfallregeln.
+
+**Unterscheidung bei V1-F19:** Erfolgreich bestätigte Fachschreibvorgänge benötigen **Audit innerhalb derselben lokalen DB-Transaktion**; abgewiesene Versuche benötigen **gesonderte geschützte, korrelierbare Sicherheitsereignisse** mit noch festzulegender Haltbarkeit/Aufbewahrung. Der vorhandene experimentelle LogSink ist weder Ersatz für den atomaren Commit noch ohne Sender-/Leserauthentifizierung und minimiertes Ereignisschema produktiv geeignet. Keine verpflichtende Remote-Auth-/LogSink-Anfrage je CRUD-Aufruf.
+
+**Noch offene Entscheidungen:** [SEC-INT-001](service-boundaries-and-integrations.de.md), [ADR-0020](adr/0020-auth-api-logging-service-boundaries.de.md), vorgeschlagene `AT-INT-01`–`AT-INT-12`. 22 MUSS + 5 SOLL und 16 Abnahmeszenarien bleiben bis zur formalen Änderung unverändert.
+

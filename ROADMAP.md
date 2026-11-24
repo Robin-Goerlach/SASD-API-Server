@@ -180,6 +180,14 @@ The [V1 requirements](docs/requirements-v1.md), [technical specification](docs/t
 
 Each SHOULD item becomes mandatory only if separately approved for a release. Deferred items must be disclosed in the release notes.
 
+### Cross-service boundary review — SEC-INT-001 (proposed)
+
+**At V0-G0:** confirm that V0 can operate with **local technical API-key verification, local field/resource authorization and private logging**, without requiring the separate Auth Service or LogSink. Define a **small verifier port** only if it genuinely improves testability; do not build JWT/SSO yet. Confirm IP admission applies at the relevant independent service entrances.
+
+**For V1:** maintain protected **local technical key identities/RBAC** and mandatory **same-local-DB-transaction audit** for committed writes. Define separately protected **security-denial events** for refused operations, including explicit retention/failure policy. **LogSink integration requires hardening** (currently its read/write HTTP endpoints are unprotected); its outage must not stop ordinary authorized CRUD. Future human SSO/token integration is a separate reviewed deliverable.
+
+**Decision:** [SEC-INT-001](docs/service-boundaries-and-integrations.md), [ADR-0020 (proposed)](docs/adr/0020-auth-api-logging-service-boundaries.md). No release-scope change by itself. Proposed test family: **AT-INT-01–12**.
+
 ## 6. Future possibilities — not committed
 
 The comparative feature catalog suggests many ideas, but **none is automatically included** in V0 or V1:

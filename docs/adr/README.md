@@ -56,6 +56,10 @@ The IDs indicate *candidates*, not existing accepted ADR files.
 
 - [ADR-0019: Early IP/CIDR and Country Policy Enforcement](0019-ip-geoblocking.md) · [Deutsch](0019-ip-geoblocking.de.md) — **Proposed, not accepted**. File-first policy, possible future DB rule source, trusted client IP, regulatory review and fail-closed gates. Tracks [SEC-GEO-001](../ip-geoblocking.md).
 
+### Additional proposed ADRs
+
+- [ADR-0020: Pluggable database adapters](0020-pluggable-database-adapters.md) · [Deutsch](0020-pluggable-database-adapters.de.md) — **Proposed, not accepted**. The V0 MariaDB and V1 SQLite scopes remain unchanged; PostgreSQL, Oracle, IBM Db2 and Firebird are future candidates under a trusted adapter contract.
+
 ## 5. ADR workflow
 
 1. Identify a specific architectural problem or long-term trade-off.

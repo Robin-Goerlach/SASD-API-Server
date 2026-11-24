@@ -485,3 +485,11 @@ Die Schritte sind bewusst in kleine, nachvollziehbare Entwicklungsinkremente geg
 Das [Lastenheft V1](./lastenheft-v1.md) bleibt für den fachlichen Umfang maßgeblich; dieses Dokument konkretisiert die technische Lösung. Jede Abweichung von einer MUSS-Anforderung ist **vorher** fachlich zu genehmigen und im Lastenheft nachzuführen. Die gemeinsamen Contract-Tests, Security-Negativtests und Restore-Nachweise sind Bestandteil der Freigabe. Externe Referenzprojekte und deren Features sind keine verbindlichen SASD-Implementierungen.
 
 **Dokumentstatus: ausführlicher technischer Entwurf; kein bestehender V1-Code, keine durchgeführte Abnahme und keine bereits erteilte fachliche Freigabe.**
+
+## 16. Dienstübergreifende Anmeldung und Logging (SEC-INT-001)
+
+**V1-F12/F13 bleiben lokale technische Keys und Rollen des API Servers. Ein separater SASD Auth Service ist keine zwingende V1-Abhängigkeit.** Eine spätere externe Identität kann über eine `CredentialVerifier`-/`VerifiedPrincipal`-Grenze eingebunden werden, muss aber Vertrauen/Token prüfen und Identität auf **instanzspezifische** Ressourcenberechtigungen abbilden. OAuth/OIDC/JWT und Introspection sind erst nach gesonderter Freigabe Bestandteil einer Version.
+
+**V1-F19 hat zwei Nachweisarten:** Jede **erfolgreiche** Fachdatenänderung benötigt einen Audit-INSERT in **derselben lokalen MariaDB-/SQLite-Transaktion**; Fehler führen zum Rollback. **Abgewiesene** Versuche werden getrennt mit Request-ID als bereinigte Sicherheitsereignisse erfasst; ihre Aufbewahrung und Ausfallregeln sind vor V1-Abnahme festzulegen. Ein ungeschützter entfernter LogSink ersetzt keine der beiden Anforderungen. Eine spätere zentrale Eventweitergabe bleibt optional, bis LogSink mit HTTPS, Senderauthentifizierung, getrennten Lese-/Schreibrechten, minimiertem Schema und begrenzter Wiederholung gehärtet ist. LogSink-Ausfälle dürfen normale CRUD-Vorgänge nicht verhindern.
+
+**Vorgeschlagene Integrationstests:** AT-INT-01–12, nur für tatsächlich freigegebene Funktionen. [SEC-INT-001](service-boundaries-and-integrations.de.md) · [ADR-0020 (Vorschlag)](adr/0020-auth-api-logging-service-boundaries.de.md).

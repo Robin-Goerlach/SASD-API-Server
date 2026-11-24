@@ -58,6 +58,14 @@ Dieses Register sammelt technische, sicherheitsrelevante und organisatorische Ri
 
 Risiken sind gefälschte IP-Header, IPv6-/Mapped-IP-Bypass, VPN-/Proxy-Fehlzuordnung, überalterte/große Geo-Daten, teilweise geschriebene Regeln, unnötige IP-Speicherung und zu weit gefasste Annahmen über EU-Sanktionen. Maßnahme: geprüfte private dateibasierte CIDR-Regel, verifizierte Proxykette, atomare Aktualisierung und Fail-Closed bei Pflichtregeln sowie Rechtsprüfung und [AT-GEO-01–12](ip-geoblocking.de.md#7-abnahmetests) auf realem Hosting. [SEC-GEO-001](ip-geoblocking.de.md) · [ADR-0019](adr/0019-ip-geoblocking.de.md). **Noch keine freigegebene Länder-/Netzliste und keine Implementierung.**
 
+### R-028 – Unkontrollierte Abhängigkeit vom Auth Service / unzureichende Tokenprüfung (SEC-INT-001)
+
+**Phase:** V0-Grenze / spätere Auth-Integration. **Priorität P1**, bei Fail-Open eines produktiven entfernten Auth-Dienstes P0. **Status: Offen.** Ein Token oder eine Firmen-IP darf niemals sämtliche Ressourcen-/Feldrechte freigeben; ein Auth-Ausfall darf V0 nicht grundlos blockieren und eine Tokenprüfung nicht ausschalten. Maßnahme: **V0 lokal**, V1 lokale technische Client-Keys/Rollen; später externe Token nur nach Signatur/Issuer/Audience/Ablauf/Algorithmus/lokaler Rechteabbildung, mit getrennten sicheren Ausfallregeln für signierte und opaque Tokens. [SEC-INT-001](service-boundaries-and-integrations.de.md) · [ADR-0020](adr/0020-auth-api-logging-service-boundaries.de.md).
+
+### R-029 – Ungeschütztes Remote-Logging / Verwechslung mit Pflicht-Audit (SEC-INT-001)
+
+**Phase:** V0/V1 / spätere Integration. **Priorität P1**, **P0 für Produktivbetrieb**, wenn der aktuelle ungeschützte Rohdaten-LogSink Sicherheitsdaten erhält oder ein Pflicht-Audit ausschließlich remote gespeichert wird. **Status: Offen.** Aktuell dokumentiert LogSink nicht authentifizierte Sender/Leser und unveränderte Rohdaten. Folgen: Token-/Passwortverlust, unberechtigtes Lesen/Schreiben, LogSink-Ausfälle, Inkonsistenz von Daten-/Audit-Commit. Maßnahme: Sender-/Leserrechte, minimierte Events, Limits und Löschregeln **vor Integration**; optionale Remote-Weitergabe nicht blockierend und begrenzt. **Verpflichtendes Audit erfolgreicher V1-Schreibvorgänge in derselben lokalen DB-Transaktion**, abgewiesene Versuche als gesonderte Sicherheitsereignisse mit zu beschließender Haltbarkeit. Tests [AT-INT-06–10](service-boundaries-and-integrations.de.md#8-vorgeschlagene-integrationstests).
+
 ## 3. Blockierende Entscheidungen vor V0
 
 **V0-G0:**

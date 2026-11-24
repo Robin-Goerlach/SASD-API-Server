@@ -57,6 +57,10 @@ Die Nummern reservieren noch **keine Dateien**. Bei tatsächlichen Reviewentsche
 
 - [ADR-0019: Frühe IP-/CIDR- und Ländersperren](0019-ip-geoblocking.de.md) · [English](0019-ip-geoblocking.md) – **Vorgeschlagen, nicht angenommen**. Geschützte CIDR-Datei, spätere DB-Quelle, verifizierte Client-IP und Fail-Closed. Siehe [SEC-GEO-001](../ip-geoblocking.de.md).
 
+### Vorgeschlagene Entscheidung zur Trennung der Dienste (24.11.2026)
+
+- [ADR-0020: Anmeldung, Datenberechtigungen und Logging trennen](0020-auth-api-logging-service-boundaries.de.md) · [English](0020-auth-api-logging-service-boundaries.md) — **Vorgeschlagen, nicht angenommen**. V0/V1 eigenständig, lokale Fachautorisierung, später optionaler Auth Service und gehärteter LogSink, verpflichtendes V1-Audit im selben DB-Commit. [SEC-INT-001](../service-boundaries-and-integrations.de.md).
+
 ## 5. ADR-Prozess
 
 1. Eine Frage oder ein Risiko benennt einen langfristig bedeutsamen Architekturkonflikt.

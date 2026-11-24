@@ -146,6 +146,12 @@ First **contain** the problem: restrict the affected instance, revoke/rotate exp
 
 See [SECURITY.md](../SECURITY.md) and [Risk register](risk-register.md).
 
+### Proposed external-service operations boundary (SEC-INT-001)
+
+**V0** uses local technical API-key verification and protected instance-local logs; no separate Auth or LogSink availability prerequisite. **V1** keeps local technical identities/RBAC and same-transaction write audit. A future **hardened LogSink** may accept only sanitized bounded events under distinct producer/reader permissions; log delivery is optional **best effort** with protected size-limited local fallback, no assumed permanent worker. LogSink downtime cannot block ordinary authorized CRUD. Audit persistence failure **does** block the associated V1 data write and rolls back its transaction.
+
+A future central Auth Service needs explicit token trust, issuer/audience, expiration, key rotation, cache/timeout and revocation rules; signed locally verifiable versus opaque introspection failures differ. Maintain independent IP/network ingress security for each exposed service. [SEC-INT-001](service-boundaries-and-integrations.md) · [ADR-0020 (proposed)](adr/0020-auth-api-logging-service-boundaries.md).
+
 ## 9. Operational checklists
 
 **New installation:** compatible PHP/PDO; minimal DB privileges; valid config; enforced HTTPS; private paths inaccessible; strong key; approved CRUD resources; routing fallback; logs and backup.

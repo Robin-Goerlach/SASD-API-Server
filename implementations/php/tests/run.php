@@ -80,6 +80,7 @@ try {
 
     $loader = new PluginConfigLoader();
     expectFailure(fn() => $loader->load('', $webroot), 'missing private config fails closed');
+    expectFailure(fn() => $loader->load('config/plugins.json', $webroot), 'relative config path rejected');
     file_put_contents($config, '{broken');
     expectFailure(fn() => $loader->load($config, $webroot), 'invalid JSON rejected');
     file_put_contents($config, '{"enabled":[],"schemaVersion":1}');
@@ -98,6 +99,16 @@ try {
     try {
         file_put_contents($publicConfig, '{"schemaVersion":1,"enabled":[]}');
         expectFailure(fn() => $loader->load($publicConfig, $webroot), 'configuration inside webroot rejected');
+        // A symlink under the public webroot is unsafe even if its target is
+        // physically private. Test only when the OS allows symlink creation.
+        $publicLink = $webroot . '/_temporary_sasd_plugin_symlink.json';
+        if (@symlink($config, $publicLink)) {
+            try {
+                expectFailure(fn() => $loader->load($publicLink, $webroot), 'public symlink to private config rejected');
+            } finally {
+                @unlink($publicLink);
+            }
+        }
     } finally {
         @unlink($publicConfig);
     }

@@ -11,7 +11,7 @@ Wesentliche Projektänderungen werden hier dokumentiert. Der Aufbau orientiert s
 - Datenbankadapter-Dokumentationsbranch unter Erhalt beider Git-Historien gemergt. Doppelte **ADR-0020**-Nummer aufgelöst: Auth-/Logging-Dienstgrenzen bleiben **ADR-0020**, Datenbankadapter heißen nun **[ADR-0021 (Vorschlag)](docs/adr/0021-pluggable-database-adapters.de.md)**.
 - `implementations/php`, `implementations/java`, `implementations/csharp` voneinander getrennt sowie sprachspezifische `plugins/{logging,identity,storage,application}`-Verzeichnisse und künftige gemeinsame `contracts/`-Dokumentation angelegt.
 - Erstes **PHP-8.4**-Bootstrap/Health-Grundgerüst: geprüftes privates nicht ausführbares Plugin-JSON, ausschließlich registrierte Factories, Plugin-API `1.0`, geschütztes technisches UTC-JSONL-Logging, Fehlerhüllen und Tests. Dokumentiert in [Entwicklungsstruktur](docs/development-layout.de.md) und [ADR-0022 (Vorschlag)](docs/adr/0022-trusted-php-plugin-lifecycle.de.md).
-- Lokal mit **PHP 8.4.24**, PHP-Lint, **43 Assertions** und HTTP-Smoke-Tests (200/404/405) geprüft. **Keine echte Datenbank, API-Key-/TLS-Durchsetzung, IONOS-Prüfung, vollständige V0-Abnahme, bestätigte CI oder Produktivfreigabe.**
+- Lokal mit **PHP 8.4.24**, PHP-Lint, **45 Assertions** und HTTP-Smoke-Tests (200/404/405) geprüft. **Keine echte Datenbank, API-Key-/TLS-Durchsetzung, IONOS-Prüfung, vollständige V0-Abnahme, bestätigte CI oder Produktivfreigabe.**
 
 ### Dokumentations- und Architekturprüfung – 24.11.2026
 

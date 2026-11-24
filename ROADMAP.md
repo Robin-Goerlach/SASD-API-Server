@@ -250,4 +250,4 @@ Progress belongs in actual issues, pull requests, commits and verifiable test re
 
 ---
 
-**No complete V0/V1 implementation or approved release is claimed by this roadmap.** The 43-assertion PHP bootstrap test is **not** release acceptance.
+**No complete V0/V1 implementation or approved release is claimed by this roadmap.** The 45-assertion PHP bootstrap test is **not** release acceptance.

@@ -11,7 +11,7 @@ All notable project changes will be recorded here. The project intends to follow
 - Merged the database-adapter documentation branch without losing either Git history; resolved the duplicate **ADR-0020** identifier by preserving the Auth/LogSink decision as **ADR-0020** and importing database portability as **[proposed ADR-0021](docs/adr/0021-pluggable-database-adapters.md)**.
 - Introduced separate `implementations/php`, `implementations/java`, `implementations/csharp` trees, runtime-specific `plugins/{logging,identity,storage,application}` categories and shared future `contracts/` documentation.
 - Added the first **PHP 8.4** bootstrapping/HTTP-health slice: strict non-executable private plugin configuration, explicitly trusted factory registry, PHP plugin API `1.0`, minimal core UTC JSONL technical logging, error envelopes and tests. Documented in [implementation layout](docs/development-layout.md) and [proposed ADR-0022](docs/adr/0022-trusted-php-plugin-lifecycle.md).
-- Verified locally with **PHP 8.4.24**, syntax lint, **43 PHP assertions**, and local HTTP 200/404/405 smoke checks. **No actual database, key/TLS enforcement, IONOS test, complete V0 functional acceptance, CI result or production release is claimed.**
+- Verified locally with **PHP 8.4.24**, syntax lint, **45 PHP assertions**, and local HTTP 200/404/405 smoke checks. **No actual database, key/TLS enforcement, IONOS test, complete V0 functional acceptance, CI result or production release is claimed.**
 
 ### Documentation and architecture consistency review — 2026-11-24
 

@@ -19,14 +19,25 @@ final class PluginConfigLoader
     /** @return list<string> */
     public function load(string $path, string $documentRoot): array
     {
-        $realPath = $path !== '' ? realpath($path) : false;
+        // Require an absolute operator-provided location. Relative paths
+        // would depend on the hosting provider's working directory.
+        if (!str_starts_with($path, DIRECTORY_SEPARATOR)) {
+            throw new RuntimeException('Private configuration path must be absolute.');
+        }
+
+        $realPath = realpath($path);
+        $declaredParent = realpath(dirname($path));
         $webRoot = realpath($documentRoot);
 
-        if ($realPath === false || $webRoot === false || !is_file($realPath) || !is_readable($realPath)) {
+        if ($realPath === false || $declaredParent === false || $webRoot === false || !is_file($realPath) || !is_readable($realPath)) {
             throw new RuntimeException('Private plugin configuration cannot be read.');
         }
 
-        if ($realPath === $webRoot || str_starts_with($realPath, $webRoot . DIRECTORY_SEPARATOR)) {
+        // Check both the resolved target AND the location of a potential
+        // symlink. A public symlink to a private file is still publicly
+        // accessible and must not become an accepted configuration path.
+        if ($realPath === $webRoot || str_starts_with($realPath, $webRoot . DIRECTORY_SEPARATOR)
+            || $declaredParent === $webRoot || str_starts_with($declaredParent, $webRoot . DIRECTORY_SEPARATOR)) {
             throw new RuntimeException('Private plugin configuration is inside the webroot.');
         }
 

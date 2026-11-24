@@ -41,7 +41,7 @@ final class JsonLineTechnicalLogger implements TechnicalLoggerInterface
             throw new RuntimeException('Technical log file is exposed to HTTP.');
         }
 
-        if (is_link($path) || is_dir($path)) {
+        if (is_link($path) || (file_exists($path) && !is_file($path))) {
             throw new RuntimeException('Technical log target must be a regular file.');
         }
 

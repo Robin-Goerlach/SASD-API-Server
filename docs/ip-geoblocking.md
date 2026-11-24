@@ -1,4 +1,4 @@
-# SEC-GEO-001 — IP Network and Country-Based Access Restrictions
+# SEC-GEO-001 — Configurable IP Network Access Policy (Allowlist, Denylist and Geo-IP)
 
 > **Language:** **English (default)** | [Deutsch](ip-geoblocking.de.md)  
 > **Status:** **Proposed V0 security requirement and architecture addendum** — documented, not implemented, tested, legally approved or deployed.  
@@ -40,6 +40,27 @@ The operator must explicitly decide **which countries or networks are blocked an
 
 A separate `monitor` mode may be useful for accuracy evaluation in controlled environments, but must **never** be described as enforcement or accepted for a legally required block.
 
+### 2.3 Explicit allowlists: company-only access (new requirement refinement)
+
+The same admission-control component **MUST support both directions**. For an internal company API, an operator may want **only expressly allowed company, data-center or VPN egress addresses** to reach protected HTTP routes, with **every other public IP denied before authentication**. This is *not* a GeoIP-specific feature; company IP allowlists can work independently of a geographic database.
+
+| Mode | `defaultAction` | Rules | Example |
+|---|---|---|---|
+| Denylist | `allow` | Matching explicit denies → 403 | Block specifically forbidden networks/countries; otherwise continue to auth |
+| Allowlist | `deny` | Only matching explicit allows → continue to auth | Corporate headquarters, VPN exit and approved office IPs; everyone else → 403 |
+| Combined | `allow` or `deny` | Explicit **deny overrides allow**, then explicit allow, then configured default | Company allowlist plus narrower emergency blocks; country denies with explicit company grants only outside denied ranges |
+| Disabled | Not evaluated | No IP admission restriction; **ordinary authentication still mandatory** | Isolated development profile, not an enforced production restriction |
+
+**Deterministic evaluation:** (1) obtain an authenticated/trusted *network address*, not an application identity; (2) reject an unusable required policy; (3) if any explicit **deny CIDR** matches, return **403**; (4) else if any explicit **allow CIDR** matches, continue to authentication; (5) otherwise apply `defaultAction`. The **most-specific-prefix** algorithm must never override an explicit deny merely because a narrower allow exists. To create a legitimate exception to a denial rule, the operator must explicitly revise and reapprove the conflicting rule set; there is no undocumented override or bypass.
+
+**Fail-safe corporate-only policy:** when `defaultAction=deny`, an unintentionally empty/missing/unreadable allowlist must **not** fall back to allow-all. A missing mandatory policy or invalid snapshot yields a controlled **503**. A deliberately approved emergency lockdown (deny everyone) should be an explicit, separately reviewed operational action. Make at least one validated allow rule a configuration precondition for normal corporate-only operation.
+
+**Do not lock operators out without a recovery path:** validate and preview proposed policy changes against *documented management/VPN egress addresses*, test through a separate session, keep the prior good snapshot, and retain an **out-of-band** file/host control-panel rollback path. Never implement a hardcoded “admin IP”, unrestricted query-parameter bypass, or backdoor route.
+
+**Company-IP limitations:** a network allowlist identifies the **network egress**, not the human user. Offices can have dynamic public IPs, carrier NAT, IPv6 privacy addressing, roaming laptops and VPN/cloud egress ranges. Prefer a managed VPN with documented, stable IPv4 **and IPv6** exit ranges when company-only access is required. Always require API-key/token authentication and resource-level authorization *after* the IP check.
+
+**Route scope:** a corporate-only policy should cover all protected endpoints, including REST, query-routing fallback, versioned routes, OpenAPI, operator readiness, authentication and any admin URLs as applicable. An intentionally public basic health endpoint or a separate status host needs a reviewed explicit exemption; otherwise it remains restricted by the instance policy.
+
 ## 3. Proposed runtime placement
 
 ~~~mermaid
@@ -76,44 +97,59 @@ When a trusted **reverse proxy / WAF / firewall** can apply the same country/IP 
 
 ### 4.1 Policy settings
 
-Example **for testing only**, not a real sanctions-country configuration:
+**Illustrative corporate-only policy**, not yet supported by program code:
 
 ~~~json
 {
   "schemaVersion": 1,
   "ipAccess": {
     "mode": "enforce",
-    "source": "file",
-    "cidrFile": "PRIVATE_CONFIG_DIR/blocked-networks.tsv",
-    "required": true,
+    "source": "files",
+    "defaultAction": "deny",
+    "allowCidrsFile": "PRIVATE_CONFIG_DIR/allowed-networks.tsv",
+    "denyCidrsFile": "PRIVATE_CONFIG_DIR/blocked-networks.tsv",
+    "requireAtLeastOneAllowRule": true,
     "rejectWhenUnusable": true,
     "maxSnapshotAgeHours": 168
   }
 }
 ~~~
 
-`PRIVATE_CONFIG_DIR` is an operator-defined **private** location outside the public document root, not a literal fixed system path. The final configuration loader must validate the path, file ownership/permissions, schema, snapshot age and file size before accepting the policy.
+- **Company-only:** `defaultAction=deny`, a required nonempty `allowCidrsFile`; `denyCidrsFile` optional unless specified.
+- **Country/network blocklist:** `defaultAction=allow`, a required `denyCidrsFile`; `allowCidrsFile` optional unless specified.
+- **Combined:** both files and the explicitly chosen `defaultAction`. Any explicit deny takes precedence over any allow.
+- **Disabled:** `mode=disabled` is an intentional operator choice only; the requirement to authenticate data API requests remains unchanged.
+- **Strict configuration:** any file path actually configured must refer to a readable, validated protected file. Missing optional paths mean “no rules of that class”; an **explicitly configured but missing** file is invalid. Unexpectedly empty allowlists in a company-only profile are invalid. No silent defaults for `defaultAction`.
 
-**Do not assume the above JSON is already supported by code.** It is the proposed configuration extension for V0 scope review.
+`PRIVATE_CONFIG_DIR` is a trusted private directory **outside document root**. Paths are never obtained from an HTTP request. File/schema/snapshot validity and any actual GeoIP data freshness requirements must be checked on the target host. `maxSnapshotAgeHours` is a **proposed configurable snapshot interval**, not a claim that all manually maintained corporate rules change weekly; a separate age policy may be needed for external GeoIP datasets.
 
-### 4.2 Text file format
+**These JSON keys are proposals for V0-G0 design review, not a currently implemented parser or deployed configuration.**
 
-Proposed **tab-separated, UTF-8** file: one **canonical CIDR** and one **ISO 3166-1 alpha-2 country code** per line, plus optional metadata columns. Only the first two fields are needed for matching and attribution. The operator's generated **effective blocklist** contains only **networks that the operator has decided to block**.
+### 4.2 Text rule files: allow and deny
+
+Files are protected UTF-8, tab-delimited lists. **The filename defines the rule action.** The common first two fields are `CIDR<TAB>rule_id`; optional third field provides an approved reason/source label. For a geographic deny derived from a country dataset, the optional metadata may contain a separately verified ISO country code.
 
 ~~~text
-# blocked-networks.tsv — EXAMPLE DATA ONLY, NOT REAL GEOGRAPHY
-# policy-version: test-001
-# generated-at: 2026-11-23T12:00:00Z
-# valid-until: 2026-11-30T12:00:00Z
-# source: synthetic-test-fixture
-# format: cidr<TAB>country_iso2<TAB>rule_id
-198.51.100.0/24	ZZ	TEST-V4-001
-2001:db8::/32	ZZ	TEST-V6-001
+# allowed-networks.tsv — SYNTHETIC TEST DATA, NOT REAL COMPANY ADDRESSES
+# policy-version: corp-test-001
+# format: cidr<TAB>rule_id<TAB>reason
+198.51.100.0/24	CORP-V4-TEST	office-egress
+2001:db8:100::/48	CORP-V6-TEST	vpn-egress
 ~~~
 
-**Important:** `198.51.100.0/24` and `2001:db8::/32` are documentation/test networks; `ZZ` is a **test-only placeholder**, not an embargoed country. Do not populate production lists from invented ranges. A rule may also be a manually approved individual deny range, in which case the policy must define a structured non-geographic reason code rather than falsely labeling it as a sanctioned country.
+~~~text
+# blocked-networks.tsv — SYNTHETIC TEST DATA
+# policy-version: corp-test-001
+# format: cidr<TAB>rule_id<TAB>reason
+198.51.100.128/25	BLOCK-OVERLAP-TEST	explicit-denial
+2001:db8:100::abcd/128	BLOCK-V6-TEST	explicit-denial
+~~~
 
-For **production**, build a reviewed snapshot from a licensed, versioned and dated IP-to-country data feed and a **separately approved list of targeted territories/countries**. Validate data provenance, licensing, mapping and freshness. No unauthenticated, per-request external GeoIP HTTP lookup.
+**Example semantics:** `198.51.100.10` is in the synthetic allowlist and not denied; `198.51.100.200` matches **both** lists and is **denied**; `203.0.113.20` matches neither and is **denied by default**. These addresses are **documentation-only ranges**, not actual customer/company assets or embargo-country mappings.
+
+Do not mix schemas silently: older proposed geographically annotated `cidr<TAB>country<TAB>rule_id` data **must be explicitly converted and revalidated**, not interpreted under a changed column order. A later generalized `action,cidr,rule_id,country,source` database schema may implement the same semantics but requires migration tests.
+
+For production country restrictions, obtain an operator-approved, licensed, versioned IP-to-country mapping and a **separate** legal/territorial restriction policy. A country name alone is not an IP range. No synchronous unauthenticated GeoIP HTTP lookup during each API request.
 
 ### 4.3 Country mapping versus ready-to-match CIDR list
 

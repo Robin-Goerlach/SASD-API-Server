@@ -172,6 +172,8 @@ After V0 passes acceptance, the server is intended to grow into a more capable b
 
 Read the [V1 technical specification](docs/technical-specification-v1.md) and [architecture](docs/architecture-v1.md) for detailed design decisions.
 
+**Service boundaries (proposed):** The API Server remains independently deployable with local technical API keys and business authorization; a future SASD Auth Service may manage shared human identity, but it does not decide resource/field access. The existing experimental [LogSink](https://github.com/Robin-Goerlach/LogSink) is not yet safe for production security events. Central technical logging may be optional **after hardening**; required V1 business-write audit stays in the same local database transaction. [SEC-INT-001](docs/service-boundaries-and-integrations.md) · [ADR-0020 (proposed)](docs/adr/0020-auth-api-logging-service-boundaries.md).
+
 ## Architecture and design
 
 ### High-level component view

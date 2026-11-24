@@ -56,6 +56,7 @@ Die Nummern reservieren noch **keine Dateien**. Bei tatsächlichen Reviewentsche
 ### Neue ausdrücklich vorgeschlagene ADR
 
 - [ADR-0019: Frühe IP-/CIDR- und Ländersperren](0019-ip-geoblocking.de.md) · [English](0019-ip-geoblocking.md) – **Vorgeschlagen, nicht angenommen**. Geschützte CIDR-Datei, spätere DB-Quelle, verifizierte Client-IP und Fail-Closed. Siehe [SEC-GEO-001](../ip-geoblocking.de.md).
+- [ADR-0020: Austauschbare Datenbankadapter](0020-pluggable-database-adapters.de.md) · [English](0020-pluggable-database-adapters.md) – **Vorgeschlagen, nicht angenommen**. MariaDB in V0 und SQLite in V1 bleiben gesetzt; PostgreSQL, Oracle, IBM Db2 und Firebird sind spätere Kandidaten mit geprüftem Adaptervertrag.
 
 ## 5. ADR-Prozess
 

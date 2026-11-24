@@ -70,7 +70,11 @@ Version numbers represent **planned targets**, not Git tags already published.
 
 **Blocking gate:** if private configuration and keys cannot be kept inaccessible to HTTP clients, or TLS cannot be enforced safely, **do not approve a production deployment**.
 
-**Proposed SEC-GEO-001 cross-cutting security gate:** resolve IP/CIDR/Geo-IP restrictions during V0-G0, before implementing HTTP data endpoints. Decide legal/policy scope and actual client-IP/proxy trust. If included in V0, put a protected file-backed CIDR admission filter **before authentication and SQL** in V0-M1, with IPv4/IPv6 support, fail-closed required enforcement and deterministic negative tests. Full country datasets need licensed, refreshed and efficiently indexed local mapping; no synchronous remote geolocation request per HTTP call. This is a **proposed scope extension**, not yet part of the 17 numbered V0-F requirements or 10 existing acceptance scenarios. See [SEC-GEO-001](docs/ip-geoblocking.md) and [ADR-0019](docs/adr/0019-ip-geoblocking.md).
+**Proposed SEC-GEO-001 cross-cutting security gate:**
+
+**Scope clarification (2026-11-24):** The proposed early network-access policy must support **both default-allow denylist and default-deny company-only allowlist**, as well as combined rules with **explicit deny before allow**. Include missing/empty allowlist fail-closed behavior, corporate/VPN IPv4/IPv6 egress checks, and safe out-of-band rollback in V0-G0/M1 planning. Proposed tests now include **AT-GEO-13–18**. No change yet to the numbered V0 release requirements.
+
+ resolve IP/CIDR/Geo-IP restrictions during V0-G0, before implementing HTTP data endpoints. Decide legal/policy scope and actual client-IP/proxy trust. If included in V0, put a protected file-backed CIDR admission filter **before authentication and SQL** in V0-M1, with IPv4/IPv6 support, fail-closed required enforcement and deterministic negative tests. Full country datasets need licensed, refreshed and efficiently indexed local mapping; no synchronous remote geolocation request per HTTP call. This is a **proposed scope extension**, not yet part of the 17 numbered V0-F requirements or 10 existing acceptance scenarios. See [SEC-GEO-001](docs/ip-geoblocking.md) and [ADR-0019](docs/adr/0019-ip-geoblocking.md).
 
 ### V0-M0 — Repository and development environment
 

@@ -56,6 +56,10 @@ The IDs indicate *candidates*, not existing accepted ADR files.
 
 - [ADR-0019: Early IP/CIDR and Country Policy Enforcement](0019-ip-geoblocking.md) · [Deutsch](0019-ip-geoblocking.de.md) — **Proposed, not accepted**. File-first policy, possible future DB rule source, trusted client IP, regulatory review and fail-closed gates. Tracks [SEC-GEO-001](../ip-geoblocking.md).
 
+### Proposed architecture decision on service separation (2026-11-24)
+
+- [ADR-0020: Keep Authentication, API Authorization and Logging Separate](0020-auth-api-logging-service-boundaries.md) · [Deutsch](0020-auth-api-logging-service-boundaries.de.md) — **Proposed, not accepted**. Maintain independent V0/V1 APIs, local data authorization, optional future Auth and hardened LogSink integration, and mandatory same-transaction V1 audit. [SEC-INT-001](../service-boundaries-and-integrations.md).
+
 ## 5. ADR workflow
 
 1. Identify a specific architectural problem or long-term trade-off.

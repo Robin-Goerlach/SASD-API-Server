@@ -8,6 +8,9 @@ Wesentliche Projektänderungen werden hier dokumentiert. Der Aufbau orientiert s
 
 ### Vorgeschlagene Sicherheitsarchitektur – 23.11.2026
 
+- **Ergänzung vom 24.11.2026:** SEC-GEO-001 / ADR-0019 um **Firmen-/VPN-Allowlist mit Standard sperren**, Denylist mit Standard erlauben und kombinierte Regeln mit Sperr-Priorität erweitert. Zusätzliche Testfälle **AT-GEO-13–18**, Schutz vor Admin-Aussperrung/Änderungen der Firmen-IP und IPv4/IPv6 berücksichtigt; deutsche/englische Unterlagen angepasst. Weiterhin nur ein Entwurf, keine implementierte Sperre.
+
+
 - [SEC-GEO-001](docs/ip-geoblocking.de.md) / [English](docs/ip-geoblocking.md) für frühe konfigurierbare IPv4-/IPv6-CIDR-Sperren ergänzt, mit verifizierter Client-IP, Fail-Closed, privater Regeldatei und zwölf vorgeschlagenen Tests.
 - [ADR-0019 (Vorschlag)](docs/adr/0019-ip-geoblocking.de.md) / [English](docs/adr/0019-ip-geoblocking.md) angelegt; Lastenheft, Pflichtenheft, Architektur, Risiko-/Testdokumentation, Roadmap und Navigation verknüpft.
 - **Status:** reine Planung, keine implementierte Sperre und keine freigegebenen Länder/IP-Netze. Die bisherige Zählung von 17 V0-F-Anforderungen und zehn Abnahmeszenarien bleibt bis zur formalen Scope-Freigabe unverändert.

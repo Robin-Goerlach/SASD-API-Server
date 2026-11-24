@@ -110,6 +110,10 @@ Die zusätzliche Anforderung ist **vorgeschlagen** und noch nicht in die bestehe
 - [SEC-INT-001 – Dienstgrenzen und Integrationsverträge](service-boundaries-and-integrations.de.md) · [English](service-boundaries-and-integrations.md) – ausführliche geplante Abgrenzung von unabhängigem V0-Datendienst, lokalen technischen V1-Keys/Rollen, späterer zentraler Anmeldung, Härtung des vorhandenen experimentellen LogSink, drei Logarten, Fehlerverhalten und zwölf vorgeschlagenen Integrationstests.
 - [ADR-0020 – Aufteilung der Dienste (Vorschlag)](adr/0020-auth-api-logging-service-boundaries.de.md) · [English](adr/0020-auth-api-logging-service-boundaries.md) – bisher **nicht angenommen**; kein zusätzlicher Auth-/LogSink-Zwang für den V0-/V1-MUSS-Umfang.
 
+## 6.3 Kritische Gesprächs-/Dokumentationsprüfung (24.11.2026)
+
+- [Kritische Prüfung des gesamten Projektgesprächs](documentation-review-2026-11-24.de.md) · [English](documentation-review-2026-11-24.md) – priorisierte Übersicht zu Auth/API/LogSink-Dienstgrenzen, Geo-IP-/Firmen-Allowlists, V1-Audit, alten Dateipfaden, Test- und Hosting-Gates sowie vorgenommenen und noch offenen Entscheidungen.
+
 ## 7. Wie wir mit der Implementierung beginnen
 
 1. [Roadmap](../ROADMAP.de.md) lesen: zuerst **V0-G0** (Hosting-/Security-Review), danach **V0-M0** (kleines Projektgerüst).

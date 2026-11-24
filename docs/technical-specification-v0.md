@@ -453,3 +453,12 @@ With `mode=enforce` and a **valid blocked network match**, return **403** and ne
 ---
 
 **Status: technical proposal, not implemented, not tested, not formally accepted.**
+
+## 15. Proposed modular authentication and logging boundary — SEC-INT-001
+
+Keep `ApiKeyAuthenticator` as the concrete V0 verifier. A narrowly scoped future `CredentialVerifier` port may keep HTTP handlers independent of credential format, **without** requiring a networked identity service, JWT parsing or session management in V0. The verified principal still passes through the **local** resource/method/field AccessPolicy. Unknown credentials/roles never grant broad table access.
+
+`SanitizedLogger` is private and local in V0. A future remote event publisher to a **hardened** LogSink is optional: its unavailable/slow HTTP endpoint cannot block normal authorized CRUD, and a bounded spool/retry must not assume a permanent PHP worker. No passwords, tokens, Auth headers, SQL bindings, full bodies or personal records may enter those events. V1's mandatory transactional write audit is a **separate** capability and must not be simulated by remote logging.
+
+**Review/test anchors:** `SEC-INT-001`, `AT-INT-01`, `AT-INT-02`, `AT-INT-06`, `AT-INT-10`; not part of original 17 V0-F unless approved. [Specification](service-boundaries-and-integrations.md) · [Proposed ADR-0020](adr/0020-auth-api-logging-service-boundaries.md).
+

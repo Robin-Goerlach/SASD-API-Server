@@ -1,6 +1,8 @@
-# Funktionskatalog der API-Server-Referenzprodukte
+> **Bisheriger deutscher Dateipfad:** Diese kompatible Kopie spiegelt die [kanonische deutsche Fassung](reference-products-feature-catalog.de.md); Änderungen zuerst dort vornehmen und diese Datei danach synchronisieren.
 
-> **Sprache:** **Deutsch (bisheriger Dateipfad)** · [English (Standard)](reference-products-feature-catalog.md) · [Deutsch (kanonisch)](reference-products-feature-catalog.de.md)  
+> **Sprache:** [English (Standard)](reference-products-feature-catalog.md) | **Deutsch**
+
+# Funktionskatalog der API-Server-Referenzprodukte
 
 > **SASD-API-Server – technische Referenzsammlung, Stand 2026-11-01**
 >

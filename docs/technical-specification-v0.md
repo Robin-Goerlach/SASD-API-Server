@@ -446,6 +446,8 @@ Introduce `TrustedClientIpResolver` and `IpAccessPolicy` as an **early HTTP midd
 
 With `mode=enforce` and a **valid blocked network match**, return **403** and neutral `access_restricted`. With a **required but unavailable, invalid or expired policy**, **fail closed with 503**. A nonmatch proceeds through ordinary API-key/resource checks; it does not authorize. Health/Auth/alternate-route coverage requires an explicit common ingress policy. Emit only minimal, sanitized local events; LogSink integration is a later optional integration.
 
+**Allowlist refinement (2026-11-24):** Add explicit `defaultAction=allow` (denylist) or `defaultAction=deny` (**corporate-only allowlist**) and private `allowed-networks.tsv` / `blocked-networks.tsv` sources. Precedence is **any explicit deny > explicit allow > default action**, without a hidden longest-prefix override. Unlisted addresses receive **403** in corporate mode; a missing/empty required allowlist causes **503 fail-closed**. Verify corporate/VPN IPv4/IPv6 egress and retain **out-of-band** administration/rollback. Admission is **not authentication**. Extend proposed tests with **AT-GEO-13–AT-GEO-18**. [Policy design](ip-geoblocking.md).
+
 **Test candidates:** `AT-GEO-01`–`AT-GEO-12`. Treat approval as part of **V0-G0** and possible implementation in **V0-M1**; existing requirement/acceptance totals are not silently changed. [Detailed bilingual contract](ip-geoblocking.md) · [ADR-0019](adr/0019-ip-geoblocking.md).
 
 ---

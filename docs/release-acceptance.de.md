@@ -85,6 +85,10 @@ V1 setzt **eine weiterhin bestandene V0-Basis** voraus. Darauf kommen hinzu:
 - [ ] Die fünf **SOLL**-Funktionen (V1-F09/F14/F16/F22/F27) sind als umgesetzt+getestet oder **ausdrücklich verschoben** dokumentiert.
 - [ ] Kein öffentlicher Client-SQL-Interpreter oder HTTP-DDL-Endpunkt eingeschleppt.
 
+### Dienstübergreifende Sicherheitsabnahme (SEC-INT-001)
+
+**V0:** geschützte CRUD-Operationen müssen **ohne** externen Auth Service oder LogSink lauffähig sein; API-Key und Ressourcenrechte werden lokal geprüft. **V1:** erfolgreiche Datenänderungen und Pflicht-Audit müssen atomar committet werden, abgelehnte Versuche bleiben durch geschützte, bereinigte **Sicherheitsereignisse** korrelierbar. Haltbarkeit und Aufbewahrung dieser Ereignisse ausdrücklich festhalten. Den bestehenden **ungehärteten LogSink** nicht für produktive sensible Ereignisse verwenden. Spätere Auth-/LogSink-Integration benötigt eigene Prüfung von Sender-/Leserrechten, Token-/Rollenvertrauen, HTTPS/Endpunktschutz, begrenztem Ausfallverhalten, IP-Eingangsschutz und Datenminimierung. Keine stillschweigende Vergrößerung der V0-/V1-MUSS-Anforderungen. [SEC-INT-001](service-boundaries-and-integrations.de.md).
+
 ## 6. Release-Kandidat: Arbeitsfolge
 
 1. **Scope einfrieren:** Git-Commit, Lasten-/Pflichtenheft-Versionen, Featureliste und bewusst ausgeschlossene Funktionen benennen.
